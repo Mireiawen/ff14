@@ -15,6 +15,9 @@ define('DATABASE_PASSWORD', 'really_secret_password!');
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Application settings
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+// Google Analytics key
+define('GOOGLE_ANALYTICS_KEY', 'UA-000');
+
 // Define the maximum number of rows per macro
 define('MACRO_MAX_ROWS', 15);
 
