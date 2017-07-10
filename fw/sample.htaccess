@@ -1,0 +1,5 @@
+RewriteEngine	On
+RewriteBase	/
+RewriteRule	^(.*)$ index.php?q=$1 [L,QSA]
+# Might be needed in some cases if server does send wrong charset
+#AddDefaultCharset UTF-8

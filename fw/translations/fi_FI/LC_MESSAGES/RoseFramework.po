@@ -1,0 +1,782 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: RoseFramework\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-10-07 01:11+0300\n"
+"PO-Revision-Date: 2015-10-07 01:14+0300\n"
+"Last-Translator: \n"
+"Language-Team: Rose Framework\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.5\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: Initialize.php:52
+#, php-format
+msgid "PHP version must be at least %s"
+msgstr "PHP versio on oltava vähintään %s"
+
+#: Initialize.php:63 Initialize.php:74 Initialize.php:93 Initialize.php:103
+#: Initialize.php:113
+#, php-format
+msgid "%s \"%s\" was not found or was not directory"
+msgstr "%s polku \"%s\" ei löytynyt tai ei ole hakemisto"
+
+#: Initialize.php:81
+#, php-format
+msgid "File \"%s\" does not exist or is not readable"
+msgstr "Tiedostoa \"%s\" ei ole olemassa tai sitä ei voida lukea"
+
+#: Initialize.php:124
+#, php-format
+msgid "%s \"%s\" was not found, was not directory or is not writable"
+msgstr ""
+"%s polku \"%s\" ei löytynyt, ei ole hakemisto tai ei ole kirjoitettavissa"
+
+#: Initialize.php:168
+msgid "Rose Framework - No title set"
+msgstr "Rose Framework - ei otsikko asetettu"
+
+#: Initialize.php:179
+msgid "Error during initialization: "
+msgstr "Virhe alustuksen aikana:"
+
+#: Initialize.php:189 includes/MySQLie.php:5
+msgid "MySQLi extension is required!"
+msgstr "MySQLi laajennus vaaditaan!"
+
+#: includes/MIME.php:5 includes/Geolocation.php:5 includes/Base.php:5
+#: includes/LoginUser.php:5 includes/CacheNew.php:5 includes/Cache.php:5
+#: includes/File.php:5 includes/Database.singleton.php:5
+#: includes/DataObject.php:5 includes/ReCAPTCHA.php:5 includes/Upload.php:5
+#: includes/Image.php:5 includes/FileHandler.php:5 includes/Content.php:5
+#: includes/Session.php:5 includes/Log.php:5 includes/Color.php:5
+#: includes/Error.php:5 includes/SmartyInstance.php:5
+#: includes/Translation.php:5 includes/UploadedFile.php:5 includes/User.php:5
+#: includes/Color56.php:5 includes/URL.php:5 includes/Cache/Backend.php:7
+msgid "Invalid environment detected"
+msgstr "Virheellinen ympäristö havaittu"
+
+#: includes/SmartyTemplates.php:35 includes/SmartyTemplates.php:75
+#: includes/SmartyTemplates.php:118
+msgid "DEBUG warning: Missing Smarty Object"
+msgstr "DEBUG Varoitus: Smartyn objekti puuttuu"
+
+#: includes/SmartyTemplates.php:50 includes/SmartyTemplates.php:89
+#: includes/SmartyTemplates.php:146
+#, php-format
+msgid "DEBUG warning: Missing template file \"%s\""
+msgstr "DEBUG varoitus: mallitiedosto \"%s\" puuttuu"
+
+#: includes/Geolocation.php:134
+msgid "GeoIP is not available"
+msgstr "GeoIP ei ole käytettävissä"
+
+#: includes/Geolocation.php:141
+msgid "Unable to open GeoIP database"
+msgstr "GeoIP -tietokannan avaaminen epäonnistui"
+
+#: includes/Base.php:93
+#, php-format
+msgid "Missing key \"%s\" in %s"
+msgstr "Avain \"%s\" puuttuu sijainnista %s"
+
+#: includes/Base.php:165 includes/DataObject.php:159
+#, php-format
+msgid "%s method call is missing the variable name"
+msgstr "%s menetelmän kutsusta puuttuu muuttujan nimi"
+
+#: includes/Base.php:178
+#, php-format
+msgid "Invalid call to unknown method \"%s\""
+msgstr "Virheellinen kutsu tuntemattomaan menetelmään \"%s\""
+
+#: includes/Base.php:184 includes/DataObject.php:171
+#: includes/DataObject.php:243
+#, php-format
+msgid "Invalid amount of arguments for method \"%s\""
+msgstr "Virheellinen määrä parametrejä kutsulle \"%s\""
+
+#: includes/Base.php:190 includes/DataObject.php:178
+msgid "Changing of ID is not allowed"
+msgstr "Tunnisteen muuttaminen ei ole sallittua"
+
+#: includes/LoginUser.php:68 includes/User.php:185
+msgid "Unable to create User object"
+msgstr "Käyttäjäobjektia ei voitu luoda"
+
+#: includes/LoginUser.php:146 includes/LoginUser.php:153
+#: includes/LoginUser.php:162 includes/LoginUser.php:175
+msgid "Invalid username or password"
+msgstr "Virheellinen käyttäjätunnus tai salasana"
+
+#: includes/LoginUser.php:171
+#, php-format
+msgid "Invalid username or password: %s"
+msgstr "Virheellinen käyttäjänimi tai salasana: %s"
+
+#: includes/File.php:40
+#, php-format
+msgid "Invalid argument \"%s\": %s"
+msgstr "Virheellinen argumentti \"%s\": %s"
+
+#: includes/File.php:40
+msgid "It is not a file"
+msgstr "Se ei ole tiedosto"
+
+#: includes/File.php:82 includes/UploadedFile.php:176
+msgid "Unknown error"
+msgstr "Tuntematon virhe"
+
+#: includes/File.php:86
+#, php-format
+msgid "Unable to open the file \"%s\": %s"
+msgstr "Tiedostoa \"%s\" ei voi avata: %s"
+
+#: includes/Database.singleton.php:62
+#, php-format
+msgid "Unable to connect to the database: %s"
+msgstr "Yhteyden muodostaminen tietokantaan ei onnistunut: %s"
+
+#: includes/DataObject.php:255 includes/DataObject.php:259
+#, php-format
+msgid "\"%s\" is not a valid object creation key: %s"
+msgstr "\"%s\" ei ole kelvollinen objektin luomisen avain: %s"
+
+#: includes/DataObject.php:255
+msgid "It does not exist"
+msgstr "Sellaista ei ole"
+
+#: includes/DataObject.php:259
+msgid "It is not unique"
+msgstr "Se ei ole ainutlaatuinen"
+
+#: includes/DataObject.php:294 includes/DataObject.php:299
+#: includes/DataObject.php:459 includes/DataObject.php:537
+#: includes/DataObject.php:553 includes/DataObject.php:561
+#: includes/DataObject.php:568 includes/DataObject.php:600
+#: includes/DataObject.php:626 includes/DataObject.php:633
+#: includes/DataObject.php:639 includes/DataObject.php:684
+#: includes/DataObject.php:690 includes/MySQLie.php:68 includes/MySQLie.php:77
+#: includes/MySQLie.php:135 includes/MySQLie.php:144 includes/MySQLie.php:208
+#: includes/MySQLie.php:223 includes/Log.php:197 includes/Log.php:219
+#: includes/Log.php:239 includes/Log.php:270 includes/Log.php:299
+#: includes/Log.php:305 includes/User.php:139 includes/User.php:146
+#: includes/User.php:153 includes/User.php:211 includes/User.php:218
+#: includes/User.php:224 includes/User.php:296 includes/User.php:305
+#: includes/User.php:311 includes/User.php:317 includes/User.php:359
+#: includes/User.php:373 includes/User.php:379 includes/User.php:385
+#: includes/User.php:550 includes/User.php:557 includes/User.php:564
+#: includes/User.php:570 includes/User.php:663 includes/User.php:673
+#: includes/User.php:679 includes/User.php:685 includes/User.php:696
+#: includes/User.php:702 includes/User.php:708 includes/User.php:755
+#: includes/User.php:762 includes/User.php:768 includes/User.php:774
+#: includes/User.php:822 includes/User.php:829 includes/User.php:835
+#: includes/User.php:841 includes/User.php:867 includes/User.php:874
+#: includes/User.php:880
+#, php-format
+msgid "Unable to execute database query: %s"
+msgstr "Tietokannan kyselyä ei voi suorittaa: %s"
+
+#: includes/DataObject.php:308
+#, php-format
+msgid "Unable to find %s with %s of value %s"
+msgstr "Luokkaa %s avaimen %s arvolla %s ei löydy"
+
+#: includes/DataObject.php:352
+#, php-format
+msgid "Unable to create %s from array: missing key %s"
+msgstr "Kohteen %s luominen taulukosta epäonnistui: puuttuu avain %s"
+
+#: includes/DataObject.php:459 includes/DataObject.php:600
+#: includes/DataObject.php:684 includes/Log.php:197 includes/Log.php:270
+#: includes/User.php:139 includes/User.php:211 includes/User.php:296
+#: includes/User.php:359 includes/User.php:550 includes/User.php:663
+#: includes/User.php:755 includes/User.php:822 includes/User.php:867
+msgid "No database"
+msgstr "Ei tietokantaa"
+
+#: includes/DataObject.php:609
+#, php-format
+msgid "Unknown key \"%s\" in \"%s\""
+msgstr "Tuntematon avain \"%s\" kohteessa \"%s\""
+
+#: includes/DataObject.php:765
+#, php-format
+msgid "Unknown data type \"%s\""
+msgstr "Tuntematon tietolaji \"%s\""
+
+#: includes/ReCAPTCHA.php:163
+#, php-format
+msgid "reCAPTCHA verification was incorrect: %s"
+msgstr "reCAPTCHA tarkastus oli virheellinen: %s"
+
+#: includes/Upload.php:126
+msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini"
+msgstr ""
+"Lähetetty tiedosto ylittää php.ini -tiedostossa määritetyn "
+"upload_max_filesize -arvon"
+
+#: includes/Upload.php:129
+msgid ""
+"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
+"the HTML form"
+msgstr ""
+"Lähetetty tiedosto ylittää HTML-lomakkeella määritetyn MAX_FILE_SIZE -arvon"
+
+#: includes/Upload.php:132
+msgid "The uploaded file was only partially uploaded"
+msgstr "Tiedosto lähetettiin vain osittain"
+
+#: includes/Upload.php:135
+msgid "No file was uploaded"
+msgstr "Tiedostoa ei lähetetty"
+
+#: includes/Upload.php:138
+msgid "Missing a temporary folder"
+msgstr "Väliaikainen kansio puuttuu"
+
+#: includes/Upload.php:141
+msgid "Failed to write file to disk"
+msgstr "Tiedostoon kirjoittaminen epäonnistui"
+
+#: includes/Upload.php:144
+msgid "A PHP extension stopped the file upload"
+msgstr "PHP -laajennos on estänyt tiedoston lähettämisen"
+
+#: includes/Upload.php:147
+#, php-format
+msgid "Unknown upload error code %d"
+msgstr "Tunnistamaton lähetyksen virhekoodi %d"
+
+#: includes/Image.php:40
+msgid "ImageMagick or GD extension is required!"
+msgstr "ImageMagick tai GD laajennus vaaditaan!"
+
+#: includes/Image.php:66
+#, php-format
+msgid "File \"%s\" was not found or was not readable"
+msgstr "Tiedosto \"%s\" ei löytynyt tai ei voitu lukea"
+
+#: includes/Image.php:96
+#, php-format
+msgid "Unable to read image size from \"%s\": %s"
+msgstr "Kuvakoon lukeminen kohteesta \"%s\" epäonnistui: %s"
+
+#: includes/Image.php:134
+msgid "Unknown size"
+msgstr "Tuntematon koko"
+
+#: includes/Image.php:164
+#, php-format
+msgid "Expected 2 integers, got %s and %s"
+msgstr "Odotettiin 2 kokonaislukua, saatiin %s ja %s"
+
+#: includes/Image.php:170
+#, php-format
+msgid "Invalid size for the image: %dx%d"
+msgstr "Kelvoton koko kuvalle: %dx%d"
+
+#: includes/Image.php:218 includes/Image.php:288
+#, php-format
+msgid "Unable to create the resized image: %s"
+msgstr "Muutetun kuvakoon kuvan luominen epäonnistui: %s"
+
+#: includes/Image.php:218 includes/Image.php:288
+msgid "GD failed, see server error log"
+msgstr "GD epäonnistui, katso palvelimen loki"
+
+#: includes/Image.php:224 includes/Image.php:294
+msgid "Unable to scale the image"
+msgstr "Kuvan skaalaus ei onnistunut"
+
+#: includes/Image.php:253
+#, php-format
+msgid "Invalid scale for the image: %f"
+msgstr "Virheellinen skaala kuvalle: %f"
+
+#: includes/Image.php:337 includes/Image.php:345 includes/Image.php:352
+#, php-format
+msgid "Support for file type %s is missing"
+msgstr "Tuki tiedostotyypille %s puuttuu"
+
+#: includes/Image.php:357 includes/Image.php:407
+#, php-format
+msgid "Invalid image type \"%s\""
+msgstr "Virheellinen kuvan tyyppi \"%s\""
+
+#: includes/Image.php:363
+#, php-format
+msgid "Invalid image file \"%s\" for MIME type \"%s\""
+msgstr "Virheellinen kuvatiedosto \"%s\" MIME-tyypille \"%s\""
+
+#: includes/MySQLie.php:42
+#, php-format
+msgid "Unable to connect to database: %s"
+msgstr "Yhteyden muodostaminen tietokantaan ei onnistunut: %s"
+
+#: includes/MySQLie.php:47
+#, php-format
+msgid "Unable to set character set: %s"
+msgstr "Merkistön määrittäminen epäonnistui: %s"
+
+#: includes/FileHandler.php:39
+msgid "File information extension fileinfo is required!"
+msgstr "Tiedostoinformaation laajennus fileinfo vaaditaan!"
+
+#: includes/FileHandler.php:188
+#, php-format
+msgid "Unable to read the given file \"%s\""
+msgstr "Tiedoston \"%s\" lukeminen ei onnistu"
+
+#: includes/Content.php:116 includes/Content.php:146 includes/Content.php:189
+#, php-format
+msgid "Invalid AJAX call %s"
+msgstr "Virheellinen AJAX-kutsu %s"
+
+#: includes/Content.php:168
+#, php-format
+msgid "Access to \"%s\" is denied for %s"
+msgstr "Pääsy kohteeseen \"%s\" on estetty käyttäjältä %s"
+
+#: includes/Content.php:174
+msgid "Access denied"
+msgstr "Pääsy estetty"
+
+#: includes/Content.php:356 includes/Content.php:378
+#, php-format
+msgid "Page \"%s\" not found"
+msgstr "Sivu \"%s\" ei löytynyt"
+
+#: includes/Content.php:362 includes/Content.php:384
+msgid "Page not found"
+msgstr "Sivua ei löytynyt"
+
+#: includes/Content.php:438
+#, php-format
+msgid "Page \"%s\" does not exist or is not readable"
+msgstr "Sive \"%s\" ei ole olemassa tai luettavissa"
+
+#: includes/Content.php:447
+#, php-format
+msgid "Page does not implement required class \"%s\""
+msgstr "Sivu ei toteuta vaadittua luokkaa \"%s\""
+
+#: includes/Content.php:454
+#, php-format
+msgid "Class \"%s\" does not implement required interface \"%s\""
+msgstr "Luokka \"%s\" ei toteuta vaadittua rajapintaa \"%s\""
+
+#: includes/Content.php:541
+msgid "Unable to read JSON data"
+msgstr "JSON datan lukeminen epäonnistui"
+
+#: includes/Session.php:141
+msgid "Session is empty"
+msgstr "Istunto on tyhjä"
+
+#: includes/Session.php:153
+msgid "Session variables mismatch"
+msgstr "Istunnon muuttujat eivät täsmää"
+
+#: includes/Session.php:160
+msgid "Session remote address mismatch"
+msgstr "Istunnon etäosoite ei täsmää"
+
+#: includes/Session.php:176
+msgid "Session user agent mismatch"
+msgstr "Istunnon käyttäjäagentti ei täsmää"
+
+#: includes/Session.php:183
+msgid "Session timed out"
+msgstr "Istunnon aikakatkaisu"
+
+#: includes/Session.php:301
+#, php-format
+msgid "Session DEBUG warning: %s"
+msgstr "Istunnon DEBUG varoitus: %s"
+
+#: includes/Log.php:277
+msgid "Invalid event ID"
+msgstr "Virheellinen tapahtumatunnus"
+
+#: includes/Log.php:314
+#, php-format
+msgid "No such event \"%s\""
+msgstr "Tapahtumaa \"%s\" ei löydy"
+
+#: includes/Log.php:363
+msgid "Invalid log entry; it is empty!"
+msgstr "Virheellinen tapahtuma; on tyhjä!"
+
+#: includes/Log.php:417
+msgid "Unknown"
+msgstr "Tuntematon"
+
+#: includes/Error.php:366
+#, php-format
+msgid "Unknown error level %s"
+msgstr "Tuntematon virhetaso %s"
+
+#: includes/Error.php:445 includes/Error.php:469
+#, php-format
+msgid "No such message type \"%s\""
+msgstr "Viestityyppiä \"%s\" ei ole olemassa"
+
+#: includes/Singleton.php:78
+#, php-format
+msgid "Instance of %s does not exist yet"
+msgstr "Instanssia luokasta %s ei vielä ole"
+
+#: includes/Translation.php:54
+msgid "Internationalization extension intl is required!"
+msgstr "Kansainvälistyminen laajennus intl tarvitaan!"
+
+#: includes/UploadedFile.php:59
+#, php-format
+msgid "File sizes differ; expected %d, got %d bytes"
+msgstr "Tiedostojen koko eroaa; odotettiin %d, mutta saatiin %d tavua"
+
+#: includes/UploadedFile.php:64
+#, php-format
+msgid "File type differ; expected \"%s\", got \"%s\""
+msgstr "Tiedostotyypit eroavat; odotettiin \"%s\" mutta saatiin \"%s\""
+
+#: includes/UploadedFile.php:160
+#, php-format
+msgid "File \"%s\" is not a valid upload file or no longer exists"
+msgstr ""
+"Tiedosto \"%s\" ei ole kelvollinen lähetetty  tiedosto tai se ei enää ole "
+"olemassa"
+
+#: includes/UploadedFile.php:166
+#, php-format
+msgid "The destination file already exists"
+msgstr "Kohdetiedosto on jo olemassa"
+
+#: includes/UploadedFile.php:179
+#, php-format
+msgid "Moving of uploaded file \"%s\" to its destination \"%s\" failed: %s\""
+msgstr "Lähetetyn tiedoston \"%s\" siirto kohteeseen \"%s\" epäonnistui: %s"
+
+#: includes/User.php:81
+msgid "Hash extension is required!"
+msgstr "Hash laajennus vaaditaan!"
+
+#: includes/User.php:233
+msgid "unknown"
+msgstr "tuntematon"
+
+#: includes/User.php:324
+#, php-format
+msgid "Username \"%s\" is already taken"
+msgstr "Käyttäjätunnus \"%s\" on jo olemassa"
+
+#: includes/User.php:366
+#, php-format
+msgid "Invalid e-mail address \"%s\""
+msgstr "Virheellinen sähköpostiosoite \"%s\""
+
+#: includes/User.php:392
+#, php-format
+msgid "Email \"%s\" is already in use"
+msgstr "Sähköposti \"%s\" on jo käytössä"
+
+#: includes/User.php:465
+msgid "Invalid user ID"
+msgstr "Virheellinen käyttäjän tunniste"
+
+#: includes/User.php:600
+#, php-format
+msgid "DEBUG Invalid input; expecting array, got %s"
+msgstr "DEBUG Virheellinen syöte; odotettiin taulukkoa, saatiin %s"
+
+#: includes/User.php:636 includes/User.php:740 includes/User.php:807
+msgid "Invalid access level given"
+msgstr "Virheellinen käyttöoikeuden taso annettu"
+
+#: includes/User.php:731 includes/User.php:798
+#, php-format
+msgid "Invalid user %s"
+msgstr "Virheellinen käyttäjä %s"
+
+#: includes/User.php:978
+msgid "Creation of strong password salt failed"
+msgstr "Vahvan salasanan suolan luominen epäonnistui"
+
+#: includes/User.php:991
+msgid ""
+"No secure random found, falling back to cryptographically unsafe methods. "
+"You should enable OpenSSL or MCrypt extension"
+msgstr ""
+"Turvallista satunnaismenetelmää ei löytynyt, turvaudutaan kryptograafisesti "
+"heikkoihin menetelmiin. Sinun tulisi ottaa käyttöön OpenSSL tai MCrypt "
+"laajennus"
+
+#: includes/User.php:1000
+#, php-format
+msgid "Invalid hashing algorithm \"%s\": %s"
+msgstr "Virheellinen hajautusalgoritmi \"%s\": %s"
+
+#: includes/User.php:1000
+msgid "It was not found"
+msgstr "Ei löytynyt"
+
+#: includes/User.php:1006
+#, php-format
+msgid "Invalid hashing parameters"
+msgstr "Virheelliset hajautuksen parametrit"
+
+#: includes/User.php:1039
+#, php-format
+msgid "Caught invalid password hash"
+msgstr "Virheellinen salasanan tiiviste"
+
+#: includes/Cache/Backends/Redis.php:49
+#, php-format
+msgid "Unable to connect to \"%s:%d\""
+msgstr ""
+
+#: includes/Cache/Backends/Redis.php:58
+#, php-format
+msgid "Unable to connect to \"%s\""
+msgstr ""
+
+#: includes/Cache/Backends/Redis.php:67 includes/Cache/Backends/Redis.php:76
+#: includes/Cache/Backends/Redis.php:83
+#, php-format
+msgid "Unable to connect to \"%s\": %s"
+msgstr ""
+
+#: includes/Cache/Backends/Redis.php:67
+msgid "Authentication failure"
+msgstr ""
+
+#: includes/Cache/Backends/Redis.php:76
+msgid "Unable to select the cache database"
+msgstr ""
+
+#: includes/Cache/Backends/Redis.php:83
+msgid "Unable to set the serialization mode"
+msgstr ""
+
+#: includes/Cache/Backends/Redis.php:92 includes/Cache/Backends/Redis.php:126
+#: includes/Cache/Backends/Redis.php:163 includes/Cache/Backends/Redis.php:188
+#: includes/Cache/Backends/Redis.php:211
+#, php-format
+msgid "Caught Redis exception: %s"
+msgstr ""
+
+#: includes/Cache/Backends/Backend.php:106
+#, php-format
+msgid "The key \"%s\" was not found in the cache"
+msgstr "Avain \"%s\" ei löydy välimuistista"
+
+#: pages/User/Dashboard.php:110
+#, php-format
+msgid "Dashboard for %s"
+msgstr "Hallintapaneeli käyttäjälle %s"
+
+#: pages/User/Dashboard.php:149
+#, php-format
+msgid "Invalid email address %s"
+msgstr "Virheellinen sähköpostiosoite %s"
+
+#: pages/User/Dashboard.php:158
+msgid "Email updated succesfully"
+msgstr "Sähköpostiosoite päivitettiin onnistuneesti"
+
+#: pages/User/Dashboard.php:193
+msgid "Name updated succesfully"
+msgstr "Nimi päivitettiin onnistuneesti"
+
+#: pages/User/Dashboard.php:244
+msgid "Old password does not match"
+msgstr "Vanha salasana ei täsmää"
+
+#: pages/User/Dashboard.php:251
+msgid "Passwords do not match"
+msgstr "Salasanat eivät täsmää"
+
+#: pages/User/Dashboard.php:258
+msgid "Passwords is not changed"
+msgstr "Salasana ei ole muuttunut"
+
+#: pages/User/Dashboard.php:265
+msgid "Password is too short"
+msgstr "Salasana on liian lyhyt"
+
+#: pages/User/Dashboard.php:270
+msgid "Password cannot be your username"
+msgstr "Salasana ei voi olla käyttäjätunnuksesi"
+
+#: pages/User/Dashboard.php:275
+msgid "Password cannot be your name"
+msgstr "Salasana ei voi olla nimesi"
+
+#: pages/User/Dashboard.php:280
+msgid "Password is too simple"
+msgstr "Salasana on liian yksinkertainen"
+
+#: pages/User/Dashboard.php:286
+msgid "Password updated succesfully"
+msgstr "Salasana päivitettiin onnistuneesti"
+
+#: pages/User/Login.php:106 templates/User/Login.tpl.html:6
+msgid "Login"
+msgstr "Kirjaudu"
+
+#: pages/Errors.php:88
+#, php-format
+msgid "Error - %s"
+msgstr "Virhe - %s"
+
+#: pages/Errors.php:101
+#, php-format
+msgid "Got error %d. Additionally, was unable to load any error template!"
+msgstr ""
+"Saatiin virhe %d. Lisäksi kaikkien virhemallinteiden lataaminen epäonnistui!"
+
+#: pages/Index.php:87
+msgid "Rose Framework - Default Page"
+msgstr "Rose Framework - Oletussivu"
+
+#: templates/IndexPage.tpl.html:1
+msgid "Hello %1!"
+msgstr "Hei ¤1!"
+
+#: templates/IndexPage.tpl.html:2
+msgid ""
+"If you are seeing this, it means you have successfully installed Rose "
+"Framework."
+msgstr ""
+"Jos näet tämän, se tarkoittaa, olet onnistuneesti asentanut Rose Frameworkin."
+
+#: templates/IndexPage.tpl.html:3
+msgid "Go on, try making something out from it!"
+msgstr "Anna mennä, kokeile luoda jotakin sillä!"
+
+#: templates/IndexPage.tpl.html:4
+msgid "Rose Framework Development Team"
+msgstr "Rose Framework kehitystiimi"
+
+#: templates/User/Register.tpl.html:4 templates/User/Dashboard.tpl.html:5
+#: templates/User/Login.tpl.html:4
+msgid "Username:"
+msgstr "Käyttäjänimi:"
+
+#: templates/User/Register.tpl.html:5 templates/User/Dashboard.tpl.html:6
+msgid "Name:"
+msgstr "Nimi:"
+
+#: templates/User/Register.tpl.html:6 templates/User/Dashboard.tpl.html:7
+msgid "Email:"
+msgstr "Sähköposti:"
+
+#: templates/User/Register.tpl.html:7 templates/User/Login.tpl.html:5
+msgid "Password:"
+msgstr "Salasana:"
+
+#: templates/User/Register.tpl.html:9
+msgid "Register"
+msgstr "Rekisteröi"
+
+#: templates/User/Dashboard.tpl.html:4
+msgid "User ID:"
+msgstr "Käyttäjä-ID:"
+
+#: templates/User/Dashboard.tpl.html:8
+msgid "Current password:"
+msgstr "Nykyinen salasana:"
+
+#: templates/User/Dashboard.tpl.html:9
+msgid "New password:"
+msgstr "Uusi salasana:"
+
+#: templates/User/Dashboard.tpl.html:11
+msgid "Update"
+msgstr "Päivitä"
+
+#: templates/Errors/418.tpl.html:2
+msgid "I'm a teapot. Want some tea?"
+msgstr "Olen teekannu. Haluatko teetä?"
+
+#: templates/Errors/402.tpl.html:2
+msgid "Payment required. Try paying your account."
+msgstr "Maksu vaaditaan. Yritä maksaa tilisi."
+
+#: templates/Errors/403.tpl.html:2
+msgid ""
+"The server understood the request, but is refusing to fulfill it. "
+"Authorization will not help and the request should not be repeated."
+msgstr ""
+"Palvelin ymmärsi pyynnön, mutta ei suostu suorittamaan sitä.  Kirjautuminen "
+"ei auta, ja pyyntöä ei tulisi toistaa."
+
+#: templates/Errors/Base-top.tpl.html:1
+msgid "Error"
+msgstr "Virhe"
+
+#: templates/Errors/501.tpl.html:2
+msgid ""
+"The server is currently unable to handle the request due to a temporary "
+"overloading or maintenance of the server."
+msgstr ""
+"Palvelin ei voi käsitellä pyyntöä tilapäisen kuormituksen tai palvelimen "
+"ylläpidon vuoksi."
+
+#: templates/Errors/Base-bot.tpl.html:1
+msgid ""
+"This is an error page. Please see <a href=\"%1\">more interesting things</a>."
+msgstr ""
+"Tämä on virhesivu. Ole hyvä ja katsele <a href=\"%1\">mielenkiintosempia "
+"asioita</a>."
+
+#: templates/Errors/Base.tpl.html:2
+msgid "An error happened."
+msgstr "Tapahtui virhe."
+
+#: templates/Errors/404.tpl.html:2
+msgid "The server has not found anything matching the Request-URI."
+msgstr "Palvelin ei löytänyt mitään joka täsmäisi pyydettyyn osoitteeseen."
+
+#: templates/Errors/401.tpl.html:2
+msgid ""
+"The request requires user authentication. Try logging it with correct "
+"permissions."
+msgstr ""
+"Pyyntö vaatii käyttäjän todennuksen. Yritä kirjautua oikeailla "
+"käyttöoikeuksilla."
+
+#: templates/errors.tpl.html:2
+msgid "Error!"
+msgstr "Virhe!"
+
+#~ msgid "Username"
+#~ msgstr "Käyttäjätunnus"
+
+#~ msgid ""
+#~ "The server understood the request, but is refusing to fulfill it. "
+#~ "Authorization will not help and the request should not be repeated.\n"
+#~ msgstr ""
+#~ "Palvelin ymmärsi pyynnön, mutta ei suostu suorittamaan sitä.  "
+#~ "Kirjautuminen ei auta, ja pyyntöä ei tulisi toistaa.toistua.\n"
+
+#~ msgid "Invalid call to method \"%s\""
+#~ msgstr "Virheellinen kutsu menetelmään \"%s\""
+
+#~ msgid "Instance of %s does not exist yet!"
+#~ msgstr "Instanssia kohteesta  %s ei vielä ole"
+
+#~ msgid "Handler does not implement required class \"%s\""
+#~ msgstr "Käsittelijä ei toteuta vaadittua luokkaa \"%s\""
+
+#~ msgid "Handler \"%s\" does not implement required interface"
+#~ msgstr "Käsittelijä \"%s\" ei toteuta vaadittua rajapintaa"

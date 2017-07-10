@@ -1,0 +1,6 @@
+.svn/entries
+.svn
+.*.swp
+*.bak
+Docs
+config.inc.php

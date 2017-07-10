@@ -1,0 +1,8 @@
+<div id="error" class="alert  alert-danger alert-dismissible">
+	<h2>{t}Error!{/t}</h2>
+	<ul>
+{section name=e loop=$errors}
+		<li>{$errors[e].message}{if isset($errors[e].file)} [{$errors[e].code}] in <code>{$errors[e].file}</code> on line {$errors[e].line}</strong>{/if}{if isset($errors[e].backtrace)} <pre>{$errors[e].backtrace}</pre>{/if}</li>
+{/section}
+	</ul>
+</div>

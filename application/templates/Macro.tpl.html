@@ -1,0 +1,199 @@
+<div id="macro_container" style="display: none;">
+{$Template->LoadJS('u:handler/macro.js')}<div class="row">
+	<div class="col-md-4">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<a data-toggle="collapse" href="#info-body"><h2 class="panel-title"><span class="fa fa-info-circle" aria-hidden="true"></span> {t}Information about the generator{/t}</h2></a>
+			</div>
+			<div id="info-body" class="panel-body panel-collapse collapse">
+				<h3>{t}Instructions{/t}</h3>
+				<ol>
+					<li>{t}Click on the skills to create a macro{/t}</li>
+					<li>{t}Drag the macro icons under the skill list to reorganize them{/t}</li>
+					<li>{t}Click Generate to create the macros to use in FFXIV{/t}</li>
+				</ol>
+				
+				<h3>{t}About{/t}</h3>
+				<p>{t escape=no}This tool is created by <a href="http://na.finalfantasyxiv.com/lodestone/character/5129773/">Mireiawen Rose</a> of Lich{/t}</p>
+				<p>{t escape=no}This tool is loosely based on the <a href="http://na.finalfantasyxiv.com/lodestone/character/5129773/">FFXIV Heavensward Crafting Macro Generator</a> by <a href="http://na.finalfantasyxiv.com/lodestone/character/21016/">Serra Avenger</a> of Tonberry, but all of the code has been written from scratch{/t}</p>
+				<p>{t escape=no}Thanks to the <a href="http://xivdb.com/">XIVDB</a> and <a href="http://www.garlandtools.org/">Garland Tools</a> for their item databases, this tool imports some knowledge from both them{/t} as well as <a href="https://github.com/xivdb/tooltips">XIVDB tooltips</a></p>
+				<p>{t escape=no}This tool uses <a href="https://jquery.com/">jQuery</a>, <a href="http://jqueryui.com/">jQuery IO</a> and <a href="http://getbootstrap.com/">Bootstrap</a> frameworks, <a href="https://github.com/blueimp/JavaScript-Templates">JavaScript Templates</a>, <a href="https://github.com/alexei/sprintf.js">sprintf.js</a> and <a href="http://bootboxjs.com/">Bootbox.js</a> helpers{/t}</p>
+				
+				<h3>{t}Change log{/t}</h3>
+				<ul>
+					<li><strong>2017-07-10</strong> Mostly working</li>
+				</ul>
+
+				<h3>{t}TODO list{/t}</h3>
+				<ul>
+					<li>Tricks of the Trade and Satisfaction won't actually restore CP</li>
+					<li>No data on buff/non-buff skill set yet for macro timing</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-md-4">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<a data-toggle="collapse" href="#config-body"><h2 class="panel-title"><span class="fa fa-cog" aria-hidden="true"></span> {t}Configure the generator{/t}</h2></a>
+			</div>
+			<div id="config-body" class="panel-body panel-collapse collapse">
+				<form name="settings" class="form-horizontal">
+					<fieldset>
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="macro_wait_skill">{t}Skill wait time{/t}</label>
+							<div class="col-md-8">
+								<input id="macro_wait_skill" name="macro_wait_skill" type="text" value="{$vals.macro_wait_skill}" class="form-control input-md" required="">
+								<span class="help-block">{t}Set the waiting time after the skills{/t}</span>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="macro_wait_buff">{t}Buff wait time{/t}</label>
+							<div class="col-md-8">
+								<input id="macro_wait_buff" name="macro_wait_buff" type="text" value="{$vals.macro_wait_buff}" class="form-control input-md" required="">
+								<span class="help-block">{t}Set the waiting time after the buffs{/t}</span>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="macro_echo">{t}Enable macro echo{/t}</label>
+							<div class="col-md-8">
+								<select id="macro_echo" name="macro_echo" class="form-control">
+									<option value="1"{if $vals.macro_echo == 1} selected="selected"{/if}>{t}Yes{/t}</option>
+									<option value="0"{if $vals.macro_echo == 0} selected="selected"{/if}>{t}No{/t}</option>
+								</select>
+							</div>
+						</div>
+						
+						<div id="echo_parameters"{if $vals.macro_echo == 0} style="display: none;"{/if}>
+							<div class="form-group">
+								<label class="col-md-4 control-label" for="macro_name">{t}Macro name{/t}</label>  
+								<div class="col-md-8">
+									<input id="macro_name" name="macro_name" type="text" placeholder="Macro name" value="{$vals.macro_name}" class="form-control input-md" required="">
+									<span class="help-block">{t}The name for the macro{/t}</span>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-md-4 control-label" for="macro_end">{t}Macro end message{/t}</label>
+								<div class="col-md-8">
+									<input id="macro_end" name="macro_end" type="text" placeholder="" value="{$vals.macro_end}" class="form-control input-md">
+									<span class="help-block">{t}Message to echo at the end of each macro{/t}</span>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-md-4 control-label" for="macro_done">{t}Macro done message{/t}</label>
+								<div class="col-md-8">
+									<input id="macro_done" name="macro_done" type="text" placeholder="" value="{$vals.macro_done}" class="form-control input-md">
+									<span class="help-block">{t}Message to echo once all macros have completed{/t}</span>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2 class="panel-title pull-left"><span class="fa fa-list"></span> {t}The skill list{/t}</h2>
+				<p class="panel-title pull-right"><span id="macro_cp">0</span> {t}CP{/t}</p>
+				<div class="clearfix"></div>
+			</div>
+			<div class="panel-body">
+				<div id="macro-steps">
+					<ul id="sortable" class="list-unstyled"></ul>
+				</div>
+				<div class="btn-group" role="group">
+					<button id="button_reset" class="btn btn-danger" type="button"><span class="fa fa-trash-o" aria-hidden="true"></span> {t}Clear{/t}</button>
+					{if $hash !== FALSE}<a href="u:handler/{$hash}" class="btn btn-warning" role="button"><span class="fa fa-trash-o" aria-hidden="true"></span> {t}Reset{/t}</a>{/if}
+					<button id="button_generate" class="btn btn-primary" type="button"><span class="fa fa-play-circle-o" aria-hidden="true"></span> {t}Generate the macros{/t}</button>
+					<button id="button_save" class="btn btn-success" type="button"><span class="fa fa-floppy-o" aria-hidden="true"></span> {t}Save{/t}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-md-4">
+		<div class="panel panel-default">
+			<div class="panel-heading"><h2 class="panel-title"><span class="fa fa-pencil-square" aria-hidden="true"></span> {t}Pick skills from the list{/t}</h2></div>
+			<div class="panel-body">
+				<div id="skill-list">
+					{foreach $categories as $category}
+					{if $category->GetID() !== $category::OTHER}
+					<div id="skill-list-{$category->GetName()}">
+						<h3>{$category->GetTranslatedName()}</h3>
+						<ul class="list-inline">
+						{foreach $skills as $skill}
+							{if $skill -> GetCategory() === $category -> GetID()}
+							<li data-xivdb-id="{$skill -> GetXIVDB_ID()}" data-icon="{$skill -> GetIcon()}" data-cost="{$skill -> GetCost()}" data-name="{$skill -> GetName_EN()}" data-buff="{$skill -> GetBuff()}">
+								<a href="https://xivdb.com/action/{$skill -> GetXIVDB_ID()}" data-xivdb-id="{$skill -> GetXIVDB_ID()}" data-xivdb-replace="0"><img src="https://secure.xivdb.com/img/game/{math equation="id-id%1000" id=$skill -> GetIcon() format="%06d"}/{$skill -> GetIcon()|string_format:"%06d"}.png"></a>
+							{/if}
+							</li>
+							{/foreach}
+						</ul>
+					</div>
+					{/if}
+					{/foreach}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-8">
+		<div class="panel panel-default">
+			<div class="panel-heading"><h2 class="panel-title"><span class="fa fa-filte-text-o" aria-hidden="true"></span> {t}The macros{/t}</h2></div>
+			<div class="panel-body">
+				<div id="macro-text"></div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<div id="macro_nojs">
+	<h2><span class="fa fa-spinner fa-pulse" aria-hidden="true"></span> {t}Loading...{/t}</h2>
+	<p>{t}Loading the tool. This should take 5-15 seconds. If the loading does not seem to complete, you may not have JavaScript working. Unfortunately this tool will not work without the JavaScript so you will need to enable it.{/t}</p>
+</div>
+<script type="text/x-tmpl" id="tmpl-skill">
+<li data-xivdb-id="[%=o.xivdb_id%]" data-cost="[%=o.cp_cost%]" data-name="[%=o.name%]" data-type="[%=o.type%]">
+	<div class="row">
+		<div class="col-md-1"><a href="[%=o.link%]" data-xivdb-id="[%=o.xivdb_id%]" data-xivdb-replace="0"><img src="[%=o.img%]"></a></div>
+		<div class="col-md-3"><strong>[%=o.name%]</strong><br>[%=o.cp_cost%] {t}CP{/t}</div>
+		<div class="col-md-6"><div class="info"></div></div>
+		<div class="col-md-1"><button class="btn btn-danger" type="button" onClick="return RemoveAction(this);"><span class="fa fa-ban" aria-hidden="true"></span></button></div>
+	</div>
+</li>
+</script>
+
+<script type="text/x-tmpl" id="tmpl-step-info">
+[% if (o.cz_step) { %]
+<strong>{t}Comfort Zone{/t}</strong> ([%=o.cz_step%]): {$smarty.const.COMFORT_ZONE_TICK} {t}CP restored{/t}<br>
+[% } %]
+[%=o.cp_cost%] {t}CP{/t}
+</script>
+
+<script type="text/x-tmpl" id="tmpl-macro">
+<div class="form-group">
+	<label for="macro_[%=o.n%]">{t}Macro{/t} [%=o.n%]</label>
+	<textarea class="form-control" id="macro_[%=o.n%]" rows="{$smarty.const.MACRO_MAX_ROWS}" style="overflow: hidden">
+[% for (var i=0; i<o.lines.length; i++) { %][%=o.lines[i]%]
+[% } %]</textarea>
+</div>
+</script>
+
+<script>
+{foreach $vals.skills as $skill}
+AddAction({$skill}, false);
+{/foreach}
+CalculateCP();
+GenerateMacros();
+</script>

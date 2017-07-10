@@ -1,0 +1,14 @@
+	<form action="u:self" method="POST">
+	<table>
+		<tbody>
+			<tr><th>{t}User ID:{/t}</th><td>{$user->GetID()}</td></tr>
+			<tr><th>{t}Username:{/t}</th><td>{$user->GetUsername()}</td></tr>
+			<tr><th>{t}Name:{/t}</th><td><input type="text" name="name" value="{$name}"></td></tr>
+			<tr><th>{t}Email:{/t}</th><td><input type="text" name="email" value="{$email}"></td></tr>
+			<tr><th>{t}Current password:{/t}</th><td><input type="password" name="password"></td></tr>
+			<tr><th rowspan="2">{t}New password:{/t}</th><td><input type="password" name="password_1"></td></tr>
+			<tr><td><input type="password" name="password_2"></td></tr>
+			<tr><td colspan="2"><input type="submit" name="update" value="{t}Update{/t}"></td></tr>
+		</tbody>
+	</table>
+	</form>

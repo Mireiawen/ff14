@@ -1,0 +1,67 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "fbbf1a8bf8150e154a6441b90978857a",
+    "packages": [
+        {
+            "name": "ajaxray/short-code",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ajaxray/short-code.git",
+                "reference": "7839528a0bb945efd23e28baad4f0ffd8a143cd3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ajaxray/short-code/zipball/7839528a0bb945efd23e28baad4f0ffd8a143cd3",
+                "reference": "7839528a0bb945efd23e28baad4f0ffd8a143cd3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "satooshi/php-coveralls": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ShortCode\\": "src/ShortCode"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anis Uddin Ahmad",
+                    "email": "anis.programmer@gmail.com"
+                }
+            ],
+            "description": "ShortCode generator for PHP. Create short, reversible or random, hash like codes.",
+            "homepage": "http://github.com/ajaxray/short-code",
+            "keywords": [
+                "code",
+                "convert",
+                "hash",
+                "psr-3",
+                "random",
+                "revert",
+                "short-code"
+            ],
+            "time": "2016-06-25T10:21:01+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

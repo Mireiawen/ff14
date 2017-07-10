@@ -1,0 +1,92 @@
+<?php
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Database settings
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+// Database to use
+define('DATABASE', 'FF14');
+
+// Database server
+define('DATABASE_HOSTNAME', 'localhost');
+
+// Database username and password
+define('DATABASE_USERNAME', 'FF14');
+define('DATABASE_PASSWORD', 'really_secret_password!');
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Application settings
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+// Define the maximum number of rows per macro
+define('MACRO_MAX_ROWS', 15);
+
+// Find the content controllers from Page namespace 
+// to avoid class name collisions
+define('USE_PAGESPACE', TRUE);
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Security settings
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+// Session identifier
+define('SESSION_IDENTIFIER', 'Mireiawen_FFXIV');
+
+// Session timeout
+define('SESSION_TIMEOUT', 3600);
+
+// Object cache timeout, in seconds
+define('OBJECT_TIMEOUT', 60);
+
+// Password salt length
+define('PASSWORD_SALT_LENGTH', 64);
+
+// Password hash algorithm
+define('PASSWORD_HASH_ALGORITHM', 'sha256');
+
+// Google reCAPTCHA settings
+define('RECAPTCHA_PUBLIC_KEY', '');
+define('RECAPTCHA_PRIVATE_KEY', '');
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Template settings
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+// Template configuration file
+// Located as TEMPLATE_DIRECTORY/TEMPLATE_CONFIGURATION
+#define('TEMPLATE_CONFIGURATION', 'website.conf');
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Content settings
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+// Default language
+define('LANGUAGE_DEFAULT', 'en_US');
+
+// Language application domain
+define('LANGUAGE_DOMAIN', 'FFXIV');
+
+// Default timezone
+define('TIMEZONE', 'UTC');
+
+// Use clean URLs?
+define('CLEAN_URLS', TRUE);
+
+// URL script and path info separator
+// Either '/' or '?q=' should work here
+#define('URL_SEPARATOR', '?q=');
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Other settings
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+// Are we debugging?
+#define('DEBUG', TRUE);
+
+// Debug specific error levels
+#define('DEBUG_WARNINGS', TRUE);
+#define('DEBUG_NOTICES', TRUE);
+
+// Show suppressed messages?
+#define('DEBUG_SHOW_SUPPRESSED', TRUE);
+
+// Show session debugging
+#define('DEBUG_SESSION', TRUE);
+
+// Show cache debugging
+#define('DEBUG_CACHE', TRUE);

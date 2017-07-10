@@ -1,0 +1,19 @@
+#!/bin/sh
+pushd "$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)" >>'/dev/null'
+
+# Create temporary file from templates
+find 'templates' -type 'f' -name '*.tpl.*' | xargs '/usr/bin/php5' 'tsmarty2c.php' -o "smarty.${$}.pot"
+
+# Create temporary file from PHP code
+find '.' -not -path './libraries/*' -not -path './cache/*' -type 'f' -iname '*.php' | xargs xgettext --add-comments='TRANSLATORS:' --default-domain='RoseFramework' --keyword='_' --language='php' --output="php.${$}.pot"
+
+# Create the actual file
+msgcat -o 'RoseFramework.pot' "php.${$}.pot" "smarty.${$}.pot"
+
+# Clean up the headers for poedit
+sed -ri '/^"#-#-#-#-#\s+.+\.[0-9]+\.pot\s+(\(.+\)\s+)?#-#-#-#-#\\n"$/d' 'RoseFramework.pot'
+
+# Remove temp files
+rm "php.${$}.pot" "smarty.${$}.pot"
+
+popd >>'/dev/null'
