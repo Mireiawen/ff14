@@ -21,6 +21,9 @@ define('GOOGLE_ANALYTICS_KEY', 'UA-000');
 // Define the maximum number of rows per macro
 define('MACRO_MAX_ROWS', 15);
 
+// Define the crafter job list
+define('CRAFTER_JOBS', 'CRP;BSM;ARM;GSM;LTW;WVR;ALC;CUL');
+
 // Find the content controllers from Page namespace 
 // to avoid class name collisions
 define('USE_PAGESPACE', TRUE);
