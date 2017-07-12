@@ -216,7 +216,7 @@ function GenerateMacros()
 	$("#macro-steps li").each(function(index, elem)
 	{
 		// Check if we should wait for buff or skill
-		if (parseInt($(this).attr("data-buff")) == 1)
+		if (parseInt($(this).attr("data-type")) == 1)
 		{
 			wait = wait_buff;
 		}
