@@ -18,6 +18,7 @@ PHP should not require any special configuration, following extensions are known
  - Hash
  - Intl
  - MySQLi
+
 Redis will be used for caching if it is loaded, but it is not required.
 
 ### Application
@@ -28,5 +29,6 @@ Importing the application database takes 3 steps:
  1. Framework database: with SQL client, load `fw/database.sql`
  2. Application database structure: with SQL client, load `database.sql`
  3. Application data: Execute `php import_data.php`
+
 This should load the framework configuration with its default username and password, application database structure as well as the data used by the application via [XIVDB](http://xivdb.com/) API and [Garland Tools](http://garlandtools.org/)
 
