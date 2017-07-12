@@ -82,6 +82,54 @@ function get_category_by_xivdb_id($id)
 	}
 }
 
+// Function to check if the skill is buff or not
+function is_buff($xivdb_id)
+{
+	switch ($xivdb_id)
+	{
+	// Non-buff skills
+	case	279:	// Waste Not
+	case	285:	// Waste Not II
+	case	100009:	// Byregot's Blessing
+	case	100039:	// Piece by Piece
+	case	100120:	// Byregot's Brow
+	case	100136:	// Muscle Memory
+	case	100145:	// Byregot's Miracle
+	case	100153:	// Nymeia's Wheel
+	case	100161:	// Trained Hand
+	case	100187:	// Whistle While You Work
+	case	100251:	// Initial Preparations
+		return FALSE;
+	
+	// Buff skills
+	case	244:	// Steady Hand
+	case	252:	// Inner Quiet
+	case	260:	// Great Strides
+	case	276:	// Rumination
+	case	277:	// Ingenuity
+	case	278:	// Manipulation
+	case	281:	// Steady Hand II
+	case	283:	// Ingenuity II
+	case	284:	// Innovation
+	case	286:	// Comfort Zone
+	case	287:	// Reclaim
+	case	4574:	// Manipulation II
+	case	100003:	// Master's Mend
+	case	100005:	// Master's Mend II
+	case	100010:	// Observe
+	case	100098:	// Tricks of the Trade
+	case	100169:	// Satisfaction
+	case	100178:	// Maker's Mark
+	case	100259:	// Specialty: Reinforce
+	case	100267:	// Specialty: Refurbish
+	case	100275:	// Specialty: Reflect
+		return TRUE;
+	
+	default:
+		throw new \Exception(sprintf(_('Unknown buff type for %d'), $xivdb_id));
+	}
+}
+
 // Function to grab JSON data from Garland Tools database
 function garland_json($path)
 {
@@ -428,7 +476,7 @@ try
 			$name_fr = $row['name_fr'];
 			$icon = $row['icon'];
 			$cost = $row['cost_cp'];
-			$buff = 1;
+			$buff = FALSE;
 			$added[$row['name_en']] = TRUE;
 			
 			// Collectable synthesis is not usually useful in macros, ignore it
@@ -449,8 +497,49 @@ try
 				continue;
 			}
 			
-			// Fetch the buff knowledge
-			// XXX TODO
+			// Check for Touch skills
+			if (strpos($name_en, 'Touch') !== FALSE)
+			{
+				$buff = 0;
+			}
+			
+			// Check for Synthesis skills
+			if (strpos($name_en, 'Synthesis') !== FALSE)
+			{
+				$buff = 0;
+			}
+			
+			// Check "Brand of" skills
+			if (strpos($name_en, 'Brand of ') !== FALSE)
+			{
+				$buff = 0;
+			}
+			
+			// Check "Heart of the" -specialist buffs
+			if (strpos($name_en, 'Heart of the ') !== FALSE)
+			{
+				$buff = 1;
+			}
+			
+			// Check "Name of the" -specialist buffs
+			if (strpos($name_en, 'Name Of ') !== FALSE)
+			{
+				$buff = 1;
+			}
+			
+			// Fetch the random buff knowledge
+			try
+			{
+				if ($buff === FALSE)
+				{
+					$buff = intval(is_buff($xivdb_id));
+				}
+			}
+			catch (\Exception $e)
+			{
+				echo sprintf(_('Buff: UNKNOWN %d "%s" "%s"'), $xivdb_id, $name_en, $desc) , "\n";
+				$buff = 0;
+			}
 			
 			// Fetch the CP cost from Garland Tools, since XIVDB does not have it
 			$data = garland_json('/data/action/' . $xivdb_id . '.json');
