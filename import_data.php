@@ -489,7 +489,7 @@ try
 				$category = get_category_by_xivdb_id($xivdb_id);
 				if ($category === \Category::OTHER)
 				{
-					echo sprintf('OTHER %d "%s" "%s"', $xivdb_id, $name_en, $desc) , "\n";
+					echo sprintf(_('Category: OTHER %d "%s" "%s"'), $xivdb_id, $name_en, $desc) , "\n";
 				}
 			}
 			
