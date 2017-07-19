@@ -176,7 +176,7 @@ try
 	echo _('XIVDB.com data fetcher') , "\n";
 	
 	// Get current database connection
-	$db = Database::Get();
+	$db = \System\Database::Get();
 	if ($db === FALSE)
 	{
 		throw new Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
