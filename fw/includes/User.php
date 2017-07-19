@@ -1,4 +1,6 @@
 <?php
+namespace System;
+
 // Check environment
 if  (!defined('SYSTEM_PATH'))
 {
@@ -31,7 +33,7 @@ define('USER_ID_MIN', 3);
  * abilities.
  *
  * $Author: mireiawen $
- * $Id: User.php 429 2017-06-05 20:04:54Z mireiawen $
+ * $Id: User.php 441 2017-07-11 21:02:54Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
 final class User extends DataObject
@@ -78,7 +80,7 @@ final class User extends DataObject
 	{
 		if (!extension_loaded('hash'))
 		{
-			throw new Exception(_('Hash extension is required!'));
+			throw new \Exception(_('Hash extension is required!'));
 		}
 		
 		parent::__construct();
@@ -136,21 +138,21 @@ final class User extends DataObject
 		// Check for database
 		if ($db === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
 		}
 		
 		// Create statement
 		$stmt = $db -> prepare('SELECT ' . $db -> escape_identifier('ID') . ' FROM ' . $db -> escape_identifier('User') . ' WHERE ' . $db -> escape_identifier('ID') . ' >= ?' . ($active_only ? ' AND ' . $db -> escape_identifier('Active') . ' = 1' : ''));
 		if ($stmt === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
 		}
 		
 		// Bind parameters
 		$min_id = USER_ID_MIN;
 		if (!$stmt -> bind_param('i', $min_id))
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 		}
 		
 		// Execute statement
@@ -182,7 +184,7 @@ final class User extends DataObject
 		
 		if ($o === NULL)
 		{
-			throw new Exception(_('Unable to create User object'));
+			throw new \Exception(_('Unable to create User object'));
 		}
 		
 		return $o -> GetUsername();
@@ -208,20 +210,20 @@ final class User extends DataObject
 		// Check for database
 		if ($db === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
 		}
 		
 		// Prepare the query
 		$stmt = $db -> prepare('SELECT ' . $db -> escape_identifier('Name') . ' FROM ' . $db -> escape_identifier('Group') . ' WHERE ' . $db -> escape_identifier('ID') . ' = ?');
 		if ($stmt === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
 		}
 
 		// Bind the ID
 		if (!$stmt -> bind_param('i', $gid))
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 		}
 		
 		// Execute the query
@@ -293,7 +295,7 @@ final class User extends DataObject
 		// Check for database
 		if ($db === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
 		}
 		
 		// TODO: validity check for value
@@ -302,26 +304,26 @@ final class User extends DataObject
 		$stmt = $db -> prepare('SELECT ' . $db -> escape_identifier('ID') . ' FROM ' . $db -> escape_identifier('User') . ' WHERE ' . $db -> escape_identifier('Username') . ' = ?');
 		if ($stmt === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
 		}
 		
 		// Bind parameters
 		if (!$stmt -> bind_param('s', $value))
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 		}
 		
 		// Execute the query itself
 		if (!$stmt -> execute())
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 		}
 		
 		// Username is taken
 		$stmt -> store_result();
 		if ($stmt -> num_rows)
 		{
-			throw new Exception(sprintf(_('Username "%s" is already taken'), $value));
+			throw new \Exception(sprintf(_('Username "%s" is already taken'), $value));
 		}
 		
 		// Set the username
@@ -356,40 +358,40 @@ final class User extends DataObject
 		// Check for database
 		if ($db === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
 		}
 		
 		// Do basic validation
 		$email = filter_var($value, FILTER_VALIDATE_EMAIL);
 		if ($email === FALSE)
 		{
-			throw new Exception(sprintf(_('Invalid e-mail address "%s"'), $value));
+			throw new \Exception(sprintf(_('Invalid e-mail address "%s"'), $value));
 		}
 		
 		// Make sure email is not in use
 		$stmt = $db -> prepare('SELECT ' . $db -> escape_identifier('ID') . ' FROM ' . $db -> escape_identifier('User') . ' WHERE ' . $db -> escape_identifier('Email') . ' = ?');
 		if ($stmt === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
 		}
 		
 		// Bind parameters
 		if (!$stmt -> bind_param('s', $value))
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 		}
 		
 		// Execute the query itself
 		if (!$stmt -> execute())
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 		}
 		
 		// Username is taken
 		$stmt -> store_result();
 		if ($stmt -> num_rows)
 		{
-			throw new Exception(sprintf(_('Email "%s" is already in use'), $value));
+			throw new \Exception(sprintf(_('Email "%s" is already in use'), $value));
 		}
 		
 		// And save it
@@ -462,7 +464,7 @@ final class User extends DataObject
 		// Validate UID
 		if ($this -> ID < USER_ID_MIN)
 		{
-			throw new Exception(_('Invalid user ID'));
+			throw new \Exception(_('Invalid user ID'));
 		}
 		
 		// Read the current password information
@@ -547,27 +549,27 @@ final class User extends DataObject
 		// Check for database
 		if ($db === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
 		}
 		
 		// Create statement
 		$stmt = $db -> prepare('DELETE FROM ' . $db -> escape_identifier('User') . ' WHERE ' . $db -> escape_identifier('ID') . ' = ?');
 		if ($stmt === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
 		}
 		
 		// Bind parameters
 		$uid = $this -> GetID();
 		if (!$stmt -> bind_param('i', $uid))
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 		}
 		
 		// Execute statement
 		if ($stmt -> execute() === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 		}
 		
 		// Write to the log
@@ -597,7 +599,7 @@ final class User extends DataObject
 	{
 		if (!is_array($levels))
 		{
-			throw new Exception(sprintf(_('DEBUG Invalid input; expecting array, got %s') . gettype($level)));
+			throw new \Exception(sprintf(_('DEBUG Invalid input; expecting array, got %s') . gettype($level)));
 		}
 		
 		// Go through all levels
@@ -633,7 +635,7 @@ final class User extends DataObject
 		$level = filter_var($value, FILTER_VALIDATE_INT, array('options' => array('minrange' => -10)));
 		if ($level === FALSE)
 		{
-			throw new Exception(_('Invalid access level given'));
+			throw new \Exception(_('Invalid access level given'));
 		}
 		
 		// Check if the user is active
@@ -660,7 +662,7 @@ final class User extends DataObject
 		// Check for database
 		if ($db === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
 		}
 		
 		// Check for ANY
@@ -670,19 +672,19 @@ final class User extends DataObject
 			$stmt = $db -> prepare('SELECT ' . $db -> escape_identifier('UID') . ' FROM ' . $db -> escape_identifier('UserGroup') . ' WHERE ' . $db -> escape_identifier('UID') . ' = ?');
 			if ($stmt === FALSE)
 			{
-				throw new Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
+				throw new \Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
 			}
 			
 			// Bind parameters
 			if (!$stmt -> bind_param('i', $this -> ID))
 			{
-				throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+				throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 			}
 			
 			// Execute the query itself
 			if (!$stmt -> execute())
 			{
-				throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+				throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 			}
 			
 			$stmt -> store_result();
@@ -693,19 +695,19 @@ final class User extends DataObject
 		$stmt = $db -> prepare('SELECT ' . $db -> escape_identifier('UID') . ' FROM ' . $db -> escape_identifier('UserGroup') . ' WHERE ' . $db -> escape_identifier('UID') . ' = ? AND ' . $db -> escape_identifier('GID') . ' = ?');
 		if ($stmt === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
 		}
 		
 		// Bind parameters
 		if (!$stmt -> bind_param('ii', $this -> ID, $level))
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 		}
 
 		// Execute the query itself
 		if (!$stmt -> execute())
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 		}
 		
 		$stmt -> store_result();
@@ -728,7 +730,7 @@ final class User extends DataObject
 		// Do not modify system users
 		if ($this -> ID < USER_ID_MIN)
 		{
-			throw new Exception(sprintf(_('Invalid user %s'), $this -> Username));
+			throw new \Exception(sprintf(_('Invalid user %s'), $this -> Username));
 		}
 		
 		// Do basic validation
@@ -737,7 +739,7 @@ final class User extends DataObject
 		// Make sure it looks like valid
 		if (($level === FALSE) || ($level === USER_GROUP_NONE) || ($level === USER_GROUP_ANY))
 		{
-			throw new Exception(_('Invalid access level given'));
+			throw new \Exception(_('Invalid access level given'));
 		}
 		
 		// Check if user already got the access level
@@ -752,26 +754,26 @@ final class User extends DataObject
 		// Check for database
 		if ($db === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
 		}
 		
 		// Prepare statement
 		$stmt = $db -> prepare('INSERT INTO ' . $db -> escape_identifier('UserGroup') . ' (' . $db -> escape_identifier('UID') . ', ' . $db -> escape_identifier('GID') . ') VALUES (?, ?)');
 		if ($stmt === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
 		}
 		
 		// Bind parameters
 		if (!$stmt -> bind_param('ii', $this -> ID, $level))
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 		}
 		
 		// Execute the query itself
 		if (!$stmt -> execute())
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 		}
 		
 		Log::Get() -> Add('Added access level "' . User::Groupname($level) . '" (' . $level . ') for user ' . $this -> Username . ' (' . $this -> ID . ')');
@@ -795,7 +797,7 @@ final class User extends DataObject
 		// Do not modify system users
 		if ($this -> ID < USER_ID_MIN)
 		{
-			throw new Exception(sprintf(_('Invalid user %s'), $this -> Username));
+			throw new \Exception(sprintf(_('Invalid user %s'), $this -> Username));
 		}
 		
 		// Do basic validation
@@ -804,7 +806,7 @@ final class User extends DataObject
 		// Make sure it looks like valid
 		if (($level === FALSE) || ($level === USER_GROUP_NONE) || ($level === USER_GROUP_ANY))
 		{
-			throw new Exception(_('Invalid access level given'));
+			throw new \Exception(_('Invalid access level given'));
 		}
 		
 		// Check if user already got the access level
@@ -819,26 +821,26 @@ final class User extends DataObject
 		// Check for database
 		if ($db === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
 		}
 		
 		// Prepare statement
 		$stmt = $db -> prepare('DELETE FROM ' . $db -> escape_identifier('UserGroup') . ' WHERE ' . $db -> escape_identifier('UID') . ' = ? AND ' . $db -> escape_identifier('GID') . ' = ?');
 		if ($stmt === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
 		}
 		
 		// Bind parameters
 		if (!$stmt -> bind_param('ii', $this -> ID, $level))
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 		}
 		
 		// Execute the query itself
 		if (!$stmt -> execute())
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 		}
 		
 		Log::Get() -> Add('Removed access level "' . User::Groupname($level) . '" (' . $level . ') from user ' . $this -> Username . ' (' . $this -> ID . ')');
@@ -864,20 +866,20 @@ final class User extends DataObject
 		// Check for database
 		if ($db === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
 		}
 		
 		// Create statement
 		$stmt = $db -> prepare('SELECT ' . $db -> escape_identifier('UID') . ', ' . $db -> escape_identifier('GID') . ' FROM ' . $db -> escape_identifier('UserGroup') . ' WHERE ' . $db -> escape_identifier('UID') . ' = ?');
 		if ($stmt === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
 		}
 		
 		// Bind parameters
 		if (!$stmt -> bind_param('i', $this -> ID))
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 		}
 		
 		// Execute the query itself
@@ -975,7 +977,7 @@ final class User extends DataObject
 				$salt = openssl_random_pseudo_bytes($salt_length, $strong);
 				if (($salt === FALSE) || ($strong === FALSE))
 				{
-					throw new Exception(_('Creation of strong password salt failed'));
+					throw new \Exception(_('Creation of strong password salt failed'));
 				}
 			}
 			
@@ -997,13 +999,13 @@ final class User extends DataObject
 		$alg = strtolower($algorithm);
 		if (!in_array($alg, hash_algos(), TRUE))
 		{
-			throw new Exception(sprintf(_('Invalid hashing algorithm "%s": %s'), $algorithm, _('It was not found')));
+			throw new \Exception(sprintf(_('Invalid hashing algorithm "%s": %s'), $algorithm, _('It was not found')));
 		}
 		
 		// Check the parameters
 		if (($iterations < 1) || ($length < 1))
 		{
-			throw new Exception(sprintf(_('Invalid hashing parameters')));
+			throw new \Exception(sprintf(_('Invalid hashing parameters')));
 		}
 		
 		// Support old passwords
@@ -1036,7 +1038,7 @@ final class User extends DataObject
 		$count = preg_match('/^{(?P<algorithm>.+)#(?P<saltlength>[0-9]+)(:(?P<iterations>[0-9]+):(?P<keysize>[0-9]+))?}(?P<data>.+)$/', $hash, $matches);
 		if ($count != 1)
 		{
-			throw new Exception(sprintf(_('Caught invalid password hash')));
+			throw new \Exception(sprintf(_('Caught invalid password hash')));
 		}
 		
 		// Check for iterations

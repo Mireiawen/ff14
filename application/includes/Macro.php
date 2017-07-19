@@ -16,7 +16,7 @@ require_once(SYSTEM_PATH . '/includes/DataObject.php');
  *
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
-class Macro extends \DataObject
+class Macro extends \System\DataObject
 {
 	// Define the default skill and buff wait times
 	const DEFAULT_WAIT_SKILL = 3;

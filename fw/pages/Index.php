@@ -8,15 +8,15 @@ namespace System;
  * that shows some templated output.
  *
  * $Author: mireiawen $
- * $Id: Index.php 352 2015-07-21 11:08:59Z mireiawen $
+ * $Id: Index.php 441 2017-07-11 21:02:54Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
-final class Index extends \Base implements \Page
+final class Index extends \System\Base implements \System\Page
 {
 	/*!
 	 * @brief Load the templating trait
 	 */
-	use \SmartyTemplates;
+	use \System\SmartyTemplates;
 	
 	/*!
 	 * @brief Constructor for the class
@@ -84,10 +84,7 @@ final class Index extends \Base implements \Page
 		}
 		
 		// Assign the page title
-		\SmartyInstance::Get() -> assign('title', _('Rose Framework - Default Page'));
-		
-		// Assign user name to our template as name
-		$page -> assign('name', \LoginUser::Get() -> GetName());
+		\System\SmartyInstance::Get() -> assign('title', _('Rose Framework - Default Page'));
 		
 		// And show the page
 		$page -> display();

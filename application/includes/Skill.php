@@ -16,7 +16,7 @@ require_once(SYSTEM_PATH . '/includes/DataObject.php');
  *
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
-class Skill extends \DataObject
+class Skill extends \System\DataObject
 {
 	protected function __construct()
 	{

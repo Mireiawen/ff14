@@ -1,4 +1,6 @@
 <?php
+namespace System;
+
 // Check environment
 if  (!defined('SYSTEM_PATH'))
 {
@@ -35,7 +37,7 @@ define('LOG_LEVEL_UNKNOWN', 1);
  * and ability to read existing events from the database.
  *
  * $Author: mireiawen $
- * $Id: Log.php 413 2016-07-21 14:49:07Z mireiawen $
+ * $Id: Log.php 441 2017-07-11 21:02:54Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
 final class Log extends DataObject
@@ -156,7 +158,7 @@ final class Log extends DataObject
 		{
 			if ((defined('DEBUG')) && (DEBUG))
 			{
-				throw new Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
+				throw new \Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
 			}
 			else
 			{
@@ -168,7 +170,7 @@ final class Log extends DataObject
 		{
 			if ((defined('DEBUG')) && (DEBUG))
 			{
-				throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+				throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 			}
 			else
 			{
@@ -181,7 +183,7 @@ final class Log extends DataObject
 		{
 			if ((defined('DEBUG')) && (DEBUG))
 			{
-				throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+				throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 			}
 			else
 			{
@@ -217,7 +219,7 @@ final class Log extends DataObject
 		// Check for database
 		if ($db === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
 		}
 		
 		// Work around timestamp data type
@@ -239,7 +241,7 @@ final class Log extends DataObject
 		$stmt = $db -> prepare('SELECT ' . implode(', ', $fields) . ' FROM ' . $db -> escape_identifier('Log') . ' LIMIT ?, ?');
 		if ($stmt === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
 		}
 		
 		// Check the limits for the query
@@ -259,7 +261,7 @@ final class Log extends DataObject
 		// Bind the limits
 		if (!$stmt -> bind_param('ii', $start, $num))
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 		}
 		
 		// Execute the query itself
@@ -290,14 +292,14 @@ final class Log extends DataObject
 		// Check for database
 		if ($db === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
 		}
 		
 		// Validate ID format
 		$id = filter_var($id, FILTER_VALIDATE_INT);
 		if ($id === FALSE)
 		{
-			throw new Exception(_('Invalid event ID'));
+			throw new \Exception(_('Invalid event ID'));
 		}
 		
 		// Work around timestamp data type
@@ -319,13 +321,13 @@ final class Log extends DataObject
 		$stmt = $db -> prepare('SELECT ' . implode(', ', $fields) . ' FROM ' . $db -> escape_identifier('Log') . ' WHERE ' . $db -> escape_identifier('ID') . ' = ? LIMIT 1');
 		if ($stmt === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
 		}
 		
 		// Bind the ID
 		if (!$stmt -> bind_param('i', $id))
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 		}
 		
 		// Execute the query itself
@@ -334,7 +336,7 @@ final class Log extends DataObject
 		// Check it
 		if (empty($row))
 		{
-			throw new Exception(sprintf(_('No such event "%s"'), $id));
+			throw new \Exception(sprintf(_('No such event "%s"'), $id));
 		}
 		
 		// And return the event
@@ -348,7 +350,7 @@ final class Log extends DataObject
  * A class containing the specified log event
  *
  * $Author: mireiawen $
- * $Id: Log.php 413 2016-07-21 14:49:07Z mireiawen $
+ * $Id: Log.php 441 2017-07-11 21:02:54Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
 final class LogEntry
@@ -383,7 +385,7 @@ final class LogEntry
 	{
 		if (empty($entry))
 		{
-			throw new Exception(_('Invalid log entry; it is empty!'));
+			throw new \Exception(_('Invalid log entry; it is empty!'));
 		}
 
 		$this -> values = $entry;

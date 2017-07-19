@@ -1,4 +1,6 @@
 <?php
+namespace System;
+
 // Check environment
 if  (!defined('SYSTEM_PATH'))
 {
@@ -53,7 +55,7 @@ final class Geolocation extends Base
 		$this -> location = FALSE;
 		
 		// Try to get set location from session
-		if ((class_exists('Session')) && (isset($_SESSION['Geolocation'])))
+		if ((class_exists('\\System\\Session')) && (isset($_SESSION['Geolocation'])))
 		{
 			$this -> location = unserialize($_SESSION['Geolocation']);
 		}
@@ -92,7 +94,7 @@ final class Geolocation extends Base
 	public function RemoveLocation()
 	{
 		$this -> location = FALSE;
-		if (class_exists('Session'))
+		if (class_exists('\\System\\Session'))
 		{
 			unset($_SESSION['Geolocation']);
 		}
@@ -198,7 +200,7 @@ final class Geolocation extends Base
 	 */
 	protected function SaveToSession()
 	{
-		if (class_exists('Session'))
+		if (class_exists('\\System\\Session'))
 		{
 			$_SESSION['Geolocation'] = serialize($this -> location);
 		}

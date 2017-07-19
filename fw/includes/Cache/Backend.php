@@ -31,7 +31,7 @@ class Backend
 	/*!
 	 * @brief Use the Singleton trait
 	 */
-	use \Singleton;
+	use \System\Singleton;
 	
 	/*!
 	 * @brief The protected constructor

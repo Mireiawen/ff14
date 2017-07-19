@@ -8,15 +8,15 @@ namespace System\User;
  * of their settings themselves
  *
  * $Author: mireiawen $
- * $Id: Dashboard.php 354 2015-07-22 16:37:45Z mireiawen $
+ * $Id: Dashboard.php 441 2017-07-11 21:02:54Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
-class Dashboard extends \Base implements \Page
+class Dashboard extends \System\Base implements \System\Page
 {
 	/*!
 	 * @brief Load the templating trait
 	 */
-	use \SmartyTemplates;
+	use \System\SmartyTemplates;
 	
 	/*!
 	 * @brief Constructor for the class
@@ -58,7 +58,7 @@ class Dashboard extends \Base implements \Page
 		}
 		
 		// User needs to be logged in for this to work
-		if (!\LoginUser::Get() -> IsLoggedIn())
+		if (!\System\LoginUser::Get() -> IsLoggedIn())
 		{
 			return '/Errors/403';
 		}
@@ -71,7 +71,7 @@ class Dashboard extends \Base implements \Page
 		}
 		
 		// Get the logged in user
-		$this -> user = \LoginUser::Get() -> User;
+		$this -> user = \System\LoginUser::Get() -> User;
 		$this -> name = $this -> user -> GetName();
 		$this -> email = $this -> user -> GetEmail();
 		
@@ -107,7 +107,7 @@ class Dashboard extends \Base implements \Page
 		}
 		
 		// Set the page title
-		\SmartyInstance::Get() -> assign('title', sprintf(_('Dashboard for %s'), $this -> user -> GetUsername()));
+		\System\SmartyInstance::Get() -> assign('title', sprintf(_('Dashboard for %s'), $this -> user -> GetUsername()));
 		
 		// Assign information back to template
 		$tpl -> assign('user', $this -> user);

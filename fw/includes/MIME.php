@@ -1,4 +1,6 @@
 <?php
+namespace System;
+
 // Check environment
 if  (!defined('SYSTEM_PATH'))
 {
@@ -22,7 +24,7 @@ require_once(SYSTEM_PATH . '/includes/Singleton.php');
  * Linux file utility
  *
  * $Author: mireiawen $
- * $Id: MIME.php 329 2015-06-22 15:25:44Z mireiawen $
+ * $Id: MIME.php 441 2017-07-11 21:02:54Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
 final class MIME extends Base

@@ -7,10 +7,10 @@ namespace System\User;
  * A simple logout page
  *
  * $Author: mireiawen $
- * $Id: Logout.php 395 2015-11-13 00:08:53Z mireiawen $
+ * $Id: Logout.php 441 2017-07-11 21:02:54Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
-class Logout extends \Base implements \Page
+class Logout extends \System\Base implements \System\Page
 {
 	/*!
 	 * @brief Constructor for the class
@@ -46,9 +46,9 @@ class Logout extends \Base implements \Page
 		}
 		
 		// Check if we should revert the current URL to what was previously asked
-		if (\URL::Get() -> GetRequestedControlPath() === '/User/Logout')
+		if (\System\URL::Get() -> GetRequestedControlPath() === '/User/Logout')
 		{
-			\URL::Get() -> RevertCurrent();
+			\System\URL::Get() -> RevertCurrent();
 		}
 		
 		// Handle rest
@@ -67,13 +67,13 @@ class Logout extends \Base implements \Page
 	 */
 	public function Show()
 	{
-		\LoginUser::Get() -> Logout();
+		\System\LoginUser::Get() -> Logout();
 		
 		// Return user to their previous page, or to defined default page
-		$url = \URL::Get() -> GetPrevious();
-		if (($url === FALSE) || ($url === \URL::Get() -> GetSelf()))
+		$url = \System\URL::Get() -> GetPrevious();
+		if (($url === FALSE) || ($url === \System\URL::Get() -> GetSelf()))
 		{
-			$url = \URL::Get() -> Generate(CONTROLLER_PATH_ROOT . CONTROLLER_DEFAULT);
+			$url = \System\URL::Get() -> Generate(CONTROLLER_PATH_ROOT . CONTROLLER_DEFAULT);
 		}
 		
 		header('Location: ' . $url);

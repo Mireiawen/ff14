@@ -1,4 +1,5 @@
 <?php
+namespace System;
 
 /*!
  * @brief Data validator methods for pages
@@ -36,18 +37,18 @@ trait Validators
 	{
 		if (is_string($string) === FALSE)
 		{
-			throw new Exception(sprintf(_('It is not a string')));
+			throw new \Exception(sprintf(_('It is not a string')));
 		}
 		
 		$len = strlen($string);
 		if ($len < $min)
 		{
-			throw new Exception(sprintf(_('It is too short, it should be at least %d characters'), $min));
+			throw new \Exception(sprintf(_('It is too short, it should be at least %d characters'), $min));
 		}
 		
 		if (($max !== FALSE) && ($len > $max))
 		{
-			throw new Exception(sprintf(_('It is too long, it should be less than %d characters'), $max));
+			throw new \Exception(sprintf(_('It is too long, it should be less than %d characters'), $max));
 		}
 		
 		return TRUE;
@@ -74,17 +75,17 @@ trait Validators
 		$num = filter_var($value, FILTER_VALIDATE_INT);
 		if ($num === FALSE)
 		{
-			throw new Exception(sprintf(_('It is not integer')));
+			throw new \Exception(sprintf(_('It is not integer')));
 		}
-
+		
 		if (($min !== FALSE) && ($num < $min))
 		{
-			throw new Exception(sprintf(_('It is too small, it should be at least %d'), $min));
+			throw new \Exception(sprintf(_('It is too small, it should be at least %d'), $min));
 		}
 		
 		if (($max !== FALSE) && ($num > $max))
 		{
-			throw new Exception(sprintf(_('It is too large, it should be less than %d'), $max));
+			throw new \Exception(sprintf(_('It is too large, it should be less than %d'), $max));
 		}
 		
 		return TRUE;
@@ -155,7 +156,7 @@ trait Validators
 		$val = filter_var($value, FILTER_VALIDATE_EMAIL);
 		if ($val === FALSE)
 		{
-			throw new Exception(_('Not a valid email address'));
+			throw new \Exception(_('Not a valid email address'));
 		}
 		
 		return TRUE;
@@ -181,12 +182,12 @@ trait Validators
 		
 		if ($val === FALSE)
 		{
-			throw new Exception(_('Regexp failure'));
+			throw new \Exception(_('Regexp failure'));
 		}
 		
 		if ($val === 0)
 		{
-			throw new Exception(_('Not a valid hostname'));
+			throw new \Exception(_('Not a valid hostname'));
 		}
 		
 		return TRUE;
@@ -209,7 +210,7 @@ trait Validators
 		$val = filter_var($value, FILTER_VALIDATE_IP);
 		if ($val === FALSE)
 		{
-			throw new Exception(_('Not a valid IP address'));
+			throw new \Exception(_('Not a valid IP address'));
 		}
 		
 		return TRUE;
@@ -232,7 +233,7 @@ trait Validators
 		$val = filter_var($value, FILTER_VALIDATE_MAC);
 		if ($val === FALSE)
 		{
-			throw new Exception(_('Not a valid MAC address'));
+			throw new \Exception(_('Not a valid MAC address'));
 		}
 		
 		return TRUE;
@@ -259,7 +260,7 @@ trait Validators
 			return TRUE;
 		}
 		
-		throw new Exception(_('It is not a valid username'));
+		throw new \Exception(_('It is not a valid username'));
 	}
 	
 	/**
@@ -276,42 +277,42 @@ trait Validators
 	 * 	TRUE if value is valid
 	 * @throws Exception if the password is not valid, with the reason
 	 */
-	protected function ValidatePassword(\User $user, $value)
+	protected function ValidatePassword(\System\User $user, $value)
 	{
 		// Make sure it is actually changed
 		if (($user -> GetID()) && ($user -> VerifyPassword($value)))
 		{
-			throw new Exception(_('Passwords is not changed'));
+			throw new \Exception(_('Passwords is not changed'));
 		}
 		
 		// Password complezity checks
 		if (strlen($value) < 8)
 		{
-			throw new Exception(_('Password is too short'));
+			throw new \Exception(_('Password is too short'));
 		}
 		if (!strcasecmp($value, $user -> GetUsername()))
 		{
-			throw new Exception(_('Password cannot be your username'));
+			throw new \Exception(_('Password cannot be your username'));
 		}
 		if (!strcasecmp($value, $user -> GetName()))
 		{
-			throw new Exception(_('Password cannot be your name'));
+			throw new \Exception(_('Password cannot be your name'));
 		}
 		if (!preg_match('/[0-9]/', $value))
 		{
-			throw new Exception(_('Password must include at least one number'));
+			throw new \Exception(_('Password must include at least one number'));
 		}
 		if (!preg_match('/[a-z]/', $value))
 		{
-			throw new Exception(_('Password must include at least one lowercase letter'));
+			throw new \Exception(_('Password must include at least one lowercase letter'));
 		}
 		if (!preg_match('/[A-Z]/', $value))
 		{
-			throw new Exception(_('Password must include at least one uppercase letter'));
+			throw new \Exception(_('Password must include at least one uppercase letter'));
 		}
 		if (!preg_match('/\W/', $value))
 		{
-			throw new Exception(_('Password must include at least one special letter'));
+			throw new \Exception(_('Password must include at least one special letter'));
 		}
 		
 		return TRUE;

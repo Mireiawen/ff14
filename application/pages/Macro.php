@@ -11,9 +11,9 @@ define('COMFORT_ZONE_ID', 286);
 define('COMFORT_ZONE_TICK', 8);
 define('COMFORT_ZONE_DURATION', 10);
 
-class Macro extends \Base implements \Page
+class Macro extends \System\Base implements \System\Page
 {
-	use \SmartyTemplates;
+	use \System\SmartyTemplates;
 	public function __construct()
 	{
 		parent::__construct(TRUE);
@@ -106,7 +106,7 @@ class Macro extends \Base implements \Page
 	public function Show()
 	{
 		// Assign the page title
-		\SmartyInstance::Get() -> assign('title', _('Macro Generator'));
+		\System\SmartyInstance::Get() -> assign('title', _('Macro Generator'));
 		
 		// Assign the data
 		$this -> template -> assign('vals', $this -> data);

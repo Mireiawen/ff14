@@ -1,4 +1,6 @@
 <?php
+namespace System;
+
 // Check environment
 if  (!defined('SYSTEM_PATH'))
 {
@@ -21,7 +23,7 @@ require_once(SYSTEM_PATH . '/includes/Cache/Backend.php');
  * functionality and the $vars array in another way.
  * 
  * $Author: mireiawen $
- * $Id: Cache.php 427 2017-06-05 19:49:55Z mireiawen $
+ * $Id: Cache.php 447 2017-07-11 22:19:14Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  * @todo No cache backend exists as of now
  */
@@ -56,13 +58,13 @@ trait Cache
 	protected function GetFromCache($id = '', $private = TRUE)
 	{
 		// Make sure we have cache backend
-		if (!class_exists('System\Cache\Backend'))
+		if (!class_exists('\\System\\Cache\\Backend'))
 		{
 			return FALSE;
 		}
 		
 		// Make sure session exists
-		if (($private) && (!class_exists('Session')))
+		if (($private) && (!class_exists('\\System\\Session')))
 		{
 			return FALSE;
 		}
@@ -98,14 +100,14 @@ trait Cache
 		// Get the data
 		try
 		{
-			$data = System\Cache\Backend::Get() -> Fetch($id);
+			$data = Cache\Backend::Get() -> Fetch($id);
 		}
 		
 		// Catch for errors
 		catch (\Exception $e)
 		{
 			// Not in cache, ignore it
-			if ($e instanceof System\Cache\NotFound)
+			if ($e instanceof Cache\NotFound)
 			{
 				return FALSE;
 			}
@@ -161,13 +163,13 @@ trait Cache
 	protected function SaveToCache($data, $id = '', $private = TRUE, $ttl = 3600)
 	{
 		// Make sure we have cache backend
-		if (!class_exists('System\Cache\Backend'))
+		if (!class_exists('\\System\\Cache\\Backend'))
 		{
 			return FALSE;
 		}
 		
 		// Make sure session exists
-		if (($private) && (!class_exists('Session')))
+		if (($private) && (!class_exists('\\System\\Session')))
 		{
 			return FALSE;
 		}
@@ -203,7 +205,7 @@ trait Cache
 		// Store the data
 		try
 		{
-			System\Cache\Backend::Get() -> Store($id, serialize($data), $ttl);
+			Cache\Backend::Get() -> Store($id, serialize($data), $ttl);
 			return TRUE;
 		}
 
@@ -242,13 +244,13 @@ trait Cache
 	protected function RemoveFromCache($id = '', $private = TRUE)
 	{
 		// Make sure we have cache backend
-		if (!class_exists('System\Cache\Backend'))
+		if (!class_exists('\\System\\Cache\\Backend'))
 		{
 			return FALSE;
 		}
 		
 		// Make sure session exists
-		if (($private) && (!class_exists('Session')))
+		if (($private) && (!class_exists('\\System\\Session')))
 		{
 			return FALSE;
 		}
@@ -284,13 +286,13 @@ trait Cache
 		// Flush the data
 		try
 		{
-			System\Cache\Backend::Get() -> Flush($id);
+			Cache\Backend::Get() -> Flush($id);
 		}
 		
 		catch (\Exception $e)
 		{
 			// Not in cache, ignore it
-			if ($e instanceof System\Cache\NotFound)
+			if ($e instanceof Cache\NotFound)
 			{
 				return TRUE;
 			}

@@ -1,4 +1,6 @@
 <?php
+namespace System;
+
 // Check environment
 if  (!defined('SYSTEM_PATH'))
 {
@@ -16,7 +18,7 @@ require_once(SYSTEM_PATH . '/includes/MIME.php');
  * of the usual HTML pages.
  *
  * $Author: mireiawen $
- * $Id: FileHandler.php 289 2015-06-07 15:36:06Z mireiawen $
+ * $Id: FileHandler.php 448 2017-07-11 22:19:58Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
 abstract class FileHandler extends Base implements Page
@@ -36,7 +38,7 @@ abstract class FileHandler extends Base implements Page
 		// Check for extensions
 		if (!extension_loaded('fileinfo'))
 		{
-			throw new Exception(_('File information extension fileinfo is required!'));
+			throw new \Exception(_('File information extension fileinfo is required!'));
 		}
 		
 		parent::__construct(FALSE);
@@ -96,7 +98,7 @@ abstract class FileHandler extends Base implements Page
 	protected function FindFile($filename)
 	{
 		// Check for localization 
-		if (class_exists('Translation'))
+		if (class_exists('\\System\\Translation'))
 		{
 			// Try reading the file from language path
 			$fn = Translation::Get() -> GetLang() . '/' . $filename;
@@ -185,7 +187,7 @@ abstract class FileHandler extends Base implements Page
 		// Check that the file exists and is (still) readable
 		if ((!is_file($fn)) || (!is_readable($fn)))
 		{
-			throw new Exception(sprintf(_('Unable to read the given file "%s"'), $this -> filename));
+			throw new \Exception(sprintf(_('Unable to read the given file "%s"'), $this -> filename));
 		}
 		
 		// Send the MIME type

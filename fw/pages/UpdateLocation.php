@@ -10,12 +10,12 @@ namespace System;
  * $Id$
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
-class UpdateLocation extends \Base implements \Page
+class UpdateLocation extends \System\Base implements \System\Page
 {
 	/*!
 	 * @brief Load the templating trait
 	 */
-	use \SmartyTemplates;
+	use \System\SmartyTemplates;
 	
 	/*!
 	 * @brief Constructor for the class
@@ -98,7 +98,7 @@ class UpdateLocation extends \Base implements \Page
 		}
 		
 		// Set the position
-		\Geolocation::Get() -> SetLocation($this -> position);
+		\System\Geolocation::Get() -> SetLocation($this -> position);
 		
 		// And return
 		echo json_encode($this -> position);

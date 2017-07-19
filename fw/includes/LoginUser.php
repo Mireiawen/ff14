@@ -1,4 +1,6 @@
 <?php
+namespace System;
+
 // Check environment
 if  (!defined('SYSTEM_PATH'))
 {
@@ -20,7 +22,7 @@ require_once(SYSTEM_PATH . '/includes/Singleton.php');
  * A singleton class that keeps the object for currently logged in user
  *
  * $Author: mireiawen $
- * $Id: LoginUser.php 424 2017-06-02 14:32:31Z mireiawen $
+ * $Id: LoginUser.php 448 2017-07-11 22:19:58Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
 final class LoginUser extends Base
@@ -43,7 +45,7 @@ final class LoginUser extends Base
 	protected function __construct()
 	{
 		// Try to get the current user from the session
-		if ((class_exists('Session')) && (array_key_exists('uid', $_SESSION)))
+		if ((class_exists('\\System\\Session')) && (array_key_exists('uid', $_SESSION)))
 		{
 			try
 			{
@@ -177,7 +179,7 @@ final class LoginUser extends Base
 		}
 		
 		// Succesful login; regenerate session ID to prevent hijack
-		if (class_exists('Session'))
+		if (class_exists('\\System\\Session'))
 		{
 			Session::Get() -> Regenerate();
 		}
@@ -217,7 +219,7 @@ final class LoginUser extends Base
 	 */
 	public function Logout()
 	{
-		if (class_exists('Session'))
+		if (class_exists('\\System\\Session'))
 		{
 			Session::Get() -> Regenerate(TRUE);
 		}

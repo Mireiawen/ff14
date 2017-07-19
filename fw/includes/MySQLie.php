@@ -11,7 +11,7 @@ if (!extension_loaded('mysqli'))
  * Extend the MySQLi class functionality with our own methods
  *
  * $Author: mireiawen $
- * $Id: MySQLie.php 438 2017-07-10 16:20:48Z mireiawen $
+ * $Id: MySQLie.php 440 2017-07-10 23:09:21Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
 class MySQLie extends mysqli

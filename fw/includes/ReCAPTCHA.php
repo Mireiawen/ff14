@@ -23,7 +23,7 @@ require_once(SYSTEM_PATH . '/libraries/recaptcha-php/recaptchalib.php');
  * user's session so it is not asked every time
  * 
  * $Author: mireiawen $
- * $Id: ReCAPTCHA.php 255 2015-06-02 21:50:26Z mireiawen $
+ * $Id: ReCAPTCHA.php 448 2017-07-11 22:19:58Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
 final class reCAPTCHA extends Base
@@ -53,7 +53,7 @@ final class reCAPTCHA extends Base
 		$this -> validated = FALSE;
 
 		// If we have session, check it
-		if (class_exists('Session'))
+		if (class_exists('\\System\\Session'))
 		{
 			if (array_key_exists('reCAPTCHA', $_SESSION))
 			{
@@ -108,7 +108,7 @@ final class reCAPTCHA extends Base
 		if ($this -> validated)
 		{
 			// Session handles it, no need for extra code
-			if (class_exists('Session'))
+			if (class_exists('\\System\\Session'))
 			{
 				return '';
 			}
@@ -152,7 +152,7 @@ final class reCAPTCHA extends Base
 		if ($answer -> is_valid)
 		{
 			$this -> validated = TRUE;
-			if (class_exists('Session'))
+			if (class_exists('\\System\\Session'))
 			{
 				$_SESSION['reCAPTCHA'] = TRUE;
 			}
@@ -173,7 +173,7 @@ final class reCAPTCHA extends Base
 	public function Invalidate()
 	{
 		$this -> validated = FALSE;
-		if (class_exists('Session'))
+		if (class_exists('\\System\\Session'))
 		{
 			$_SESSION['reCAPTCHA'] = FALSE;
 		}

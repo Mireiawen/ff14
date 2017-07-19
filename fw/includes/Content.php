@@ -1,4 +1,6 @@
 <?php
+namespace System;
+
 // Check environment
 if  (!defined('SYSTEM_PATH'))
 {
@@ -21,7 +23,7 @@ require_once(SYSTEM_PATH . '/includes/Page.php');
  * This is a final class, and should not be tried to extend.
  * 
  * $Author: mireiawen $
- * $Id: Content.php 423 2017-03-28 13:16:38Z mireiawen $
+ * $Id: Content.php 446 2017-07-11 22:10:31Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
 final class Content extends Base
@@ -231,7 +233,7 @@ final class Content extends Base
 		}
 		
 		// Catch exception if we got one
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			// Not AJAX request, just throw it again
 			// TODO: could we catch it and show error here instead?
@@ -380,13 +382,13 @@ final class Content extends Base
 					// Show more detailed error when debugging
 					if ((defined('DEBUG')) && (DEBUG))
 					{
-						trigger_error(sprintf(_('Page "%s" not found'), $orig), E_USER_WARNING);
+						Error::Message(sprintf(_('Page "%s" not found'), $orig), ERROR_LEVEL_ERROR);
 					}
 					
 					// Just tell it was not found
 					else
 					{
-						trigger_error(_('Page not found'), E_USER_WARNING);
+						Error::Message(_('Page not found'), ERROR_LEVEL_ERROR);
 					}
 					
 					// Try to show a common 404 page
@@ -402,13 +404,13 @@ final class Content extends Base
 						// Show more detailed error when debugging
 						if ((defined('DEBUG')) && (DEBUG))
 						{
-							throw new Exception(sprintf(_('Page "%s" not found'), $orig));
+							throw new \Exception(sprintf(_('Page "%s" not found'), $orig));
 						}
 						
 						// Just tell it was not found
 						else
 						{
-							throw new Exception(_('Page not found'));
+							throw new \Exception(_('Page not found'));
 						}
 					}
 				}
@@ -443,7 +445,7 @@ final class Content extends Base
 		}
 		
 		// Set up the current controller path
-		if (class_exists('URL'))
+		if (class_exists('\\System\\URL'))
 		{
 			// Strip the base path from it
 			if (StartsWith($page, CONTROLLER_PATH_ROOT))
@@ -467,7 +469,7 @@ final class Content extends Base
 		// Load the file itself
 		if ((!file_exists($filename)) || (!is_readable($filename)))
 		{
-			throw new Exception(sprintf(_('Page "%s" does not exist or is not readable'), $class));
+			throw new \Exception(sprintf(_('Page "%s" does not exist or is not readable'), $class));
 		}
 		
 		require_once($filename);
@@ -476,14 +478,14 @@ final class Content extends Base
 		// Try to load it as controller class
 		if (!class_exists($class, FALSE))
 		{
-			throw new Exception(sprintf(_('Page does not implement required class "%s"'), $class));
+			throw new \Exception(sprintf(_('Page does not implement required class "%s"'), $class));
 		}
 		
 		// Make sure the class implements our controller interface
-		$refl = new ReflectionClass($class);
-		if (!$refl -> implementsInterface('Page'))
+		$refl = new \ReflectionClass($class);
+		if (!$refl -> implementsInterface('\System\Page'))
 		{
-			throw new Exception(sprintf(_('Class "%s" does not implement required interface "%s"'), $class, 'Page'));
+			throw new \Exception(sprintf(_('Class "%s" does not implement required interface "%s"'), $class, 'Page'));
 		}
 		
 		// Create instance of the page 
@@ -579,7 +581,7 @@ final class Content extends Base
 		$data = json_decode($this -> request_body, TRUE);
 		if ($data === NULL)
 		{
-			throw new Exception(_('Unable to read JSON data'));
+			throw new \Exception(_('Unable to read JSON data'));
 		}
 		
 		// And return the array

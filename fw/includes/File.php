@@ -1,4 +1,6 @@
 <?php
+namespace System;
+
 // Check environment
 if  (!defined('SYSTEM_PATH'))
 {
@@ -19,7 +21,7 @@ require_once(SYSTEM_PATH . '/includes/MIME.php');
  * $Id$
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
-class File extends SplFileInfo
+class File extends \SplFileInfo
 {
 	/*!
 	 * @brief The constructor
@@ -37,7 +39,7 @@ class File extends SplFileInfo
 		
 		if (!$this -> isFile())
 		{
-			throw new InvalidArgumentException(sprintf(_('Invalid argument "%s": %s'), $filename, _('It is not a file')));
+			throw new \InvalidArgumentException(sprintf(_('Invalid argument "%s": %s'), $filename, _('It is not a file')));
 		}
 	}
 	
@@ -83,7 +85,7 @@ class File extends SplFileInfo
 			}
 			
 			// And throw the exception
-			throw new Exception(sprintf(_('Unable to open the file "%s": %s'), $this -> GetRealpath(), $e['message']));
+			throw new \Exception(sprintf(_('Unable to open the file "%s": %s'), $this -> GetRealpath(), $e['message']));
 		}
 		
 		// Return the handle

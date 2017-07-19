@@ -1,4 +1,6 @@
 <?php
+namespace System;
+
 // Check environment
 if  (!defined('SYSTEM_PATH'))
 {
@@ -51,7 +53,7 @@ require_once(SYSTEM_PATH . '/includes/Singleton.php');
  * Change the "u" to "f" for including protocol and hostname 
  *
  * $Author: mireiawen $
- * $Id: URL.php 435 2017-07-08 20:52:43Z mireiawen $
+ * $Id: URL.php 448 2017-07-11 22:19:58Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
 final class URL
@@ -158,7 +160,7 @@ final class URL
 		
 		// Get the previous page from session
 		$this -> previous = FALSE;
-		if (class_exists('Session'))
+		if (class_exists('\\System\\Session'))
 		{
 			if ((is_array($_SESSION)) && (array_key_exists('url_current', $_SESSION)))
 			{
@@ -275,7 +277,7 @@ final class URL
 	 */
 	public function RevertCurrent()
 	{
-		if (class_exists('Session'))
+		if (class_exists('\\System\\Session'))
 		{
 			$_SESSION['url_current'] = $this -> GetPrevious();
 		}

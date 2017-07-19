@@ -1,4 +1,6 @@
 <?php
+namespace System;
+
 // Check environment
 if  (!defined('SYSTEM_PATH'))
 {
@@ -18,7 +20,7 @@ require_once(SYSTEM_PATH . '/includes/Singleton.php');
  * database connection at any time
  * 
  * $Author: mireiawen $
- * $Id: Database.singleton.php 238 2015-06-02 19:51:57Z mireiawen $
+ * $Id: Database.singleton.php 441 2017-07-11 21:02:54Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
 final class Database
@@ -53,13 +55,13 @@ final class Database
 		// Connect to the database
 		if (!isset(self::$instance))
 		{
-			self::$instance = new MySQLie($database, $username, $password, $hostname);
+			self::$instance = new \MySQLie($database, $username, $password, $hostname);
 		}
 
 		// Throw exception if we got error
 		if (self::$instance -> connect_errno)
 		{
-			throw new Exception(sprintf(_('Unable to connect to the database: %s'), self::$instance -> connect_error));
+			throw new \Exception(sprintf(_('Unable to connect to the database: %s'), self::$instance -> connect_error));
 		}
 		
 		// Return instance

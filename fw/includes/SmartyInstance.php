@@ -1,4 +1,6 @@
 <?php
+namespace System;
+
 // Check environment
 if  (!defined('SYSTEM_PATH'))
 {
@@ -20,7 +22,7 @@ require_once(SYSTEM_PATH . '/libraries/Smarty/Smarty.class.php');
  * A class that allows us to get single instance of Smarty
  * 
  * $Author: mireiawen $
- * $Id: SmartyInstance.php 256 2015-06-02 21:51:17Z mireiawen $
+ * $Id: SmartyInstance.php 441 2017-07-11 21:02:54Z mireiawen $
  */
 final class SmartyInstance extends Base
 {
@@ -41,7 +43,7 @@ final class SmartyInstance extends Base
 	 */
 	protected function __construct()
 	{
-		$this -> __set('Smarty', new Smarty());
+		$this -> __set('Smarty', new \Smarty());
 	}
 	
 	/*!
