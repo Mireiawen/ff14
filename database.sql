@@ -1,3 +1,4 @@
+SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `Category`;
 DROP TABLE IF EXISTS `Skill`;
 DROP TABLE IF EXISTS `Job`;
@@ -42,6 +43,7 @@ CREATE TABLE `Skill` (
 	`Name_FR` varchar(64) NOT NULL COMMENT 'Skill name, French',
 	`Icon` varchar(64) NULL DEFAULT NULL COMMENT 'Icon name',
 	`Cost` int(4) NOT NULL COMMENT 'Skill CP cost',
+	`Restore` int(4) NOT NULL DEFAULT 0 COMMENT 'Skill CP restore',
 	`Buff` int(1) NOT NULL COMMENT 'Is the skill buff',
 	PRIMARY KEY (`ID`),
 	UNIQUE (`XIVDB_ID`),

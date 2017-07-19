@@ -136,7 +136,7 @@
 						<ul class="list-inline">
 						{foreach $skills as $skill}
 							{if $skill -> GetCategory() === $category -> GetID()}
-							<li data-xivdb-id="{$skill -> GetXIVDB_ID()}" data-icon="{$skill -> GetIcon()}" data-cost="{$skill -> GetCost()}" data-name="{$skill -> GetName_EN()}" data-buff="{$skill -> GetBuff()}">
+							<li data-xivdb-id="{$skill -> GetXIVDB_ID()}" data-icon="{$skill -> GetIcon()}" data-cost="{$skill -> GetCost()}" data-restore="{$skill -> GetRestore()}" data-name="{$skill -> GetName_EN()}" data-buff="{$skill -> GetBuff()}">
 								<a href="https://xivdb.com/action/{$skill -> GetXIVDB_ID()}" data-xivdb-id="{$skill -> GetXIVDB_ID()}" data-xivdb-replace="0"><img src="https://secure.xivdb.com/img/game/{math equation="id-id%1000" id=$skill -> GetIcon() format="%06d"}/{$skill -> GetIcon()|string_format:"%06d"}.png"></a>
 							{/if}
 							</li>
@@ -167,7 +167,7 @@
 	<p>{t}Loading the tool. This should take 5-15 seconds. If the loading does not seem to complete, you may not have JavaScript working. Unfortunately this tool will not work without the JavaScript so you will need to enable it.{/t}</p>
 </div>
 <script type="text/x-tmpl" id="tmpl-skill">
-<li data-xivdb-id="[%=o.xivdb_id%]" data-cost="[%=o.cp_cost%]" data-name="[%=o.name%]" data-type="[%=o.type%]">
+<li data-xivdb-id="[%=o.xivdb_id%]" data-cost="[%=o.cp_cost%]" data-restore="[%=o.cp_restore%]" data-name="[%=o.name%]" data-type="[%=o.type%]">
 	<div class="row">
 		<div class="col-md-1"><a href="[%=o.link%]" data-xivdb-id="[%=o.xivdb_id%]" data-xivdb-replace="0"><img src="[%=o.img%]"></a></div>
 		<div class="col-md-3"><strong>[%=o.name%]</strong><br>[%=o.cp_cost%] {t}CP{/t}</div>

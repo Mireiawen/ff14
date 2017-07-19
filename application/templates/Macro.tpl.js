@@ -85,6 +85,7 @@ function AddAction(id, calculate = true)
 	name = skill.attr('data-name');
 	icon = parseInt(skill.attr('data-icon'));
 	cost = parseInt(skill.attr('data-cost'));
+	restore = parseInt(skill.attr('data-restore'));
 	buff = parseInt(skill.attr('data-buff'));
 	img = $("#skill-list [data-xivdb-id='" + id + "'] img:first").clone();
 	
@@ -94,15 +95,16 @@ function AddAction(id, calculate = true)
 	{
 		'xivdb_id': id,
 		'cp_cost': cost,
+		'cp_restore': restore,
 		'name': skill.attr('data-name'),
 		'type': buff,
 		'link': sprintf('https://xivdb.com/action/%s', id),
 		'img': sprintf('https://secure.xivdb.com/img/game/%06d/%06d.png', icon-icon%1000, icon),
 	};
-
+	
 	// Append the template to the steps
 	skills.append(tmpl('tmpl-skill', data));
-
+	
 	// Recalculate the tooltips
 	XIVDBTooltips.get();
 	
@@ -166,10 +168,17 @@ function CalculateCP()
 		
 		// Add the CP cost
 		cp += parseInt($(this).attr('data-cost'));
-		data.cp_cost = cp;
 		
 		// Check the max CP cost
 		max_cp = Math.max(cp, max_cp);
+		
+		// Add the CP restore
+		cp -= parseInt($(this).attr('data-restore'));
+		if (cp < 0)
+		{
+			cp = 0;
+		}
+		data.cp_cost = cp;
 		
 		// Update the current step information
 		$(".info", this).html(tmpl('tmpl-step-info', data));

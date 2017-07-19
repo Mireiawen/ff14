@@ -395,7 +395,7 @@ try
 		
 		// Create the SQL query
 		$sql = sprintf(
-			'INSERT INTO %s (%s, %s, %s, %s, %s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+			'INSERT INTO %s (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
 			$db -> escape_identifier('Skill'),
 			$db -> escape_identifier('XIVDB_ID'),
 			$db -> escape_identifier('Name_EN'),
@@ -405,6 +405,7 @@ try
 			$db -> escape_identifier('Category'),
 			$db -> escape_identifier('Icon'),
 			$db -> escape_identifier('Cost'),
+			$db -> escape_identifier('Restore'),
 			$db -> escape_identifier('Buff'));
 		$stmt = $db -> prepare($sql);
 		if ($stmt === FALSE)
@@ -421,10 +422,11 @@ try
 		$category = 0;
 		$icon = '';
 		$cost = 0;
+		$restore = 0;
 		$buff = 0;
 		$job = NULL;
 		$level = 1;
-		if (!$stmt -> bind_param('isssssiii', $xivdb_id, $name_en, $name_jp, $name_de, $name_fr, $category, $icon, $cost, $buff))
+		if (!$stmt -> bind_param('isssssiiii', $xivdb_id, $name_en, $name_jp, $name_de, $name_fr, $category, $icon, $cost, $restore, $buff))
 		{
 			throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 		}
@@ -476,6 +478,7 @@ try
 			$name_fr = $row['name_fr'];
 			$icon = $row['icon'];
 			$cost = $row['cost_cp'];
+			$restore = 0;
 			$buff = FALSE;
 			$added[$row['name_en']] = TRUE;
 			
@@ -546,6 +549,25 @@ try
 			if (isset($data['action']['cost']))
 			{
 				$cost = $data['action']['cost'];
+			}
+			
+			// CP Restore knowledge
+			// Tricks of the Trade
+			if ($xivdb_id === 100098)
+			{
+				$restore = 20;
+			}
+			
+			// Satisfaction
+			if ($xivdb_id === 100169)
+			{
+				$restore = 15;
+			}
+			
+			// Specialty: Refurbish
+			if ($xivdb_id === 100267)
+			{
+				$restore = 65;
 			}
 			
 			// Category information
