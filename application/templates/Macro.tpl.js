@@ -1,11 +1,24 @@
 // XIVDB Tooltips setup
 // https://github.com/xivdb/tooltips
+var skip_tooltips = false;
 var xivdb_tooltips =
 {
 	// Hide the loader/NoJS and show the actual tool
 	includeHiddenLinks: true,
 	event_tooltipsLoaded: function()
 	{
+		$("#macro_nojs").hide();
+		$("#macro_container").show();
+	},
+	event_tooltipsError: function()
+	{
+		bootbox.alert({
+			'title': '{t}Error loading tooltips{/t}',
+			'message': '{t}Unable to load tooltips from XIVDB{/t}',
+			'onEscape': true,
+			'backdrop': true,
+		});
+		skip_tooltips = true;
 		$("#macro_nojs").hide();
 		$("#macro_container").show();
 	},
@@ -104,7 +117,10 @@ function AddAction(id, calculate = true)
 	skills.append(tmpl('tmpl-skill', data));
 
 	// Recalculate the tooltips
-	XIVDBTooltips.get();
+	if (!skip_tooltips)
+	{
+		XIVDBTooltips.get();
+	}
 	
 	// Recalculate the CP amounts
 	if (calculate)
