@@ -7,15 +7,15 @@ namespace System\User;
  * A simple default page with login form
  *
  * $Author: mireiawen $
- * $Id: Login.php 395 2015-11-13 00:08:53Z mireiawen $
+ * $Id: Login.php 441 2017-07-11 21:02:54Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
-class Login extends \Base implements \Page
+class Login extends \System\Base implements \System\Page
 {
 	/*!
 	 * @brief Load the templating trait
 	 */
-	use \SmartyTemplates;
+	use \System\SmartyTemplates;
 	
 	/*!
 	 * @brief Constructor for the class
@@ -62,9 +62,9 @@ class Login extends \Base implements \Page
 		}
 		
 		// Check if we should revert the current URL to what was previously asked
-		if (\URL::Get() -> GetRequestedControlPath() === '/User/Login')
+		if (\System\URL::Get() -> GetRequestedControlPath() === '/User/Login')
 		{
-			\URL::Get() -> RevertCurrent();
+			\System\URL::Get() -> RevertCurrent();
 		}
 		
 		// Handle rest
@@ -83,21 +83,21 @@ class Login extends \Base implements \Page
 	public function Show()
 	{
 		// Check if we are already logged in
-		if (\LoginUser::Get() -> IsLoggedIn())
+		if (\System\LoginUser::Get() -> IsLoggedIn())
 		{
 			// Return user to their previous page, or Dashboard
-			$url = \URL::Get() -> GetRequestedControlPath();
+			$url = \System\URL::Get() -> GetRequestedControlPath();
 			if (($url === FALSE) || ($url === '/User/Login'))
 			{
-				$url = \URL::Get() -> GetPrevious();
-				if (($url === FALSE) || ($url === \URL::Get() -> GetSelf()))
+				$url = \System\URL::Get() -> GetPrevious();
+				if (($url === FALSE) || ($url === \System\URL::Get() -> GetSelf()))
 				{
-					$url = \URL::Get() -> Generage('User/Dashboard');
+					$url = \System\URL::Get() -> Generage('User/Dashboard');
 				}
 			}
 			else
 			{
-				$url = \URL::Get() -> Generate($url);
+				$url = \System\URL::Get() -> Generate($url);
 			}
 			header('Location: ' . $url);
 			
@@ -114,7 +114,7 @@ class Login extends \Base implements \Page
 		}
 		
 		// Assign page title
-		\SmartyInstance::Get() -> assign('title', _('Login'));
+		\System\SmartyInstance::Get() -> assign('title', _('Login'));
 		
 		// Check for the POST data for possible username
 		$username = '';

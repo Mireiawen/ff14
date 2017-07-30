@@ -16,7 +16,7 @@ require_once(SYSTEM_PATH . '/includes/DataObject.php');
  *
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
-class Category extends \DataObject
+class Category extends \System\DataObject
 {
 	// Category definitions
 	const PROGRESS = 1;

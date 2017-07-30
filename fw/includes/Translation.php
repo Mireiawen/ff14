@@ -1,4 +1,6 @@
 <?php
+namespace System;
+
 // Check environment
 if  (!defined('SYSTEM_PATH'))
 {
@@ -19,7 +21,7 @@ require_once(SYSTEM_PATH . '/includes/Singleton.php');
  * based on the given language.
  *
  * $Author: mireiawen $
- * $Id: Translation.php 342 2015-07-06 12:11:54Z mireiawen $
+ * $Id: Translation.php 448 2017-07-11 22:19:58Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
 final class Translation extends Base
@@ -51,7 +53,7 @@ final class Translation extends Base
 		// Check for extensions
 		if (!extension_loaded('intl'))
 		{
-			throw new Exception(_('Internationalization extension intl is required!'));
+			throw new \Exception(_('Internationalization extension intl is required!'));
 		}
 		
 		// Check for translation path
@@ -77,7 +79,7 @@ final class Translation extends Base
 		}
 		
 		// Load from session
-		if ((class_exists('Session')) && (isset($_SESSION['lang'])))
+		if ((class_exists('\\System\\Session')) && (isset($_SESSION['lang'])))
 		{
 			$lang = $_SESSION['lang'];
 		}
@@ -156,7 +158,7 @@ final class Translation extends Base
 		$this -> lang = $lang;
 		
 		// Set it up in session
-		if (class_exists('Session'))
+		if (class_exists('\\System\\Session'))
 		{
 			$_SESSION['lang'] = $lang;
 		}

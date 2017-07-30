@@ -2,7 +2,7 @@
 /**
  * Framework Initializer
  *
- * Copyright 2013,2014 Mireiawen Rose
+ * Copyright Mireiawen Rose
  * 
  * This file handles the initialization of the framework
  * You can load it with your index.php
@@ -155,15 +155,15 @@ try
 	
 	// Load session
 	require_once(SYSTEM_PATH . '/includes/Session.php');
-	Session::Create(SESSION_IDENTIFIER);
+	\System\Session::Create(SESSION_IDENTIFIER);
 	
 	// Translation
 	require_once(SYSTEM_PATH . '/includes/Translation.php');
-	Translation::Create();
+	\System\Translation::Create();
 	
 	// Templating framework
 	require_once(SYSTEM_PATH . '/includes/SmartyInstance.php');
-	$Smarty = SmartyInstance::Create();
+	$Smarty = \System\SmartyInstance::Create();
 	
 	// Set up paths
 	$Smarty -> setTemplateDir(array(VIEW_PATH, SYSTEM_PATH . '/templates'));
@@ -180,7 +180,7 @@ try
 	
 	// Error handler
 	require_once(SYSTEM_PATH . '/includes/Error.php');
-	Error::Create();
+	\System\Error::Create();
 }
 
 // Error handler should take over now, catch exceptions before it
@@ -201,7 +201,7 @@ if ((defined('DATABASE')) && (DATABASE)	)
 	}
 	
 	require_once(SYSTEM_PATH . '/includes/Database.singleton.php');
-	Database::Create(DATABASE, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_HOSTNAME);
+	\System\Database::Create(DATABASE, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_HOSTNAME);
 }
 
 // Load the caching backend
@@ -210,22 +210,22 @@ require_once(SYSTEM_PATH . '/includes/Cache/Backend.php');
 
 // Load user info
 require_once(SYSTEM_PATH . '/includes/LoginUser.php');
-LoginUser::Create();
+\System\LoginUser::Create();
 
 // Load geolocation
 require_once(SYSTEM_PATH . '/includes/Geolocation.php');
-Geolocation::Create();
+\System\Geolocation::Create();
 
 // Load logger
 require_once(SYSTEM_PATH . '/includes/Log.php');
-Log::Create();
+\System\Log::Create();
 
 // Load URL generator
 require_once(SYSTEM_PATH . '/includes/URL.php');
-URL::Create();
+\System\URL::Create();
 
 // User login
-LoginUser::Get() -> ReadLogin();
+\System\LoginUser::Get() -> ReadLogin();
 
 // User specific initialization
 if (is_readable(APPLICATION_PATH . '/Initialize.php'))
@@ -238,8 +238,8 @@ if ((!defined('LOAD_CONTENT')) || (LOAD_CONTENT))
 {
 	require_once(SYSTEM_PATH . '/includes/Content.php');
 	
-	$page = new Content();
-	SmartyInstance::Get() -> assign('Template', $page);
-	SmartyInstance::Get() -> assign('Language', Translation::Get() -> GetLang());
+	$page = new \System\Content();
+	\System\SmartyInstance::Get() -> assign('Template', $page);
+	\System\SmartyInstance::Get() -> assign('Language', \System\Translation::Get() -> GetLang());
 	$page -> Show();
 }

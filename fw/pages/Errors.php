@@ -9,15 +9,15 @@ namespace System;
  * error codes with cats in the template.
  *
  * $Author: mireiawen $
- * $Id: Errors.php 363 2015-08-23 21:38:40Z mireiawen $
+ * $Id: Errors.php 442 2017-07-11 21:31:18Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
-final class Errors extends \Base implements \Page
+final class Errors extends \System\Base implements \System\Page
 {
 	/*!
 	 * @brief Load the templating trait
 	 */
-	use \SmartyTemplates;
+	use \System\SmartyTemplates;
 	
 	/*!
 	 * @brief Constructor for the class
@@ -61,7 +61,7 @@ final class Errors extends \Base implements \Page
 		}
 
 		// Try showing login form
-		if (($this -> code === 401) && (! \LoginUser::Get() -> IsLoggedIn()))
+		if (($this -> code === 401) && (! \System\LoginUser::Get() -> IsLoggedIn()))
 		{
 			return '/User/Login';
 		}
@@ -85,8 +85,8 @@ final class Errors extends \Base implements \Page
 		http_response_code($this -> code);
 		
 		// Set up the page title
-		\SmartyInstance::Get() -> assign('title', sprintf(_('Error - %s'), $this -> code));
-
+		\System\SmartyInstance::Get() -> assign('title', sprintf(_('Error - %s'), $this -> code));
+		
 		// Try creating template specific for this code
 		$tpl = $this -> CreateTpl('Errors/' . $this -> code . '.tpl.html');
 		if ($tpl === FALSE)
@@ -94,14 +94,14 @@ final class Errors extends \Base implements \Page
 			// Template not found, try generic template
 			$tpl = $this -> CreateTpl('Errors/Base.tpl.html');
 		}
-
+		
 		// Template still not found, just show text
 		if ($tpl === FALSE)
 		{
 			printf(_('Got error %d. Additionally, was unable to load any error template!'), $this -> code);
 			return TRUE;
 		}
-
+		
 		// Assign the code to template and show it
 		$tpl -> assign('code', $this -> code);
 		$tpl -> display();

@@ -1,4 +1,6 @@
 <?php
+namespace System;
+
 // Check environment
 if  (!defined('SYSTEM_PATH'))
 {
@@ -19,7 +21,7 @@ require_once(SYSTEM_PATH . '/includes/MIME.php');
  * and valid constants in environment.
  *
  * $Author: mireiawen $
- * $Id: Image.php 322 2015-06-15 06:52:50Z mireiawen $
+ * $Id: Image.php 448 2017-07-11 22:19:58Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
 trait Image
@@ -63,7 +65,7 @@ trait Image
 	{
 		if (!is_readable($filename))
 		{
-			throw new Exception(sprintf(_('File "%s" was not found or was not readable'), $filename));
+			throw new \Exception(sprintf(_('File "%s" was not found or was not readable'), $filename));
 		}
 		
 		return MIME::Type($filename);
@@ -91,7 +93,7 @@ trait Image
 			// And get the size info
 			return $this -> GetImageDimensions($image);
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			throw new Exception(sprintf(_('Unable to read image size from "%s": %s'), $filename, $e -> getMessage()));
 		}
@@ -113,7 +115,7 @@ trait Image
 	protected function GetImageDimensions($image)
 	{
 		// Check ImageMagick object
-		if ((class_exists('Imagick')) && ($image instanceof Imagick))
+		if ((class_exists('\\Imagick')) && ($image instanceof \Imagick))
 		{
 			// Read image size
 			$x = $image -> getImageWidth();
@@ -131,7 +133,7 @@ trait Image
 		// Make sure we were able to read the size
 		if (($x === FALSE) || ($y === FALSE))
 		{
-			throw new Exception(_('Unknown size'));
+			throw new \Exception(_('Unknown size'));
 		}
 		
 		return array(
@@ -161,13 +163,13 @@ trait Image
 		// Make sure input is valid
 		if ((!is_int($xsize)) || (!is_int($ysize)))
 		{
-			throw new InvalidArgumentException(sprintf(_('Expected 2 integers, got %s and %s'), gettype($xsize), gettype($ysize)));
+			throw new \InvalidArgumentException(sprintf(_('Expected 2 integers, got %s and %s'), gettype($xsize), gettype($ysize)));
 		}
 		
 		// Make sure we have at least one size is valid
 		if (($xsize < 1) && ($ysize < 1))
 		{
-			throw new Exception(sprintf(_('Invalid size for the image: %dx%d'), $xsize, $ysize));
+			throw new \Exception(sprintf(_('Invalid size for the image: %dx%d'), $xsize, $ysize));
 		}
 		
 		// Get the image itself
@@ -198,7 +200,7 @@ trait Image
 		}
 		
 		// Check ImageMagick object
-		if ((class_exists('Imagick')) && ($src instanceof Imagick))
+		if ((class_exists('\\Imagick')) && ($src instanceof \Imagick))
 		{
 			// Resize the image
 			$src -> resizeImage($dst_x, $dst_y, \Imagick::FILTER_LANCZOS, 1);
@@ -215,13 +217,13 @@ trait Image
 			$dst = imagecreatetruecolor($dst_x, $dst_y);
 			if ($dst === FALSE)
 			{
-				throw new Exception(sprintf(_('Unable to create the resized image: %s'), _('GD failed, see server error log')));
+				throw new \Exception(sprintf(_('Unable to create the resized image: %s'), _('GD failed, see server error log')));
 			}
 			
 			// Resize it
 			if (!imagecopyresampled($dst, $src, 0, 0, 0, 0, $dst_x, $dst_y, $src_x, $src_y))
 			{
-				throw new Exception(_('Unable to scale the image'));
+				throw new \Exception(_('Unable to scale the image'));
 			}
 			
 			// And return it
@@ -250,7 +252,7 @@ trait Image
 		// Make sure we have x-scale
 		if (!$xscale)
 		{
-			throw new Exception(sprintf(_('Invalid scale for the image: %f'), $xscale));
+			throw new \Exception(sprintf(_('Invalid scale for the image: %f'), $xscale));
 		}
 		
 		// Get the image itself
@@ -268,7 +270,7 @@ trait Image
 		$dst_y = round($src_y * $yscale);
 		
 		// Check ImageMagick object
-		if ((class_exists('Imagick')) && ($src instanceof Imagick))
+		if ((class_exists('\\Imagick')) && ($src instanceof \Imagick))
 		{
 			// Resize the image
 			$src -> resizeImage($dst_x, $dst_y, \Imagick::FILTER_LANCZOS, 1);
@@ -285,13 +287,13 @@ trait Image
 			$dst = imagecreatetruecolor($dst_x, $dst_y);
 			if ($dst === FALSE)
 			{
-				throw new Exception(sprintf(_('Unable to create the resized image: %s'), _('GD failed, see server error log')));
+				throw new \Exception(sprintf(_('Unable to create the resized image: %s'), _('GD failed, see server error log')));
 			}
 			
 			// Resize it
 			if (!imagecopyresampled($dst, $src, 0, 0, 0, 0, $dst_x, $dst_y, $src_x, $src_y))
 			{
-				throw new Exception(_('Unable to scale the image'));
+				throw new \Exception(_('Unable to scale the image'));
 			}
 			
 			// And return it
@@ -317,7 +319,7 @@ trait Image
 		// Default to ImageMagick
 		if ((!IMAGES_FORCE_GD) && (extension_loaded('imagick')))
 		{
-			$image = new Imagick();
+			$image = new \Imagick();
 			$image -> readImage($filename);
 			return $image;
 		}
@@ -334,7 +336,7 @@ trait Image
 			case 'image/png':
 				if (!function_exists('createimagefrompng'))
 				{
-					throw new Exception(sprintf(_('Support for file type %s is missing'), $mime));
+					throw new \Exception(sprintf(_('Support for file type %s is missing'), $mime));
 				}
 				$image = createimagefrompng($filename);
 				break;
@@ -342,25 +344,25 @@ trait Image
 			case 'image/jpg':
 				if (!function_exists('createimagefromjpeg'))
 				{
-					throw new Exception(sprintf(_('Support for file type %s is missing'), $mime));
+					throw new \Exception(sprintf(_('Support for file type %s is missing'), $mime));
 				}
 				$image = createimagefromjpeg($filename);
 				break;
 			case 'image/gif':
 				if (!function_exists('createimagefromgif'))
 				{
-					throw new Exception(sprintf(_('Support for file type %s is missing'), $mime));
+					throw new \Exception(sprintf(_('Support for file type %s is missing'), $mime));
 				}
 				$image = createimagefromgif($filename);
 				break;
 			default:
-				throw new Exception(sprintf(_('Invalid image type "%s"'), $mime));
+				throw new \Exception(sprintf(_('Invalid image type "%s"'), $mime));
 			}
 			
 			// Check that creation was success
 			if ($image === FALSE)
 			{
-				throw new Exception(sprintf(_('Invalid image file "%s" for MIME type "%s"'), $this -> GetFilename(), $mime));
+				throw new \Exception(sprintf(_('Invalid image file "%s" for MIME type "%s"'), $this -> GetFilename(), $mime));
 			}
 			
 			return $image;
@@ -382,7 +384,7 @@ trait Image
 	public function WriteImage($image)
 	{
 		// Check ImageMagick object
-		if ((class_exists('Imagick')) && ($image instanceof Imagick))
+		if ((class_exists('\\Imagick')) && ($image instanceof \Imagick))
 		{
 			echo $this -> image -> getImageBlob();
 		}
@@ -404,7 +406,7 @@ trait Image
 			case 'image/gif':
 				return imagegif($this -> image, NULL);
 			default:
-				throw new Exception(sprintf(_('Invalid image type "%s"'), $mime));
+				throw new \Exception(sprintf(_('Invalid image type "%s"'), $mime));
 			}
 		}
 	}

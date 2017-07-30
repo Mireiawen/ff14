@@ -1,4 +1,6 @@
 <?php
+namespace System;
+
 // Check environment
 if  (!defined('SYSTEM_PATH'))
 {
@@ -17,7 +19,7 @@ require_once(SYSTEM_PATH . '/includes/Singleton.php');
  * Basic session creation, validation and invalidation
  * 
  * $Author: mireiawen $
- * $Id: Session.php 412 2016-07-18 13:12:48Z mireiawen $
+ * $Id: Session.php 441 2017-07-11 21:02:54Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
 final class Session extends Base

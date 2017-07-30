@@ -1,4 +1,6 @@
 <?php
+namespace System;
+
 // Check environment
 if  (!defined('SYSTEM_PATH'))
 {
@@ -12,7 +14,7 @@ if  (!defined('SYSTEM_PATH'))
  * color code conversions
  *
  * $Author: mireiawen $
- * $Id: Color.php 384 2015-10-12 09:44:36Z mireiawen $
+ * $Id: Color.php 441 2017-07-11 21:02:54Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
 

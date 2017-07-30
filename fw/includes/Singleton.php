@@ -1,4 +1,5 @@
 <?php
+namespace System;
 
 /*!
  * @brief A trait for singleton pattern
@@ -10,7 +11,7 @@
  * to pass parameters or check some values.
  * 
  * $Author: mireiawen $
- * $Id: Singleton.php 252 2015-06-02 21:34:14Z mireiawen $
+ * $Id: Singleton.php 441 2017-07-11 21:02:54Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
 trait Singleton
@@ -75,7 +76,7 @@ trait Singleton
 	{
 		if (!isset(self::$instance))
 		{
-			throw new Exception(sprintf(_('Instance of %s does not exist yet'), get_class()));
+			throw new \Exception(sprintf(_('Instance of %s does not exist yet'), get_class()));
 		}
 		
 		return self::$instance;

@@ -1,4 +1,6 @@
 <?php
+namespace System;
+
 // Check environment
 if  (!defined('SYSTEM_PATH'))
 {
@@ -15,7 +17,7 @@ require_once(SYSTEM_PATH . '/includes/SmartyTemplates.php');
  * the classes used by the framework and its pages
  *
  * $Author: mireiawen $
- * $Id: Base.php 347 2015-07-14 14:48:14Z mireiawen $
+ * $Id: Base.php 445 2017-07-11 22:10:04Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
 abstract class Base
@@ -67,7 +69,7 @@ abstract class Base
 		$this -> vars = array();
 		
 		// Get Smarty
-		if (($smarty) && (class_exists('SmartyInstance')))
+		if (($smarty) && (class_exists('\\System\\SmartyInstance')))
 		{
 			$this -> Smarty = SmartyInstance::Get();
 		}
@@ -90,7 +92,7 @@ abstract class Base
 	{
 		if (!array_key_exists($key, $this -> vars))
 		{
-			throw new Exception(sprintf(_('Missing key "%s" in %s'), $key, get_class($this)));
+			throw new \Exception(sprintf(_('Missing key "%s" in %s'), $key, get_class($this)));
 		}
 		
 		return $this -> vars[$key];
@@ -157,12 +159,12 @@ abstract class Base
 	{
 		// Extract Get/Set and the name of variable
 		$type = strtolower(substr($method, 0, 3));
-
+		
 		// Get the variable and validate we have something
 		$key = substr($method, 3);
 		if (empty($key))
 		{
-			throw new Exception(sprintf(_('%s method call is missing the variable name'), ucfirst($type)));
+			throw new \Exception(sprintf(_('%s method call is missing the variable name'), ucfirst($type)));
 		}
 		
 		switch ($type)
@@ -175,19 +177,19 @@ abstract class Base
 			break;
 		
 		default:
-			throw new Exception(sprintf(_('Invalid call to unknown method "%s"'), $method));
+			throw new \Exception(sprintf(_('Invalid call to unknown method "%s"'), $method));
 		}
 		
 		// Validate the arguments
 		if (count($args) != 1)
 		{
-			throw new Exception(sprintf(_('Invalid amount of arguments for method "%s"'), $method));
+			throw new \Exception(sprintf(_('Invalid amount of arguments for method "%s"'), $method));
 		}
 		
 		// Make sure we don't try to change the ID
 		if ($key === 'ID')
 		{
-			throw new Exception(_('Changing of ID is not allowed'));
+			throw new \Exception(_('Changing of ID is not allowed'));
 		}
 		
 		return $this -> __set($key, $args[0]);

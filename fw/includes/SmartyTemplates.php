@@ -1,4 +1,5 @@
 <?php
+namespace System;
 
 /*!
  * @brief A trait for Smarty templates
@@ -8,7 +9,7 @@
  * checking before loading the files with Smarty.
  *
  * $Author: mireiawen $
- * $Id: SmartyTemplates.php 348 2015-07-14 14:50:32Z mireiawen $
+ * $Id: SmartyTemplates.php 441 2017-07-11 21:02:54Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
 trait SmartyTemplates

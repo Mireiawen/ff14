@@ -1,4 +1,5 @@
 <?php
+namespace System;
 
 /*!
  * @brief A page controller interface
@@ -7,7 +8,7 @@
  * that are to be loaded from the Content class
  *
  * $Author: mireiawen $
- * $Id: Page.php 259 2015-06-02 21:59:46Z mireiawen $
+ * $Id: Page.php 441 2017-07-11 21:02:54Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
 interface Page

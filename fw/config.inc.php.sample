@@ -80,3 +80,6 @@ define('TIMEZONE', 'UTC');
 
 // Show cache debugging
 #define('DEBUG_CACHE', TRUE);
+
+// Debug error log file
+#define('DEBUG_ERROR_LOG_FILE', '/tmp/debug.log');

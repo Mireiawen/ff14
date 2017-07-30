@@ -1,4 +1,6 @@
 <?php
+namespace System;
+
 // Check environment
 if  (!defined('SYSTEM_PATH'))
 {
@@ -34,10 +36,10 @@ require_once(SYSTEM_PATH . '/includes/Cache.php');
  * unique table field.
  *
  * $Author: mireiawen $
- * $Id: DataObject.php 434 2017-07-05 20:43:21Z mireiawen $
+ * $Id: DataObject.php 441 2017-07-11 21:02:54Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
-abstract class DataObject extends Base implements Serializable
+abstract class DataObject extends Base implements \Serializable
 {
 	/*!
 	 * @brief Handle the serialization of the class
@@ -175,7 +177,7 @@ abstract class DataObject extends Base implements Serializable
 		$key = substr($method, 3);
 		if (empty($key))
 		{
-			throw new Exception(sprintf(_('%s method call is missing the variable name'), ucfirst($type)));
+			throw new \Exception(sprintf(_('%s method call is missing the variable name'), ucfirst($type)));
 		}
 		
 		// Did we want to get data
@@ -187,14 +189,14 @@ abstract class DataObject extends Base implements Serializable
 		// Validate the arguments
 		if (count($args) != 1)
 		{
-			throw new Exception(sprintf(_('Invalid amount of arguments for method "%s"'), $method));
+			throw new \Exception(sprintf(_('Invalid amount of arguments for method "%s"'), $method));
 		}
 		$value = $args[0];
 		
 		// Make sure we don't try to change the ID
 		if ($key === 'ID')
 		{
-			throw new Exception(_('Changing of ID is not allowed'));
+			throw new \Exception(_('Changing of ID is not allowed'));
 		}
 		
 		// Check if value is actually changed
@@ -259,7 +261,7 @@ abstract class DataObject extends Base implements Serializable
 		// Validate the arguments
 		if (count($args) != 1)
 		{
-			throw new Exception(sprintf(_('Invalid amount of arguments for method "%s"'), $method));
+			throw new \Exception(sprintf(_('Invalid amount of arguments for method "%s"'), $method));
 		}
 		
 		// Get the key name
@@ -271,11 +273,11 @@ abstract class DataObject extends Base implements Serializable
 		// And make sure the key is unique
 		if (!array_key_exists($key, $o -> _fields))
 		{
-			throw new Exception(sprintf(_('"%s" is not a valid object creation key: %s'), $key, _('It does not exist')));
+			throw new \Exception(sprintf(_('"%s" is not a valid object creation key: %s'), $key, _('It does not exist')));
 		}
 		if (!$o -> _fields[$key]['unique'])
 		{
-			throw new Exception(sprintf(_('"%s" is not a valid object creation key: %s'), $key, _('It is not unique')));
+			throw new \Exception(sprintf(_('"%s" is not a valid object creation key: %s'), $key, _('It is not unique')));
 		}
 		
 		// Try loading data from cache
@@ -317,16 +319,16 @@ abstract class DataObject extends Base implements Serializable
 		}
 		
 		$stmt = $db -> prepare('SELECT ' . implode(', ', $fields) . '
-					FROM ' . $db -> escape_identifier(get_class($o)) . ' 
+					FROM ' . $db -> escape_identifier(self::__get_called_class_name($o)) . ' 
 					WHERE ' . $db -> escape_identifier($key) . ' = ?');
 		if ($stmt === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
 		}
 		
 		if (!$stmt -> bind_param($o -> _fields[$key]['type'], $args[0]))
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 		}
 		
 		// Execute the query
@@ -335,7 +337,7 @@ abstract class DataObject extends Base implements Serializable
 		// Make sure row contains something
 		if (!$row['ID'])
 		{
-			throw new Exception(sprintf(_('Unable to find %s with %s of value %s'), get_class($o), $key, $args[0]));
+			throw new \Exception(sprintf(_('Unable to find %s with %s of value %s'), get_class($o), $key, $args[0]));
 		}
 		
 		// Merge the data
@@ -385,7 +387,7 @@ abstract class DataObject extends Base implements Serializable
 		{
 			if (!array_key_exists($name, $data))
 			{
-				throw new Exception(sprintf(_('Unable to create %s from array: missing key %s'), get_class($o), $name));
+				throw new \Exception(sprintf(_('Unable to create %s from array: missing key %s'), get_class($o), $name));
 			}
 			
 			// TODO: type checking
@@ -455,18 +457,18 @@ abstract class DataObject extends Base implements Serializable
 		$db = Database::Get();
 		if ($db === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
 		}
 		
 		// Create the SQL query
 		$sql = 'SELECT *
-			FROM ' . $db -> escape_identifier(get_called_class());
+			FROM ' . $db -> escape_identifier(self::__get_called_class_name(get_called_class()));
 		
 		// Prepare the SQL query
 		$stmt = $db -> prepare($sql);
 		if ($stmt === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
 		}
 
 		// Convert the rows into objects
@@ -533,7 +535,7 @@ abstract class DataObject extends Base implements Serializable
 		$db = Database::Get();
 		if ($db === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
 		}
 		
 		// Update the key information
@@ -578,7 +580,7 @@ abstract class DataObject extends Base implements Serializable
 			}
 			
 			// Create the query
-			$sql = 'UPDATE ' . $db -> escape_identifier(get_class($this)) . ' 
+			$sql = 'UPDATE ' . $db -> escape_identifier(self::__get_called_class_name($this)) . ' 
 				SET ' . implode(", \n", $sets) . '
 				WHERE ' . $db -> escape_identifier('ID') . ' = ?';
 			
@@ -623,7 +625,7 @@ abstract class DataObject extends Base implements Serializable
 			}
 			
 			// Create the query
-			$sql = 'INSERT INTO ' . $db -> escape_identifier(get_class($this)) . ' 
+			$sql = 'INSERT INTO ' . $db -> escape_identifier(self::__get_called_class_name($this)) . ' 
 				(' . implode(', ', $keys) . ') 
 				VALUES (' . implode(', ', $fields) . ')';
 			$stmt = $db -> prepare($sql);
@@ -631,7 +633,7 @@ abstract class DataObject extends Base implements Serializable
 		
 		if ($stmt === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
 		}
 		
 		// Bind parameters
@@ -647,7 +649,7 @@ abstract class DataObject extends Base implements Serializable
 		
 		if (!call_user_func_array(array($stmt, 'bind_param'), $refs))
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 		}
 		
 		// Do the actual binary uploading
@@ -655,14 +657,14 @@ abstract class DataObject extends Base implements Serializable
 		{
 			if (!$stmt -> send_long_data($row['index'], $this -> __get($row['field'])))
 			{
-				throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+				throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 			}
 		}
 		
 		// Execute the query itself
 		if (!$stmt -> execute())
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 		}
 		
 		if (!$this -> GetID())
@@ -689,36 +691,36 @@ abstract class DataObject extends Base implements Serializable
 		// Make sure we have the ID
 		if ($this -> GetID() < 1)
 		{
-			throw new Exception(sprintf(_('Unable to delete %s without %s'), get_called_class(), 'ID'));
+			throw new \Exception(sprintf(_('Unable to delete %s without %s'), get_called_class(), 'ID'));
 		}
 		
 		// Get database connection
 		$db = Database::Get();
 		if ($db === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
 		}
 		
 		// Prepare the query
-		$sql = 'DELETE FROM ' . $db -> escape_identifier(get_called_class()) . ' 
+		$sql = 'DELETE FROM ' . $db -> escape_identifier(self::__get_called_class_name(get_called_class())) . ' 
 			WHERE ' . $db -> escape_identifier('ID') . ' = ?';
 		$stmt = $db -> prepare($sql);
 		if ($stmt === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
 		}
 		
 		// Set up parameters
 		$id = $this -> GetID();
 		if (!$stmt -> bind_param('i', $id))
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 		}
 		
 		// And execute it
 		if (!$stmt -> execute())
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 		}
 		
 		// Done
@@ -747,7 +749,7 @@ abstract class DataObject extends Base implements Serializable
 		$db = Database::Get();
 		if ($db === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
 		}
 		
 		// Update the key information
@@ -756,7 +758,7 @@ abstract class DataObject extends Base implements Serializable
 		// Make sure the key is known
 		if (!array_key_exists($key, $this -> _fields))
 		{
-			throw new Exception(sprintf(_('Unknown key "%s" in "%s"'), $key, get_class($this)));
+			throw new \Exception(sprintf(_('Unknown key "%s" in "%s"'), $key, get_class($this)));
 		}
 		
 		// Create new row
@@ -767,26 +769,26 @@ abstract class DataObject extends Base implements Serializable
 		}
 		
 		// Update the value
-		$stmt = $db -> prepare('UPDATE ' . $db -> escape_identifier(get_class($this)) . ' 
+		$stmt = $db -> prepare('UPDATE ' . $db -> escape_identifier(self::__get_called_class_name($this)) . ' 
 				SET ' . $db -> escape_identifier($key) . ' = ?
 				WHERE ' . $db -> escape_identifier('ID') . ' = ?');
 		
 		if ($stmt === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
 		}
 		
 		// Bind parameters
 		$id = $this -> GetID();
 		if (!$stmt -> bind_param($this -> _fields[$key]['type'] . 'i', $value, $id))
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 		}
 		
 		// Execute the query itself
 		if (!$stmt -> execute())
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
 		}
 		
 		return $value;
@@ -844,13 +846,13 @@ abstract class DataObject extends Base implements Serializable
 		$db = Database::Get();
 		if ($db === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
 		}
 		
-		$stmt = $db -> prepare('DESCRIBE ' . $db -> escape_identifier(get_class($this)));
+		$stmt = $db -> prepare('DESCRIBE ' . $db -> escape_identifier(self::__get_called_class_name($this)));
 		if ($stmt === FALSE)
 		{
-			throw new Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
 		}
 		
 		// Execute the query itself
@@ -961,7 +963,7 @@ abstract class DataObject extends Base implements Serializable
 			return 'b';
 		
 		default:
-			throw new Exception(sprintf(_('Unknown data type "%s"'), $type));
+			throw new \Exception(sprintf(_('Unknown data type "%s"'), $type));
 		}
 	}
 	
@@ -987,5 +989,11 @@ abstract class DataObject extends Base implements Serializable
 		default:
 			return FALSE;
 		}
+	}
+	
+	protected static function __get_called_class_name($o)
+	{
+		$refl = new \ReflectionClass($o);
+		return $refl -> getShortName();
 	}
 }

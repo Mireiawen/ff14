@@ -1,4 +1,6 @@
 <?php
+namespace System;
+
 // Check environment
 if  (!defined('SYSTEM_PATH'))
 {
@@ -34,7 +36,7 @@ define('ERROR_LEVEL_INFO', -8);
  * at that time.
  *
  * $Author: mireiawen $
- * $Id: Error.php 355 2015-07-27 06:46:51Z mireiawen $
+ * $Id: Error.php 449 2017-07-13 09:37:16Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
 final class Error extends Base
@@ -77,16 +79,16 @@ final class Error extends Base
 		$this -> hide = FALSE;
 		
 		// Catch errors
-		set_error_handler(array($this, 'Error'));
+		set_error_handler(array($this, 'CatchError'));
 		
 		// Catch uncaught exceptions
-		set_exception_handler(array($this, 'Exception'));
+		set_exception_handler(array($this, 'CatchException'));
 		
 		// Catch last error before shutdown
-		register_shutdown_function(array($this, 'Shutdown'));
+		register_shutdown_function(array($this, 'CatchShutdown'));
 		
 		// Let Smarty mute errors it expects
-		if (class_exists('SmartyInstance'))
+		if (class_exists('\\System\\SmartyInstance'))
 		{
 			SmartyInstance::muteExpectedErrors();
 			$this -> Smarty = SmartyInstance::Get();
@@ -103,7 +105,7 @@ final class Error extends Base
 		ignore_user_abort(TRUE);
 		
 		// Check for session errors
-		if (class_exists('Session'))
+		if (class_exists('\\System\\Session'))
 		{
 			// Get errors...
 			if (array_key_exists('E_errors', $_SESSION))
@@ -140,8 +142,17 @@ final class Error extends Base
 	 */
 	public function __destruct()
 	{
+		// Log error messages to a file
+		if ((defined('DEBUG')) && (DEBUG) && (defined('DEBUG_ERROR_LOG_FILE')))
+		{
+			ob_start();
+			var_dump($this -> messages);
+			file_put_contents(DEBUG_ERROR_LOG_FILE, ob_get_contents(), FILE_APPEND|LOCK_EX);
+			ob_end_clean();
+		}
+		
 		// If we have session available
-		if (class_exists('Session'))
+		if (class_exists('\\System\\Session'))
 		{
 			// Pack current errors...
 			$_SESSION['E_errors'] = serialize($this -> messages['errors']);
@@ -190,7 +201,7 @@ final class Error extends Base
 	 * 	TRUE if error was handled,
 	 * 	FALSE if it was not and PHP should handle it
 	 */
-	public function Error($errno, $errmsg, $file, $line, $vars)
+	public function CatchError($errno, $errmsg, $file, $line, $vars)
 	{
 		// Check for NOTICE class errors
 		$notice = FALSE;
@@ -295,7 +306,7 @@ final class Error extends Base
 	 * 	TRUE if error was handled,
 	 * 	FALSE if it was not and PHP should handle it
 	 */
-	public function Exception($e)
+	public function CatchException($e)
 	{
 		if ((defined('DEBUG')) && (DEBUG))
 		{
@@ -363,7 +374,7 @@ final class Error extends Base
 			return TRUE;
 		
 		default:
-			throw new Exception(sprintf(_('Unknown error level %s'), $level));
+			throw new \Exception(sprintf(_('Unknown error level %s'), $level));
 		}
 	}
 	
@@ -442,7 +453,7 @@ final class Error extends Base
 	{
 		if (!isset($this -> messages[$type]))
 		{
-			throw new Exception(sprintf(_('No such message type "%s"'), $type));
+			throw new \Exception(sprintf(_('No such message type "%s"'), $type));
 		}
 		
 		return $this -> messages[$type];
@@ -466,7 +477,7 @@ final class Error extends Base
 	{
 		if (!isset($this -> messages[$type]))
 		{
-			throw new Exception(sprintf(_('No such message type "%s"'), $type));
+			throw new \Exception(sprintf(_('No such message type "%s"'), $type));
 		}
 		
 		$this -> messages[$type] = $messages;
@@ -482,7 +493,7 @@ final class Error extends Base
 	 * 	TRUE if the error was handled,
 	 * 	FALSE if the error is to be left for PHP to handle
 	 */
-	public function Shutdown()
+	public function CatchShutdown()
 	{
 		$e = error_get_last();
 		if ((is_array($e)) && (defined('DEBUG')) && (DEBUG))
