@@ -151,7 +151,20 @@ function CalculateCP()
 	var cp = 0;
 	var max_cp = 0;
 	
-	// Current Comfort Zone steps
+	// Current buff statuses
+	var steady_hand = 0;
+	var inner_quiet = 0;
+	var great_strides = 0;
+	var ingenuity = 0;
+	var waste_not = 0;
+	var innovation = 0;
+	var name_of_wind = 0;
+	var name_of_fire = 0;
+	var name_of_ice = 0;
+	var name_of_earth = 0;
+	var name_of_lightning = 0;
+	var name_of_water = 0;
+	var initial_preparations = 0;
 	var comfort_zone = 0;
 	
 	// Set the initial value to 0
@@ -164,9 +177,83 @@ function CalculateCP()
 		tmpl.regexp = /([\s'\\])(?!(?:[^[]|\[(?!%))*%\])|(?:\[%(=|#)([\s\S]+?)%\])|(\[%)|(%\])/g;
 		data = 
 		{
-			'cz_step': comfort_zone,
 			'cp_cost': cp,
+			'steady_hand': steady_hand,
+			'inner_quiet': inner_quiet,
+			'great_strides': great_strides,
+			'ingenuity': ingenuity,
+			'waste_not': waste_not,
+			'innovation': innovation,
+			'name_of_wind': name_of_wind,
+			'name_of_fire': name_of_fire,
+			'name_of_ice': name_of_ice,
+			'name_of_earth': name_of_earth,
+			'name_of_lightning': name_of_lightning,
+			'name_of_water': name_of_water,
+			'initial_preparations': initial_preparations,
+			'comfort_zone': comfort_zone,
 		};
+		
+		// Steady Hand
+		if (steady_hand)
+		{
+			steady_hand--;
+		}
+		
+		// Parse the Great Strides buff
+		if (great_strides)
+		{
+			great_strides--;
+		}
+		
+		// Parse the Ingenuity buff
+		if (ingenuity)
+		{
+			ingenuity--;
+		}
+		
+		// Parse the Waste Not buff
+		if (waste_not)
+		{
+			waste_not--;
+		}
+		
+		// Parse the Innovation buff
+		if (innovation)
+		{
+			innovation--;
+		}
+		
+		// Parse the Name of element buffs
+		if (name_of_wind)
+		{
+			name_of_wind--;
+		}
+		
+		if (name_of_fire)
+		{
+			name_of_fire--;
+		}
+		
+		if (name_of_ice)
+		{
+			name_of_ice--;
+		}
+		
+		if (name_of_earth)
+		{
+			name_of_earth--;
+		}
+		
+		if (name_of_lightning)
+		{
+			name_of_lightning--;
+		}
+		
+		if (name_of_water)
+		{
+			name_of_water--;
+		}
 		
 		// Parse the Comfort Zone buff
 		if (comfort_zone)
@@ -175,11 +262,189 @@ function CalculateCP()
 			cp -= {$smarty.const.COMFORT_ZONE_TICK};
 		}
 		
-		// Check if current step activates the Comfort Zone buff
-		xivdb_id = $(this).attr('data-xivdb-id');
-		if (xivdb_id == {$smarty.const.COMFORT_ZONE_ID})
+		// Parse the buff knowledge
+		xivdb_id = parseInt($(this).attr('data-xivdb-id'));
+		switch (xivdb_id)
 		{
-			comfort_zone = {$smarty.const.COMFORT_ZONE_DURATION}
+			// Check for Stady Hand/Steady Hand II
+			case {$smarty.const.STEADY_HAND_ID}:
+			case {$smarty.const.STEADY_HAND_2_ID}:
+				steady_hand = {$smarty.const.STEADY_HAND_DURATION};
+				break;
+				
+			// Check if current step activates the Inner Quiet buff
+			case {$smarty.const.INNER_QUIET_ID}:
+				if (inner_quiet == 0)
+				{
+					inner_quiet = 1;
+				}
+				break;
+			
+			// Check if current step activates the Great Strides buff
+			case {$smarty.const.GREAT_STRIDES_ID}:
+				great_strides = {$smarty.const.GREAT_STRIDES_DURATION};
+				break;
+			
+			// Check if current step activates the Ingenuity or Ingenuity II buff
+			case {$smarty.const.INGENUITY_ID}:
+			case {$smarty.const.INGENUITY_2_ID}:
+				ingenuity = {$smarty.const.INGENUITY_DURATION};
+				break;
+				
+			// Check if current step activates the Waste Not or Waste Not II buff
+			case {$smarty.const.WASTE_NOT_ID}:
+				waste_not = {$smarty.const.WASTE_NOT_DURATION};
+				break;
+				
+			case {$smarty.const.WASTE_NOT_2_ID}:
+				waste_not = {$smarty.const.WASTE_NOT_2_DURATION};
+				break;
+				
+			// Check if current step activates Innovation
+			case {$smarty.const.INNOVATION_ID}:
+				innovation = {$smarty.const.INNOVATION_DURATION};
+				break;
+				
+			// Check if current step activates Name of the element
+			case {$smarty.const.NAME_OF_WIND_ID}:
+				name_of_wind = {$smarty.const.NAME_OF_DURATION};
+				break;
+				
+			case {$smarty.const.NAME_OF_FIRE_ID}:
+				name_of_fire = {$smarty.const.NAME_OF_DURATION};
+				break;
+				
+			case {$smarty.const.NAME_OF_ICE_ID}:
+				name_of_ice = {$smarty.const.NAME_OF_DURATION};
+				break;
+				
+			case {$smarty.const.NAME_OF_EARTH_ID}:
+				name_of_earth = {$smarty.const.NAME_OF_DURATION};
+				break;
+				
+			case {$smarty.const.NAME_OF_LIGHTNING_ID}:
+				name_of_lightning = {$smarty.const.NAME_OF_DURATION};
+				break;
+				
+			case {$smarty.const.NAME_OF_WATER_ID}:
+				name_of_water = {$smarty.const.NAME_OF_DURATION};
+				break;
+				
+			// Initial preparations
+			case {$smarty.const.INITIAL_PREPARATIONS_ID}:
+				initial_preparations = 1;
+				break;
+				
+			// Specialist action: Reinforce
+			case {$smarty.const.REINFORCE_ID}:
+				initial_preparations = 0;
+				break;
+				
+			// Specialist action: Refurbish
+			case {$smarty.const.REFURBISH_ID}:
+				initial_preparations = 0;
+				cp -= {$smarty.const.REFURBISH_TICK};
+				break;
+				
+			// Specialist action: Reflect
+			case {$smarty.const.REFLECT_ID}:
+				initial_preparations = 0;
+				if (inner_quiet)
+				{
+					inner_quiet += {$smarty.const.REFLECT_TICK};
+					if (inner_quiet > {$smarty.const.INNER_QUIET_MAX_STACK})
+					{
+						inner_quiet = {$smarty.const.INNER_QUIET_MAX_STACK};
+					}
+				}
+				break;
+			
+			// Check for touch action for Inner Quiet
+			// @note: we expect all touches to succeed
+			case {$smarty.const.BASIC_TOUCH_ID}:
+			case {$smarty.const.STANDARD_TOUCH_ID}:
+			case {$smarty.const.ADVANCED_TOUCH_ID}:
+			case {$smarty.const.HASTY_TOUCH_ID}:
+			case {$smarty.const.HASTY_TOUCH_2_ID}:
+			case {$smarty.const.PRUDENT_TOUCH_ID}:
+			case {$smarty.const.FOCUSED_TOUCH_ID}:
+			case {$smarty.const.TRAINED_HAND_ID}:
+				if (great_strides)
+				{
+					great_strides = 0;
+				}
+				
+				if (inner_quiet)
+				{
+					inner_quiet++;
+					if (inner_quiet > {$smarty.const.INNER_QUIET_MAX_STACK})
+					{
+						inner_quiet = {$smarty.const.INNER_QUIET_MAX_STACK};
+					}
+				}
+				break;
+			
+			case {$smarty.const.PRECISE_TOUCH_ID}:
+			case {$smarty.const.PATIENT_TOUCH_ID}:
+				if (great_strides)
+				{
+					great_strides = 0;
+				}
+				
+				if (inner_quiet)
+				{
+					inner_quiet+=2;
+					if (inner_quiet > {$smarty.const.INNER_QUIET_MAX_STACK})
+					{
+						inner_quiet = {$smarty.const.INNER_QUIET_MAX_STACK};
+					}
+				}
+				break;
+			
+			// Innovative Touch
+			case {$smarty.const.INNOVATIVE_TOUCH_ID}:
+				if (great_strides)
+				{
+					great_strides = 0;
+				}
+				
+				if (inner_quiet)
+				{
+					inner_quiet++;
+					if (inner_quiet > {$smarty.const.INNER_QUIET_MAX_STACK})
+					{
+						inner_quiet = {$smarty.const.INNER_QUIET_MAX_STACK};
+					}
+				}
+				
+				innovation = {$smarty.const.INNOVATION_DURATION};
+				break;
+			
+			// Byregot's Blessing and Brow
+			case {$smarty.const.BYREGOTS_BLESSING_ID}:
+			case {$smarty.const.BYREGOTS_BROW_ID}:
+				inner_quiet = 0;
+				
+				if (great_strides)
+				{
+					great_strides = 0;
+				}
+				break;
+			
+			// Byregot's Miracle
+			case {$smarty.const.BYREGOTS_MIRACLE_ID}:
+				inner_quiet = Math.floor(inner_quiet / 2);
+				
+				if (great_strides)
+				{
+					great_strides = 0;
+				}
+				break;
+				
+			// Check if current step activates the Comfort Zone buff
+			case {$smarty.const.COMFORT_ZONE_ID}:
+				comfort_zone = {$smarty.const.COMFORT_ZONE_DURATION};
+				break;
 		}
 		
 		// Add the CP cost

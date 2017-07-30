@@ -18,3 +18,27 @@
 	padding: 0;
 	width:98%;
 }
+
+.buffs
+{
+	overflow: hidden;
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+
+.buffs figure
+{
+	display: inline-block;
+	text-align: center;
+}
+
+.buffs figcaption
+{
+	line-height: 14px;
+	font-weight: bold;
+	position: relative;
+	bottom: 6px;
+	z-index: 1;
+}
