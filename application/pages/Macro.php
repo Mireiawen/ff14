@@ -77,7 +77,7 @@ class Macro extends \System\Base implements \System\Page
 				}
 				catch (\Exception $e)
 				{
-					\Error::Message(sprintf(_('Macro definition %s was not found'), $p), ERROR_LEVEL_ERROR);
+					\System\Error::Message(sprintf(_('Macro definition %s was not found'), $p), ERROR_LEVEL_ERROR);
 					return '/Errors/404';
 				}
 			}
