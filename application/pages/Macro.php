@@ -6,11 +6,6 @@ require_once(MODEL_PATH . '/Skill.php');
 require_once(MODEL_PATH . '/Macro.php');
 require_once(MODEL_PATH . '/Skill.php');
 
-// Special skill: Comfort Zone
-define('COMFORT_ZONE_ID', 286);
-define('COMFORT_ZONE_TICK', 8);
-define('COMFORT_ZONE_DURATION', 10);
-
 class Macro extends \System\Base implements \System\Page
 {
 	use \System\SmartyTemplates;
