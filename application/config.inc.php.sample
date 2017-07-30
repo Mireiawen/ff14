@@ -55,7 +55,7 @@ define('RECAPTCHA_PRIVATE_KEY', '');
  * Caching Database settings
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 // Database to use
-define('CACHE_DATABASE', 3);
+#define('CACHE_DATABASE', 3);
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Template settings
