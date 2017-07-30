@@ -57,6 +57,9 @@ define('RECAPTCHA_PRIVATE_KEY', '');
 // Database to use
 #define('CACHE_DATABASE', 3);
 
+// Namespace for cache
+define('CACHE_NAMESPACE', 'FF14');
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Template settings
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
