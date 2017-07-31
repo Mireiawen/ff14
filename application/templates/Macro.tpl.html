@@ -1,6 +1,6 @@
 <div id="macro_container" style="display: none;">
 {$Template->LoadJS('u:handler/macro.js')}<div class="row">
-	<div class="col-md-6">
+	<div class="col-md-7">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<a data-toggle="collapse" href="#info-body"><h2 class="panel-title"><span class="fa fa-info-circle" aria-hidden="true"></span> {t}Information about the generator{/t}</h2></a>
@@ -46,7 +46,7 @@
 		</div>
 	</div>
 	
-	<div class="col-md-4">
+	<div class="col-md-5">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<a data-toggle="collapse" href="#config-body"><h2 class="panel-title"><span class="fa fa-cog" aria-hidden="true"></span> {t}Configure the generator{/t}</h2></a>
@@ -113,7 +113,7 @@
 </div>
 
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-md-8">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h2 class="panel-title pull-left"><span class="fa fa-list"></span> {t}The skill list{/t}</h2>
@@ -157,7 +157,7 @@
 </div>
 
 <div class="row">
-	<div class="col-md-8">
+	<div class="col-md-12">
 		<div class="panel panel-default">
 			<div class="panel-heading"><h2 class="panel-title"><span class="fa fa-filte-text-o" aria-hidden="true"></span> {t}The macros{/t}</h2></div>
 			<div class="panel-body">
@@ -177,8 +177,8 @@
 <li data-xivdb-id="[%=o.xivdb_id%]" data-cost="[%=o.cp_cost%]" data-restore="[%=o.cp_restore%]" data-name="[%=o.name%]" data-type="[%=o.type%]">
 	<div class="row">
 		<div class="col-md-1"><a href="[%=o.link%]" data-xivdb-id="[%=o.xivdb_id%]" data-xivdb-replace="0"><img src="[%=o.img%]"></a></div>
-		<div class="col-md-2"><strong>[%=o.name%]</strong><br>[%=o.cp_cost%] {t}CP{/t}</div>
-		<div class="col-md-8"><div class="info"></div></div>
+		<div class="col-md-3"><strong>[%=o.name%]</strong><br>[%=o.cp_cost%] {t}CP{/t}</div>
+		<div class="col-md-7"><div class="info"></div></div>
 		<div class="col-md-1"><button class="btn btn-danger" type="button" onClick="return RemoveAction(this);"><span class="fa fa-ban" aria-hidden="true"></span></button></div>
 	</div>
 </li>
@@ -247,12 +247,12 @@
 </figure>[% } %]
 </div>
 
-<div class="col-md-6">
-[% if (o.rumination) { %]<strong>{t}Rumination{/t}</strong> [%=o.rumination%] {t}CP restored{/t}<br>[% } %]
-[% if (o.comfort_zone) { %]<strong>{t}Comfort Zone{/t}</strong> ([%=o.comfort_zone%]): {$smarty.const.COMFORT_ZONE_TICK} {t}CP restored{/t}<br>[% } %]
-</div>
+<div class="col-md-6"><p>
+[% if (o.rumination) { %]<strong>{t}Rumination{/t}</strong> <small>[%=o.rumination%] {t}CP restored{/t}</small><br>[% } %]
+[% if (o.comfort_zone) { %]<strong>{t}Comfort Zone{/t}</strong> <small>{$smarty.const.COMFORT_ZONE_TICK} {t}CP restored{/t}</small><br>[% } %]
+</p></div>
 <div class="col-md-2">
-[%=o.cp_cost%] {t}CP{/t}
+<p class="small">[%=o.cp_cost%] {t}CP{/t}</p>
 </div>
 </script>
 
