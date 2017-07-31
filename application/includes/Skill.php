@@ -18,13 +18,13 @@ define('ICON_BUFF_INGENUITY', '016104');
 define('ICON_BUFF_WASTE_NOT', '011701');
 define('ICON_BUFF_INNOVATION', '011652');
 define('ICON_BUFF_INITIAL_PREPARATIONS', '016121');
-
 define('ICON_BUFF_NAME_OF_WIND', '011501');
 define('ICON_BUFF_NAME_OF_FIRE', '011554');
 define('ICON_BUFF_NAME_OF_ICE', '011601');
 define('ICON_BUFF_NAME_OF_EARTH', '011703');
 define('ICON_BUFF_NAME_OF_LIGHTNING', '011752');
 define('ICON_BUFF_NAME_OF_WATER', '011802');
+define('ICON_BUFF_HEART_OF_THE', '016118');
 define('ICON_BUFF_COMFORT_ZONE', '011801');
 
 // Special skill: Steady Hand
@@ -66,6 +66,17 @@ define('NAME_OF_EARTH_ID', 4571);
 define('NAME_OF_LIGHTNING_ID', 4572);
 define('NAME_OF_WATER_ID', 4573);
 define('NAME_OF_DURATION', 5);
+
+// Special skills: Heart of the specialist
+define('HEART_OF_THE_CARPENTER', '100179');
+define('HEART_OF_THE_BLACKSMITH', '100180');
+define('HEART_OF_THE_ARMORER', '100181');
+define('HEART_OF_THE_GOLDSMITH', '100182');
+define('HEART_OF_THE_LEATHERWORKER', '100183');
+define('HEART_OF_THE_WEAVER', '100184');
+define('HEART_OF_THE_ALCHEMIST', '100185');
+define('HEART_OF_THE_CULINARIAN', '100186');
+define('HEART_OF_THE_DURATION', 7);
 
 // Special Skill: Initial Preparations
 define('INITIAL_PREPARATIONS_ID', '100251');
