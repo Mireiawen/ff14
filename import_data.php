@@ -13,6 +13,7 @@ define('LOAD_CONTENT', FALSE);
 define('CREATE_CATEGORIES', TRUE);
 define('REQUEST_JOBS', TRUE);
 define('REQUEST_CRAFTER_SKILLS', TRUE);
+define('SAMPLE_MACROS', TRUE);
 
 // Uncomment this to not touch the database
 #define('DRY_RUN', TRUE);
@@ -24,6 +25,7 @@ require_once(SYSTEM_PATH . '/Initialize.php');
 require_once(MODEL_PATH . '/cURL.php');
 require_once(MODEL_PATH . '/Category.php');
 require_once(MODEL_PATH . '/Job.php');
+require_once(MODEL_PATH . '/Macro.php');
 require_once(MODEL_PATH . '/Skill.php');
 
 // Knowledge about the skill
@@ -609,6 +611,277 @@ try
 			{
 				$stmt -> execute();
 			}
+		}
+	}
+	
+	if ((defined('SAMPLE_MACROS')) && (SAMPLE_MACROS))
+	{
+		echo _('Creating sample macro data') , "\n";
+		
+		////////////////////////////////////////////////////////////////////////
+		// L50 simple, no cross class skills
+		// By Aurorah Rose
+		$name = _('L50');
+		$data = array
+		(
+			'macro_wait_skill' => \Macro::DEFAULT_WAIT_SKILL,
+			'macro_wait_buff' => \Macro::DEFAULT_WAIT_BUFF,
+			'macro_echo' => 0,
+			'macro_name' => $name,
+			'macro_end' => '-- [%=o.name%] part [%=o.n%] done',
+			'macro_done' => '-- [%=o.name%] complete',
+			'skills' => array(252,260,244,100008,100004,100004,100007),
+		);
+		
+		// Remove old macro by same hash
+		try
+		{
+			$macro = Macro::CreateByHash(str_replace(' ', '_', $name));
+			if ((!defined('DRY_RUN')) || (DRY_RUN === FALSE))
+			{
+				$macro -> Remove();
+			}
+		}
+		catch (Exception $e)
+		{
+			// Does not exist, ignore
+		}
+		
+		// Create the macro itself
+		$macro = Macro::CreateNew();
+		$macro -> SetHash(str_replace(' ', '_', $name));
+		$macro -> SetData(json_encode($data));
+		if ((!defined('DRY_RUN')) || (DRY_RUN === FALSE))
+		{
+			$macro -> Write();
+		}
+		
+		////////////////////////////////////////////////////////////////////////
+		// L60 D40 simple
+		$name = _('L60 D40 Simple');
+		$data = array
+		(
+			'macro_wait_skill' => \Macro::DEFAULT_WAIT_SKILL,
+			'macro_wait_buff' => \Macro::DEFAULT_WAIT_BUFF,
+			'macro_echo' => 1,
+			'macro_name' => $name,
+			'macro_end' => _('-- [%=o.name%] Part #[%=o.n%] Completed!'),
+			'macro_done' => _('-- [%=o.name%] Part #[%=o.n%] Completed -- All Done!'),
+			'skills' => array
+			(
+				\Skill::CreateByName_EN('Comfort Zone') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Inner Quiet') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Great Strides') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Steady Hand II') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Advanced Touch') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Great Strides') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Advanced Touch') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Great Strides') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Advanced Touch') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Careful Synthesis II') -> GetXIVDB_ID(),
+			),
+		);
+		
+		// Remove old macro by same hash
+		try
+		{
+			$macro = Macro::CreateByHash(str_replace(' ', '_', $name));
+			if ((!defined('DRY_RUN')) || (DRY_RUN === FALSE))
+			{
+				$macro -> Remove();
+			}
+		}
+		catch (Exception $e)
+		{
+			// Does not exist, ignore
+		}
+		
+		// Create the macro itself
+		$macro = Macro::CreateNew();
+		$macro -> SetHash(str_replace(' ', '_', $name));
+		$macro -> SetData(json_encode($data));
+		if ((!defined('DRY_RUN')) || (DRY_RUN === FALSE))
+		{
+			$macro -> Write();
+		}
+		
+		////////////////////////////////////////////////////////////////////////
+		// L60 D35
+		$name = _('L60 D35');
+		$data = array
+		(
+			'macro_wait_skill' => \Macro::DEFAULT_WAIT_SKILL,
+			'macro_wait_buff' => \Macro::DEFAULT_WAIT_BUFF,
+			'macro_echo' => 1,
+			'macro_name' => _($name),
+			'macro_end' => _('-- [%=o.name%] Part #[%=o.n%] Completed!'),
+			'macro_done' => _('-- [%=o.name%] Part #[%=o.n%] Completed -- All Done!'),
+			'skills' => array
+			(
+				\Skill::CreateByName_EN('Comfort Zone') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Inner Quiet') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Steady Hand II') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Waste Not II') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Basic Touch') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Basic Touch') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Basic Touch') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Hasty Touch') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Steady Hand II') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Hasty Touch') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Hasty Touch') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Master\'s Mend') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Hasty Touch') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Steady Hand II') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Great Strides') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Innovation') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Byregot\'s Blessing') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Careful Synthesis II') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Careful Synthesis II') -> GetXIVDB_ID(),
+			),
+		);
+		
+		// Remove old macro by same hash
+		try
+		{
+			$macro = Macro::CreateByHash(str_replace(' ', '_', $name));
+			if ((!defined('DRY_RUN')) || (DRY_RUN === FALSE))
+			{
+				$macro -> Remove();
+			}
+		}
+		catch (Exception $e)
+		{
+			// Does not exist, ignore
+		}
+		
+		// Create the macro itself
+		$macro = Macro::CreateNew();
+		$macro -> SetHash(str_replace(' ', '_', $name));
+		$macro -> SetData(json_encode($data));
+		if ((!defined('DRY_RUN')) || (DRY_RUN === FALSE))
+		{
+			$macro -> Write();
+		}
+		
+		////////////////////////////////////////////////////////////////////////
+		// L60 D40
+		$name = _('L60 D40');
+		$data = array
+		(
+			'macro_wait_skill' => \Macro::DEFAULT_WAIT_SKILL,
+			'macro_wait_buff' => \Macro::DEFAULT_WAIT_BUFF,
+			'macro_echo' => 1,
+			'macro_name' => _($name),
+			'macro_end' => _('-- [%=o.name%] Part #[%=o.n%] Completed!'),
+			'macro_done' => _('-- [%=o.name%] Part #[%=o.n%] Completed -- All Done!'),
+			'skills' => array
+			(
+				\Skill::CreateByName_EN('Comfort Zone') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Inner Quiet') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Steady Hand II') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Waste Not II') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Basic Touch') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Basic Touch') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Basic Touch') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Hasty Touch') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Steady Hand II') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Hasty Touch') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Hasty Touch') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Hasty Touch') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Master\'s Mend') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Hasty Touch') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Steady Hand II') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Great Strides') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Innovation') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Byregot\'s Blessing') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Careful Synthesis II') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Careful Synthesis II') -> GetXIVDB_ID(),
+			),
+		);
+		
+		// Remove old macro by same hash
+		try
+		{
+			$macro = Macro::CreateByHash(str_replace(' ', '_', $name));
+			if ((!defined('DRY_RUN')) || (DRY_RUN === FALSE))
+			{
+				$macro -> Remove();
+			}
+		}
+		catch (Exception $e)
+		{
+			// Does not exist, ignore
+		}
+		
+		// Create the macro itself
+		$macro = Macro::CreateNew();
+		$macro -> SetHash(str_replace(' ', '_', $name));
+		$macro -> SetData(json_encode($data));
+		if ((!defined('DRY_RUN')) || (DRY_RUN === FALSE))
+		{
+			$macro -> Write();
+		}
+		
+		////////////////////////////////////////////////////////////////////////
+		// L60 D70
+		$name = _('L60 D70');
+		$data = array
+		(
+			'macro_wait_skill' => \Macro::DEFAULT_WAIT_SKILL,
+			'macro_wait_buff' => \Macro::DEFAULT_WAIT_BUFF,
+			'macro_echo' => 1,
+			'macro_name' => _($name),
+			'macro_end' => _('-- [%=o.name%] Part #[%=o.n%] Completed!'),
+			'macro_done' => _('-- [%=o.name%] Part #[%=o.n%] Completed -- All Done!'),
+			'skills' => array
+			(
+				\Skill::CreateByName_EN('Comfort Zone') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Inner Quiet') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Steady Hand II') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Waste Not II') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Hasty Touch') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Hasty Touch') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Hasty Touch') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Hasty Touch') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Steady Hand II') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Hasty Touch') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Innovation') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Hasty Touch') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Great Strides') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Byregot\'s Blessing') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Master\'s Mend') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Steady Hand II') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Piece by Piece') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Piece by Piece') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Ingenuity II') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Standard Synthesis') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Standard Synthesis') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Careful Synthesis II') -> GetXIVDB_ID(),
+				\Skill::CreateByName_EN('Careful Synthesis II') -> GetXIVDB_ID(),
+			),
+		);
+		
+		// Remove old macro by same hash
+		try
+		{
+			$macro = Macro::CreateByHash(str_replace(' ', '_', $name));
+			if ((!defined('DRY_RUN')) || (DRY_RUN === FALSE))
+			{
+				$macro -> Remove();
+			}
+		}
+		catch (Exception $e)
+		{
+			// Does not exist, ignore
+		}
+		
+		// Create the macro itself
+		$macro = Macro::CreateNew();
+		$macro -> SetHash(str_replace(' ', '_', $name));
+		$macro -> SetData(json_encode($data));
+		if ((!defined('DRY_RUN')) || (DRY_RUN === FALSE))
+		{
+			$macro -> Write();
 		}
 	}
 }
