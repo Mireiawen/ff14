@@ -109,6 +109,9 @@ define('BYREGOTS_BLESSING_ID', '100009');
 define('BYREGOTS_BROW_ID', '100120');
 define('BYREGOTS_MIRACLE_ID', '100145');
 
+// Special skill: Rumination
+define('RUMINATION_ID', 276);
+
 // Special skill: Comfort Zone
 define('COMFORT_ZONE_ID', 286);
 define('COMFORT_ZONE_TICK', 8);
