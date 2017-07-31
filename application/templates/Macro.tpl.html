@@ -1,6 +1,6 @@
 <div id="macro_container" style="display: none;">
 {$Template->LoadJS('u:handler/macro.js')}<div class="row">
-	<div class="col-md-4">
+	<div class="col-md-6">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<a data-toggle="collapse" href="#info-body"><h2 class="panel-title"><span class="fa fa-info-circle" aria-hidden="true"></span> {t}Information about the generator{/t}</h2></a>
@@ -113,7 +113,7 @@
 </div>
 
 <div class="row">
-	<div class="col-md-4">
+	<div class="col-md-6">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h2 class="panel-title pull-left"><span class="fa fa-list"></span> {t}The skill list{/t}</h2>
@@ -139,18 +139,13 @@
 			<div class="panel-heading"><h2 class="panel-title"><span class="fa fa-pencil-square" aria-hidden="true"></span> {t}Pick skills from the list{/t}</h2></div>
 			<div class="panel-body">
 				<div id="skill-list">
-					{foreach $categories as $category}
-					{if $category->GetID() !== $category::OTHER}
-					<div id="skill-list-{$category->GetName()}">
+					{foreach $categories as $category}{if $category->GetID() !== $category::OTHER}<div id="skill-list-{$category->GetName()}">
 						<h3>{$category->GetTranslatedName()}</h3>
-						<ul class="list-inline">
-						{foreach $skills as $skill}
-							{if $skill -> GetCategory() === $category -> GetID()}
+						<ul class="list-inline">{foreach $skills as $skill}{if $skill -> GetCategory() === $category -> GetID()}
+
 							<li data-xivdb-id="{$skill -> GetXIVDB_ID()}" data-icon="{$skill -> GetIcon()}" data-cost="{$skill -> GetCost()}" data-restore="{$skill -> GetRestore()}" data-name="{$skill -> GetName_EN()}" data-buff="{$skill -> GetBuff()}">
 								<a href="https://xivdb.com/action/{$skill -> GetXIVDB_ID()}" data-xivdb-id="{$skill -> GetXIVDB_ID()}" data-xivdb-replace="0"><img src="{xiv_icon id=$skill -> GetIcon()}"}/{$skill -> GetIcon()|string_format:"%06d"}.png"></a>
-							{/if}
-							</li>
-							{/foreach}
+							</li>{/if}{/foreach}
 						</ul>
 					</div>
 					{/if}
@@ -182,129 +177,83 @@
 <li data-xivdb-id="[%=o.xivdb_id%]" data-cost="[%=o.cp_cost%]" data-restore="[%=o.cp_restore%]" data-name="[%=o.name%]" data-type="[%=o.type%]">
 	<div class="row">
 		<div class="col-md-1"><a href="[%=o.link%]" data-xivdb-id="[%=o.xivdb_id%]" data-xivdb-replace="0"><img src="[%=o.img%]"></a></div>
-		<div class="col-md-3"><strong>[%=o.name%]</strong><br>[%=o.cp_cost%] {t}CP{/t}</div>
-		<div class="col-md-6"><div class="info"></div></div>
+		<div class="col-md-2"><strong>[%=o.name%]</strong><br>[%=o.cp_cost%] {t}CP{/t}</div>
+		<div class="col-md-8"><div class="info"></div></div>
 		<div class="col-md-1"><button class="btn btn-danger" type="button" onClick="return RemoveAction(this);"><span class="fa fa-ban" aria-hidden="true"></span></button></div>
 	</div>
 </li>
 </script>
 
 <script type="text/x-tmpl" id="tmpl-step-info">
-<div class="buffs">
-[% if (o.steady_hand) { %]
-<figure class="buff">
+<div class="col-md-4 buffs">
+[% if (o.steady_hand) { %]<figure class="buff">
 	<img src="{xiv_icon id=$smarty.const.ICON_BUFF_STEADY_HAND}" alt="{t}Steady Hand{/t}" title="{t}Steady Hand{/t}">
 	<figcaption>[%=o.steady_hand%]</figcaption>
-</figure>
-[% } %]
-
-[% if (o.inner_quiet) { %]
-<figure class="buff">
+</figure>[% } %]
+[% if (o.inner_quiet) { %]<figure class="buff">
 	<img src="{xiv_icon id=$smarty.const.ICON_BUFF_INNER_QUIET}" alt="{t}Inner Quiet{/t}" title="{t}Inner Quiet{/t}">
 	<figcaption>[%=o.inner_quiet%]</figcaption>
-</figure>
-[% } %]
-
-[% if (o.great_strides) { %]
-<figure class="buff">
+</figure>[% } %]
+[% if (o.great_strides) { %]<figure class="buff">
 	<img src="{xiv_icon id=$smarty.const.ICON_BUFF_GREAT_STRIDES}" alt="{t}Great Strides{/t}" title="{t}Great Strides{/t}">
 	<figcaption>[%=o.great_strides%]</figcaption>
-</figure>
-[% } %]
-
-[% if (o.ingenuity) { %]
-<figure class="buff">
+</figure>[% } %]
+[% if (o.ingenuity) { %]<figure class="buff">
 	<img src="{xiv_icon id=$smarty.const.ICON_BUFF_INGENUITY}" alt="{t}Ingenuity{/t}" title="{t}Ingenuity{/t}">
 	<figcaption>[%=o.ingenuity%]</figcaption>
-</figure>
-[% } %]
-
-[% if (o.waste_not) { %]
-<figure class="buff">
+</figure>[% } %]
+[% if (o.waste_not) { %]<figure class="buff">
 	<img src="{xiv_icon id=$smarty.const.ICON_BUFF_WASTE_NOT}" alt="{t}Waste Not{/t}" title="{t}Waste Not{/t}">
 	<figcaption>[%=o.waste_not%]</figcaption>
-</figure>
-[% } %]
-
-[% if (o.innovation) { %]
-<figure class="buff">
+</figure>[% } %]
+[% if (o.innovation) { %]<figure class="buff">
 	<img src="{xiv_icon id=$smarty.const.ICON_BUFF_INNOVATION}" alt="{t}Innovation{/t}" title="{t}Innovation{/t}">
 	<figcaption>[%=o.innovation%]</figcaption>
-</figure>
-[% } %]
-
-[% if (o.name_of_wind) { %]
-<figure class="buff">
+</figure>[% } %]
+[% if (o.name_of_wind) { %]<figure class="buff">
 	<img src="{xiv_icon id=$smarty.const.ICON_BUFF_NAME_OF_WIND}" alt="{t}Name of Wind{/t}" title="{t}Name of Wind{/t}">
 	<figcaption>[%=o.name_of_wind%]</figcaption>
-</figure>
-[% } %]
-
-[% if (o.name_of_fire) { %]
-<figure class="buff">
+</figure>[% } %]
+[% if (o.name_of_fire) { %]<figure class="buff">
 	<img src="{xiv_icon id=$smarty.const.ICON_BUFF_NAME_OF_FIRE}" alt="{t}Name of Fire{/t}" title="{t}Name of Fire{/t}">
 	<figcaption>[%=o.name_of_fire%]</figcaption>
-</figure>
-[% } %]
-
-[% if (o.name_of_ice) { %]
-<figure class="buff">
+</figure>[% } %]
+[% if (o.name_of_ice) { %]<figure class="buff">
 	<img src="{xiv_icon id=$smarty.const.ICON_BUFF_NAME_OF_ICE}" alt="{t}Name of Ice{/t}" title="{t}Name of Ice{/t}">
 	<figcaption>[%=o.name_of_ice%]</figcaption>
-</figure>
-[% } %]
-
-[% if (o.name_of_earth) { %]
-<figure class="buff">
+</figure>[% } %]
+[% if (o.name_of_earth) { %]<figure class="buff">
 	<img src="{xiv_icon id=$smarty.const.ICON_BUFF_NAME_OF_EARTH}" alt="{t}Name of Earth{/t}" title="{t}Name of Earth{/t}">
 	<figcaption>[%=o.name_of_earth%]</figcaption>
-</figure>
-[% } %]
-
-[% if (o.name_of_lightning) { %]
-<figure class="buff">
+</figure>[% } %]
+[% if (o.name_of_lightning) { %]<figure class="buff">
 	<img src="{xiv_icon id=$smarty.const.ICON_BUFF_NAME_OF_LIGHTNING}" alt="{t}Name of Lightning{/t}" title="{t}Name of Lightning{/t}">
 	<figcaption>[%=o.name_of_lightning%]</figcaption>
-</figure>
-[% } %]
-
-[% if (o.name_of_water) { %]
-<figure class="buff">
+</figure>[% } %]
+[% if (o.name_of_water) { %]<figure class="buff">
 	<img src="{xiv_icon id=$smarty.const.ICON_BUFF_NAME_OF_WATER}" alt="{t}Name of Water{/t}" title="{t}Name of Water{/t}">
 	<figcaption>[%=o.name_of_water%]</figcaption>
-</figure>
-[% } %]
-
-[% if (o.heart) { %]
-<figure class="buff">
+</figure>[% } %]
+[% if (o.heart) { %]<figure class="buff">
 	<img src="{xiv_icon id=$smarty.const.ICON_BUFF_HEART_OF_THE}" alt="{t}Heart of the Specialist{/t}" title="{t}Heart of the Specialist{/t}">
 	<figcaption>[%=o.heart%]</figcaption>
-</figure>
-[% } %]
-
-[% if (o.initial_preparations) { %]
-<figure class="buff">
+</figure>[% } %]
+[% if (o.initial_preparations) { %]<figure class="buff">
 	<img src="{xiv_icon id=$smarty.const.ICON_BUFF_INITIAL_PREPARATIONS}" alt="{t}Initial Preparations{/t}" title="{t}Initial Preparations{/t}">
-</figure>
-[% } %]
-
-[% if (o.comfort_zone) { %]
-<figure class="buff">
+</figure>[% } %]
+[% if (o.comfort_zone) { %]<figure class="buff">
 	<img src="{xiv_icon id=$smarty.const.ICON_BUFF_COMFORT_ZONE}" alt="{t}Comfort Zone{/t}" title="{t}Comfort Zone{/t}">
 	<figcaption>[%=o.comfort_zone%]</figcaption>
-</figure>
-[% } %]
-
+</figure>[% } %]
 </div>
 
-[% if (o.rumination) { %]
-<strong>{t}Rumination{/t}</strong> [%=o.rumination%] {t}CP restored{/t}<br>
-[% } %]
-
-[% if (o.comfort_zone) { %]
-<strong>{t}Comfort Zone{/t}</strong> ([%=o.comfort_zone%]): {$smarty.const.COMFORT_ZONE_TICK} {t}CP restored{/t}<br>
-[% } %]
+<div class="col-md-6">
+[% if (o.rumination) { %]<strong>{t}Rumination{/t}</strong> [%=o.rumination%] {t}CP restored{/t}<br>[% } %]
+[% if (o.comfort_zone) { %]<strong>{t}Comfort Zone{/t}</strong> ([%=o.comfort_zone%]): {$smarty.const.COMFORT_ZONE_TICK} {t}CP restored{/t}<br>[% } %]
+</div>
+<div class="col-md-2">
 [%=o.cp_cost%] {t}CP{/t}
+</div>
 </script>
 
 <script type="text/x-tmpl" id="tmpl-macro">
