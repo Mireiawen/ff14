@@ -265,6 +265,13 @@
 </figure>
 [% } %]
 
+[% if (o.heart) { %]
+<figure class="buff">
+	<img src="{xiv_icon id=$smarty.const.ICON_BUFF_HEART_OF_THE}" alt="{t}Heart of the Specialist{/t}" title="{t}Heart of the Specialist{/t}">
+	<figcaption>[%=o.heart%]</figcaption>
+</figure>
+[% } %]
+
 [% if (o.initial_preparations) { %]
 <figure class="buff">
 	<img src="{xiv_icon id=$smarty.const.ICON_BUFF_INITIAL_PREPARATIONS}" alt="{t}Initial Preparations{/t}" title="{t}Initial Preparations{/t}">

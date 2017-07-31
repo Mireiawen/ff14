@@ -164,6 +164,7 @@ function CalculateCP()
 	var name_of_earth = 0;
 	var name_of_lightning = 0;
 	var name_of_water = 0;
+	var heart = 0;
 	var initial_preparations = 0;
 	var comfort_zone = 0;
 	
@@ -190,6 +191,7 @@ function CalculateCP()
 			'name_of_earth': name_of_earth,
 			'name_of_lightning': name_of_lightning,
 			'name_of_water': name_of_water,
+			'heart': heart,
 			'initial_preparations': initial_preparations,
 			'comfort_zone': comfort_zone,
 		};
@@ -253,6 +255,12 @@ function CalculateCP()
 		if (name_of_water)
 		{
 			name_of_water--;
+		}
+		
+		// Parse the Heart of the Specialist buff
+		if (heart)
+		{
+			heart--;
 		}
 		
 		// Parse the Comfort Zone buff
@@ -328,6 +336,18 @@ function CalculateCP()
 				
 			case {$smarty.const.NAME_OF_WATER_ID}:
 				name_of_water = {$smarty.const.NAME_OF_DURATION};
+				break;
+				
+			// Heart of the specialist actions
+			case {$smarty.const.HEART_OF_THE_CARPENTER}:
+			case {$smarty.const.HEART_OF_THE_BLACKSMITH}:
+			case {$smarty.const.HEART_OF_THE_ARMORER}:
+			case {$smarty.const.HEART_OF_THE_GOLDSMITH}:
+			case {$smarty.const.HEART_OF_THE_LEATHERWORKER}:
+			case {$smarty.const.HEART_OF_THE_WEAVER}:
+			case {$smarty.const.HEART_OF_THE_ALCHEMIST}:
+			case {$smarty.const.HEART_OF_THE_CULINARIAN}:
+				heart = {$smarty.const.HEART_OF_THE_DURATION};
 				break;
 				
 			// Initial preparations
