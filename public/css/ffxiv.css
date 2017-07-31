@@ -11,6 +11,11 @@ body
 	background-attachment: fixed;
 }
 
+#macro_nojs div
+{
+	opacity: 0.85;
+}
+
 .panel
 {
 	opacity: 0.85;
