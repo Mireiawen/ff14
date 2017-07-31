@@ -31,7 +31,6 @@
 				
 				<h3>{t}TODO list{/t}</h3>
 				<ul>
-					<li>Rumination CP restoration</li>
 					<li>Estimate durability use</li>
 				</ul>
 			</div>
@@ -288,6 +287,10 @@
 [% } %]
 
 </div>
+
+[% if (o.rumination) { %]
+<strong>{t}Rumination{/t}</strong> [%=o.rumination%] {t}CP restored{/t}<br>
+[% } %]
 
 [% if (o.comfort_zone) { %]
 <strong>{t}Comfort Zone{/t}</strong> ([%=o.comfort_zone%]): {$smarty.const.COMFORT_ZONE_TICK} {t}CP restored{/t}<br>

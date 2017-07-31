@@ -166,6 +166,7 @@ function CalculateCP()
 	var name_of_water = 0;
 	var heart = 0;
 	var initial_preparations = 0;
+	var rumination = 0;
 	var comfort_zone = 0;
 	
 	// Set the initial value to 0
@@ -193,6 +194,7 @@ function CalculateCP()
 			'name_of_water': name_of_water,
 			'heart': heart,
 			'initial_preparations': initial_preparations,
+			'rumination': rumination,
 			'comfort_zone': comfort_zone,
 		};
 		
@@ -269,6 +271,9 @@ function CalculateCP()
 			comfort_zone--;
 			cp -= {$smarty.const.COMFORT_ZONE_TICK};
 		}
+		
+		// Reset rumination for every step
+		rumination = 0;
 		
 		// Parse the buff knowledge
 		xivdb_id = parseInt($(this).attr('data-xivdb-id'));
@@ -458,6 +463,21 @@ function CalculateCP()
 				if (great_strides)
 				{
 					great_strides = 0;
+				}
+				break;
+				
+			// Rumination
+			case {$smarty.const.RUMINATION_ID}:
+				if (inner_quiet > 1)
+				{
+					inner_quiet--;
+					rumination = (21 * inner_quiet - inner_quiet * inner_quiet + 10) / 2;
+					cp -= rumination;
+					if (cp < 0)
+					{
+						cp = 0;
+					}
+					inner_quiet = 0;
 				}
 				break;
 				
