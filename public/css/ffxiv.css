@@ -3,6 +3,19 @@
 	box-sizing: border-box !important;
 }
 
+body
+{
+	background-image: url('images/bg');
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+	background-attachment: fixed;
+}
+
+.panel
+{
+	opacity: 0.85;
+}
+
 .masonry
 {
 	-moz-column-width: 30em;
