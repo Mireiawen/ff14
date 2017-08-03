@@ -115,8 +115,48 @@ function AddAction(id, calculate = true)
 		'img': sprintf('https://secure.xivdb.com/img/game/%06d/%06d.png', icon-icon%1000, icon),
 	};
 	
+	// Create template of the macro step
+	skill = $.parseHTML(tmpl('tmpl-skill', data));
+	
+	// Prevent link clicks in the macro listing
+	// ask user instead
+	link = $('a', skills);
+	link.off('click');
+	link.click(function(e)
+	{
+		// Get the dialog template
+		url = $(this).attr('href');
+		d = { 'url': url, };
+		msg = tmpl('confirm-dialog', d);
+		bootbox.confirm({
+			title: '{t}Confirm leaving the generator{/t}',
+			message: msg,
+			buttons:
+			{
+				cancel:
+				{
+					label: '{t}No{/t}',
+					className: 'btn-success',
+				},
+				confirm:
+				{
+					label: '{t}Yes{/t}',
+					className: 'btn-danger',
+				},
+			},
+			callback: function(result)
+			{
+				if (result)
+				{
+					window.location = url;
+				}
+			},
+		});
+		e.preventDefault();
+	});
+	
 	// Append the template to the steps
-	skills.append(tmpl('tmpl-skill', data));
+	skills.append(skill);
 	
 	// Recalculate the tooltips
 	if (!skip_tooltips)
@@ -649,7 +689,6 @@ function SaveMacro()
 	});
 	
 	// Do the actual AJAX call
-	console.log(data);
 	$.ajax(
 	{
 		url: "u:ajax/Store",
@@ -675,7 +714,6 @@ function SaveMacro()
 				'onEscape': true,
 				'backdrop': true,
 			});
-			console.log(data);
 		}
 	});
 }
