@@ -35,7 +35,18 @@ $(function()
 		{
 			// Recalculate CP after sorting
 			CalculateCP();
-		}
+		},
+		start: function (event, ui)
+		{
+			$(this).data('dragging', true);
+		},
+		stop: function (event, ui)
+		{
+			setTimeout(function()
+			{
+				$(event.target).data('dragging', false);
+			}, 1);
+		},
 	});
 	$("#macro-steps ul, #macro-steps li").disableSelection();
 	
@@ -126,6 +137,12 @@ function AddAction(id, calculate = true)
 	{
 		// Prevent the click
 		e.preventDefault();
+		
+		// Check if we are dragging
+		if ($('#sortable').data('dragging'))
+		{
+			return false;
+		}
 		
 		// Get the dialog template
 		url = $(this).attr('href');
