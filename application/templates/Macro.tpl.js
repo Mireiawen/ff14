@@ -120,39 +120,44 @@ function AddAction(id, calculate = true)
 	
 	// Prevent link clicks in the macro listing
 	// ask user instead
-	link = $('a', skills);
+	link = $('a', skill);
 	link.off('click');
 	link.click(function(e)
 	{
+		// Prevent the click
+		e.preventDefault();
+		
 		// Get the dialog template
 		url = $(this).attr('href');
 		d = { 'url': url, };
 		msg = tmpl('confirm-dialog', d);
 		bootbox.confirm({
-			title: '{t}Confirm leaving the generator{/t}',
-			message: msg,
-			buttons:
+			'onEscape': true,
+			'backdrop': true,
+			'title': '{t}Confirm leaving the generator{/t}',
+			'message': msg,
+			'buttons':
 			{
-				cancel:
+				'cancel':
 				{
 					label: '{t}No{/t}',
 					className: 'btn-success',
 				},
-				confirm:
+				'confirm':
 				{
 					label: '{t}Yes{/t}',
 					className: 'btn-danger',
 				},
 			},
-			callback: function(result)
+			'callback': function(result)
 			{
 				if (result)
 				{
+					// Confirmed, go to URL
 					window.location = url;
 				}
 			},
 		});
-		e.preventDefault();
 	});
 	
 	// Append the template to the steps
