@@ -230,6 +230,8 @@ function CalculateCP()
 	var initial_preparations = 0;
 	var rumination = 0;
 	var comfort_zone = 0;
+	var manipulation1 = 0;
+	var manipulation2 = 0;
 	
 	// Set the initial value to 0
 	cp_node.text(0);
@@ -258,6 +260,8 @@ function CalculateCP()
 			'initial_preparations': initial_preparations,
 			'rumination': rumination,
 			'comfort_zone': comfort_zone,
+			'manipulation1': manipulation1,
+			'manipulation2': manipulation2,
 		};
 		
 		// Steady Hand
@@ -332,6 +336,17 @@ function CalculateCP()
 		{
 			comfort_zone--;
 			cp -= {$smarty.const.COMFORT_ZONE_TICK};
+		}
+		
+		// Parse the Manipulation buffs
+		if (manipulation1)
+		{
+			manipulation1--;
+		}
+		
+		if (manipulation2)
+		{
+			manipulation2--;
 		}
 		
 		// Reset rumination for every step
@@ -546,6 +561,17 @@ function CalculateCP()
 			// Check if current step activates the Comfort Zone buff
 			case {$smarty.const.COMFORT_ZONE_ID}:
 				comfort_zone = {$smarty.const.COMFORT_ZONE_DURATION};
+				break;
+			
+			// Check for Manipulation buffs
+			case {$smarty.const.MANIPULATION_ID}:
+				manipulation2 = 0;
+				manipulation1 = {$smarty.const.MANIPULATION_DURATION};
+				break;
+				
+			case {$smarty.const.MANIPULATION_2_ID}:
+				manipulation1 = 0;
+				manipulation2 = {$smarty.const.MANIPULATION_2_DURATION};
 				break;
 		}
 		

@@ -38,11 +38,11 @@
 					<li><strong>2017-07-31</strong> Work on the buff showing and calculating done</li>
 					<li><strong>2017-08-01</strong> Inner Quiet estimation and Rumination done</li>
 					<li><strong>2017-08-03</strong> Add confirmation to macro list XIVDB.com links</li>
+					<li><strong>2017-08-04</strong> Add Manipulation/Manipulation II tracking</li>
 				</ul>
 				
 				<h3>{t}TODO list{/t}</h3>
 				<ul>
-					<li>Manipulation / Manipulation II buffs missing</li>
 					<li>Estimate durability use</li>
 				</ul>
 			</div>
@@ -252,6 +252,14 @@
 [% if (o.comfort_zone) { %]<figure class="buff">
 	<img src="{xiv_icon id=$smarty.const.ICON_BUFF_COMFORT_ZONE}" alt="{t}Comfort Zone{/t}" title="{t}Comfort Zone{/t}">
 	<figcaption>[%=o.comfort_zone%]</figcaption>
+</figure>[% } %]
+[% if (o.manipulation1) { %]<figure class="buff">
+	<img src="{xiv_icon id=$smarty.const.ICON_BUFF_MANIPULATION}" alt="{t}Manipulation{/t}" title="{t}Manipulation{/t}">
+	<figcaption>[%=o.manipulation1%]</figcaption>
+</figure>[% } %]
+[% if (o.manipulation2) { %]<figure class="buff">
+	<img src="{xiv_icon id=$smarty.const.ICON_BUFF_MANIPULATION_2}" alt="{t}Manipulation II{/t}" title="{t}Manipulation II{/t}">
+	<figcaption>[%=o.manipulation2%]</figcaption>
 </figure>[% } %]
 </div>
 
