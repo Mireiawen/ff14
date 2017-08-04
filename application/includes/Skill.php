@@ -26,6 +26,8 @@ define('ICON_BUFF_NAME_OF_LIGHTNING', '011752');
 define('ICON_BUFF_NAME_OF_WATER', '011802');
 define('ICON_BUFF_HEART_OF_THE', '016118');
 define('ICON_BUFF_COMFORT_ZONE', '011801');
+define('ICON_BUFF_MANIPULATION', '011651');
+define('ICON_BUFF_MANIPULATION_2', '016120');
 
 // Special skill: Steady Hand
 define('STEADY_HAND_ID', 244);
@@ -116,6 +118,16 @@ define('RUMINATION_ID', 276);
 define('COMFORT_ZONE_ID', 286);
 define('COMFORT_ZONE_TICK', 8);
 define('COMFORT_ZONE_DURATION', 10);
+
+// Special skill: Manipulation
+define('MANIPULATION_ID', 278);
+define('MANIPULATION_DURATION', 3);
+define('MANIPULATION_RESTORE', 10);
+
+// Special skill: Manipulation
+define('MANIPULATION_2_ID', 4574);
+define('MANIPULATION_2_DURATION', 8);
+define('MANIPULATION_2_RESTORE', 5);
 
 /*!
  * @brief Skill Job handler class
