@@ -95,6 +95,7 @@ function is_buff($xivdb_id)
 	case	100003:	// Master's Mend
 	case	100005:	// Master's Mend II
 	case	100009:	// Byregot's Blessing
+	case	100010:	// Observe
 	case	100039:	// Piece by Piece
 	case	100120:	// Byregot's Brow
 	case	100136:	// Muscle Memory
@@ -121,7 +122,6 @@ function is_buff($xivdb_id)
 	case	286:	// Comfort Zone
 	case	287:	// Reclaim
 	case	4574:	// Manipulation II
-	case	100010:	// Observe
 	case	100098:	// Tricks of the Trade
 	case	100169:	// Satisfaction
 	case	100178:	// Maker's Mark
