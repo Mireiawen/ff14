@@ -1,4 +1,6 @@
 <?php
+namespace System;
+
 // Check environment
 if  (!defined('SYSTEM_PATH'))
 {
@@ -23,7 +25,7 @@ require_once(SYSTEM_PATH . '/libraries/recaptcha-php/recaptchalib.php');
  * user's session so it is not asked every time
  * 
  * $Author: mireiawen $
- * $Id: ReCAPTCHA.php 448 2017-07-11 22:19:58Z mireiawen $
+ * $Id: ReCAPTCHA.php 458 2018-01-21 16:49:57Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
 final class reCAPTCHA extends Base
@@ -52,8 +54,17 @@ final class reCAPTCHA extends Base
 		// Set validation to false as default
 		$this -> validated = FALSE;
 
+		// Add the v2 JS code
+		\Content::Get() -> AddCustomHeader('<script src="https://www.google.com/recaptcha/api.js" async defer></script>');
+		
+		// If we are in debug mode where reCAPTCHA is turned off
+		if ((defined('RECAPTCHA_ALWAYS_VALIDATED')) && (RECAPTCHA_ALWAYS_VALIDATED))
+		{
+			$this -> validated = TRUE;
+		}
+		
 		// If we have session, check it
-		if (class_exists('\\System\\Session'))
+		else if (class_exists('\\System\\Session'))
 		{
 			if (array_key_exists('reCAPTCHA', $_SESSION))
 			{
@@ -145,6 +156,16 @@ final class reCAPTCHA extends Base
 			return TRUE;
 		}
 		
+		if ((defined('RECAPTCHA_ALWAYS_VALIDATED')) && (RECAPTCHA_ALWAYS_VALIDATED))
+		{
+			$this -> validated = TRUE;
+			if (class_exists('\\System\\Session'))
+			{
+				$_SESSION['reCAPTCHA'] = TRUE;
+			}
+			return TRUE;
+		}
+		
 		$challenge = filter_input(INPUT_POST, 'recaptcha_challenge_field', FILTER_SANITIZE_STRING);
 		$response = filter_input(INPUT_POST, 'recaptcha_response_field', FILTER_SANITIZE_STRING);
 		$answer = recaptcha_check_answer(RECAPTCHA_PRIVATE_KEY, $_SERVER['REMOTE_ADDR'], $challenge, $response);
@@ -160,7 +181,7 @@ final class reCAPTCHA extends Base
 		}
 		
 		$this -> Invalidate();
-		throw new Exception(sprintf(_('reCAPTCHA verification was incorrect: %s'), $answer -> error));
+		throw new \Exception(sprintf(_('reCAPTCHA verification was incorrect: %s'), $answer -> error));
 		return FALSE;
 	}
 	

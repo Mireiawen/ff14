@@ -22,7 +22,7 @@ require_once(SYSTEM_PATH . '/includes/Singleton.php');
  * A singleton class that keeps the object for currently logged in user
  *
  * $Author: mireiawen $
- * $Id: LoginUser.php 448 2017-07-11 22:19:58Z mireiawen $
+ * $Id: LoginUser.php 453 2017-10-08 19:50:54Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
 final class LoginUser extends Base
@@ -52,7 +52,7 @@ final class LoginUser extends Base
 				// Try to create by ID
 				$this -> __set('User', User::CreateByID($_SESSION['uid']));
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				// ID not found, try to create unknown
 				$this -> __set('User', User::CreateByID(USER_ID_UNKNOWN));
@@ -67,7 +67,7 @@ final class LoginUser extends Base
 		// Check that we were able to create a user
 		if ($this -> __get('User') === NULL)
 		{
-			throw new Exception(_('Unable to create User object'));
+			throw new \Exception(_('Unable to create User object'));
 		}
 		
 		// Check that the user is active
@@ -111,7 +111,7 @@ final class LoginUser extends Base
 		{
 			$r = $this -> Login($username, $password);
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			trigger_error($e -> getMessage(), E_USER_WARNING);
 			return FALSE;
@@ -142,17 +142,17 @@ final class LoginUser extends Base
 		{
 			$u = User::CreateByUsername(filter_var($username, FILTER_SANITIZE_EMAIL));
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			// No such user
-			throw new Exception(_('Invalid username or password'));
+			throw new \Exception(_('Invalid username or password'));
 		}
 		
 		// Make sure the user is active
 		if (!$u -> GetActive())
 		{
 			// User is not active
-			throw new Exception(_('Invalid username or password'));
+			throw new \Exception(_('Invalid username or password'));
 		}
 		
 		// Try to validate the password
@@ -161,20 +161,20 @@ final class LoginUser extends Base
 			if (!$u -> VerifyPassword(filter_var($password, FILTER_SANITIZE_STRING)))
 			{
 				// Invalid password
-				throw new Exception(_('Invalid username or password'));
+				throw new \Exception(_('Invalid username or password'));
 			}
 		}
 		
 		// This can catch both invalid password and invalid user ID from user object
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			if ((defined('DEBUG')) && (DEBUG))
 			{
-				throw new Exception(sprintf(_('Invalid username or password: %s'), $e -> getMessage()));
+				throw new \Exception(sprintf(_('Invalid username or password: %s'), $e -> getMessage()));
 			}
 			else
 			{
-				throw new Exception(_('Invalid username or password'));
+				throw new \Exception(_('Invalid username or password'));
 			}
 		}
 		

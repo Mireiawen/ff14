@@ -7,7 +7,7 @@ namespace System\User;
  * A simple default page with login form
  *
  * $Author: mireiawen $
- * $Id: Login.php 441 2017-07-11 21:02:54Z mireiawen $
+ * $Id: Login.php 455 2017-10-09 19:18:46Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
 class Login extends \System\Base implements \System\Page
@@ -33,6 +33,8 @@ class Login extends \System\Base implements \System\Page
 	{
 		// Add TRUE to constructor parameter to use Smarty
 		parent::__construct(TRUE);
+		$this -> tpl = FALSE;
+		$this -> url = FALSE;
 	}
 	
 	/*!
@@ -55,8 +57,12 @@ class Login extends \System\Base implements \System\Page
 		}
 		
 		// Check the template
-		$form = $this -> CreateTpl('User/Login.tpl.html');
-		if ($form === FALSE)
+		if ($this -> tpl === FALSE)
+		{
+			$this -> tpl = $this -> CreateTpl('User/Login.tpl.html');
+		}
+		
+		if ($this -> tpl === FALSE)
 		{
 			return '/Errors/404';
 		}
@@ -85,32 +91,34 @@ class Login extends \System\Base implements \System\Page
 		// Check if we are already logged in
 		if (\System\LoginUser::Get() -> IsLoggedIn())
 		{
+			
 			// Return user to their previous page, or Dashboard
-			$url = \System\URL::Get() -> GetRequestedControlPath();
-			if (($url === FALSE) || ($url === '/User/Login'))
+			if ($this -> url === FALSE)
 			{
-				$url = \System\URL::Get() -> GetPrevious();
-				if (($url === FALSE) || ($url === \System\URL::Get() -> GetSelf()))
+				$url = \System\URL::Get() -> GetRequestedControlPath();
+				if (($url === FALSE) || ($url === '/User/Login'))
 				{
-					$url = \System\URL::Get() -> Generage('User/Dashboard');
+					$url = \System\URL::Get() -> GetPrevious();
+					if (($url === FALSE) || ($url === \System\URL::Get() -> GetSelf()))
+					{
+						$url = \System\URL::Get() -> Generage('User/Dashboard');
+					}
+				}
+				else
+				{
+					$url = \System\URL::Get() -> Generate($url);
 				}
 			}
+			
+			// Send user to pre-defined location
 			else
 			{
-				$url = \System\URL::Get() -> Generate($url);
+				$url = $this -> url;
 			}
 			header('Location: ' . $url);
 			
 			// No need to display a template
 			return FALSE;
-		}
-		
-		// Create the template
-		$form = $this -> CreateTpl('User/Login.tpl.html');
-		if ($form === FALSE)
-		{
-			// Unable to load the template, bail out
-			return TRUE;
 		}
 		
 		// Assign page title
@@ -124,10 +132,10 @@ class Login extends \System\Base implements \System\Page
 		}
 		
 		// Assign the variables
-		$form -> assign('username', $username);
+		$this -> tpl -> assign('username', $username);
 		
 		// Show the form
-		$form -> display();
+		$this -> tpl -> display();
 		return TRUE;
 	}
 	
