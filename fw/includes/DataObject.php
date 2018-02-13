@@ -36,7 +36,7 @@ require_once(SYSTEM_PATH . '/includes/Cache.php');
  * unique table field.
  *
  * $Author: mireiawen $
- * $Id: DataObject.php 441 2017-07-11 21:02:54Z mireiawen $
+ * $Id: DataObject.php 459 2018-02-13 02:34:15Z mireiawen $
  * @copyright GNU General Public License, version 2; http://www.gnu.org/licenses/gpl-2.0.html
  */
 abstract class DataObject extends Base implements \Serializable
@@ -480,6 +480,76 @@ abstract class DataObject extends Base implements \Serializable
 		}
 		
 		return $objects;
+	}
+	
+	/*!
+	 * @brief Get object instances from the database 
+	 * with specific value
+	 *
+	 * Select all rows from the database with specific column value 
+	 * and return them as an array of the objects of the class
+	 *
+	 * @param string $key
+	 * 	Column name to match
+	 * @param string $type
+	 * 	SQL column type
+	 * @param mixed $value
+	 * 	Value to search for
+	 *
+	 * @retval array of objects
+	 * 	Array of class objects
+	 * @throws Exception on errors
+	 */
+	public static function GetAllByAttr($key, $type, $value)
+	{
+		// Get current database connection
+		$db = Database::Get();
+		if ($db === FALSE)
+		{
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), _('No database')));
+		}
+		
+		// Create the SQL query
+		$sql = sprintf('SELECT * FROM %s WHERE %s = ?',
+			$db -> escape_identifier(self::__get_called_class_name(get_called_class())),
+			$db -> escape_identifier($key));
+		
+		// Prepare the SQL query
+		$stmt = $db -> prepare($sql);
+		if ($stmt === FALSE)
+		{
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
+		}
+		
+		// Set up parameters
+		if (!$stmt -> bind_param($type, $value))
+		{
+			throw new \Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+		}
+		
+		// Convert the rows into objects
+		$result = $db -> fetch_assoc($stmt);
+		$objects = array();
+		foreach ($result as $row)
+		{
+			$objects[] = self::CreateFromArray($row);
+		}
+		
+		return $objects;
+	}
+	
+	/*!
+	 * @brief Get the class constants
+	 *
+	 * Get all of the class defined constants
+	 *
+	 * @retval array
+	 * 	Array of class constants, may be empty
+	 */
+	public static function GetConstants()
+	{
+		$refl = new \ReflectionClass(get_called_class());
+		return $refl -> getConstants();
 	}
 	
 	/*!
