@@ -133,10 +133,10 @@ function is_buff($xivdb_id)
 }
 
 // Function to grab JSON data from Garland Tools database
-function garland_json($path)
+function garland_json($path, $id, $lang = 'en')
 {
 	// Get the class/job information
-	$url = 'http://www.garlandtools.org/db' . $path;
+	$url = sprintf('http://garlandtools.org/db/doc/%s/%s/2/%s.json', $path, $lang, $id);
 	$c = new cURL();
 	$c -> SetoptArray
 	(
@@ -157,6 +157,7 @@ function garland_json($path)
 	{
 		if (json_last_error() !== JSON_ERROR_NONE)
 		{
+			debug_print_backtrace();
 			throw new Exception(sprintf(_('API error %d: %s'), json_last_error(), json_last_error_msg()));
 		}
 	}
@@ -173,9 +174,56 @@ function garland_json($path)
 	return $result;
 }		
 
+// Generic XIVDB database fetch
+function xivdb_get($model, $id)
+{
+	// Do the API query
+	$url = 'https://api.xivdb.com/' . $model . '/' . $id;
+	$c = new cURL();
+	$c -> SetoptArray
+	(
+		array
+		(
+			CURLOPT_URL => $url,
+			CURLOPT_RETURNTRANSFER => TRUE,
+			CURLOPT_CONNECTTIMEOUT => 5,
+		)
+	);
+	$result = json_decode($c -> Exec(), TRUE);
+	$info = $c -> GetInfo();
+	$c -> Close();
+	
+	// Check the HTTP result code
+	if ($info['http_code'] !== 200)
+	{
+		throw new Exception(sprintf(_('XIBDB API HTTP error %d on %s'), $info['http_code'], $url));
+	}
+	
+	// Check for error message
+	if (isset($result['error']))
+	{
+		throw new Exception(sprintf(_('XIVDB API error: %s on %s'), $result['error'], $url));
+	}
+	
+	return $result;
+}
+
+
+// Function to grab placename from XIVDB API
+function xivdb_placename($id)
+{
+	return xivdb_get('placename', $id);
+}
+
+// Function to grab enemy from XIVDB API
+function xivdb_enemy($id)
+{
+	return xivdb_get('enemy', $id);
+}
+
 try
 {
-	echo _('XIVDB.com data fetcher') , "\n";
+	echo _('Mireiawen\'s FF14 data fetcher') , "\n";
 	
 	// Get current database connection
 	$db = \System\Database::Get();
@@ -448,7 +496,7 @@ try
 			{
 				continue;
 			}
-
+			
 			// Check if it is crafter action
 			$job = FALSE;
 			foreach ($jobs as $j)
@@ -502,6 +550,67 @@ try
 				continue;
 			}
 			
+			// Fisher skills are crossable by XIVDB, ignore
+			if ($xivdb_id === 210)
+			{
+				continue;
+			}
+			
+			if ($xivdb_id === 211)
+			{
+				continue;
+			}
+			
+			if ($xivdb_id === 221)
+			{
+				continue;
+			}
+			
+			if ($xivdb_id === 227)
+			{
+				continue;
+			}
+			
+			if ($xivdb_id === 228)
+			{
+				continue;
+			}
+			
+			if ($xivdb_id === 238)
+			{
+				continue;
+			}
+			
+			if ($xivdb_id === 290)
+			{
+				continue;
+			}
+			
+			if ($xivdb_id === 291)
+			{
+				continue;
+			}
+			
+			if ($xivdb_id === 7903)
+			{
+				continue;
+			}
+			
+			if ($xivdb_id === 7904)
+			{
+				continue;
+			}
+			
+			if ($xivdb_id === 7905)
+			{
+				continue;
+			}
+			
+			if ($xivdb_id === 7911)
+			{
+				continue;
+			}
+			
 			// Check for Touch skills
 			if (strpos($name_en, 'Touch') !== FALSE)
 			{
@@ -542,12 +651,13 @@ try
 			}
 			catch (\Exception $e)
 			{
-				echo sprintf(_('Buff: UNKNOWN %d "%s" "%s"'), $xivdb_id, $name_en, $desc) , "\n";
+				echo sprintf(_('Buff: UNKNOWN %d "%s"'), $xivdb_id, $name_en) , "\n";
 				$buff = 0;
 			}
 			
 			// Fetch the CP cost from Garland Tools, since XIVDB does not have it
-			$data = garland_json('/data/action/' . $xivdb_id . '.json');
+			#$data = garland_json('/data/action/' . $xivdb_id . '.json');
+			$data = garland_json('action', $xivdb_id);
 			if (isset($data['action']['cost']))
 			{
 				$cost = $data['action']['cost'];
@@ -574,9 +684,9 @@ try
 			
 			// Category information
 			$category = FALSE;
-			if (isset($data['action']['desc']))
+			if (isset($data['action']['description']))
 			{
-				$desc = strip_tags($data['action']['desc']);
+				$desc = strip_tags($data['action']['description']);
 				if (strncmp($desc, SKILL_CATEGORY_QUALITY, strlen(SKILL_CATEGORY_QUALITY)) === 0)
 				{
 					$category = \Category::QUALITY;
