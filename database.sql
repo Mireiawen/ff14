@@ -36,7 +36,7 @@ CREATE TABLE `Category` (
 CREATE TABLE `Skill` (
 	`ID` int(8) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Skill ID',
 	`Category` int(8) unsigned NOT NULL COMMENT 'Skill category',
-	`XIVDB_ID` int(8) unsigned NOT NULL COMMENT 'XIVDB Job ID',
+	`XIVDB_ID` int(8) unsigned NOT NULL COMMENT 'XIVDB Skill ID',
 	`Name_EN` varchar(64) NOT NULL COMMENT 'Skill name, English',
 	`Name_JP` varchar(64) NOT NULL COMMENT 'Skill name, Japanese',
 	`Name_DE` varchar(64) NOT NULL COMMENT 'Skill name, German',
