@@ -1,0 +1,32 @@
+<div id="skywatcher_container">
+	{foreach $regions as $region}<div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<a data-toggle="collapse" href="#region-{$region->GetXIVDB_ID()}">
+					<h2 class="panel-title">
+						<span class="fa fa-info-circle" aria-hidden="true"></span>
+						{$region -> GetTranslatedName()}
+					</h2>
+				</a>
+			</div>
+			<div id="region-{$region->GetXIVDB_ID()}" class="panel-body panel-collapse collapse in">
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<tr>
+							<th>{t}Location{/t}</th>
+							<th>{t}Current Weather{/t}</th>
+							<th colspan="3">{t}Next Weathers{/t}</th>
+						</tr>
+						{foreach $region->GetZones() as $zone}<tr>
+							<th>{$zone -> GetTranslatedName()}</th>
+							<td>{$zone -> GetWeather() -> GetTranslatedName()}</td>
+							<td>{$zone -> GetWeather(\Weather::GetCurrentWeatherStart() + \Weather::GetWeatherDuration() * 1) -> GetTranslatedName()}</td>
+							<td>{$zone -> GetWeather(\Weather::GetCurrentWeatherStart() + \Weather::GetWeatherDuration() * 2) -> GetTranslatedName()}</td>
+							<td>{$zone -> GetWeather(\Weather::GetCurrentWeatherStart() + \Weather::GetWeatherDuration() * 3) -> GetTranslatedName()}</td>
+						</tr>{/foreach}
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>{/foreach}
+</div>

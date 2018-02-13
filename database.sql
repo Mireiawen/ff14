@@ -54,6 +54,70 @@ CREATE TABLE `Skill` (
 	CONSTRAINT `fk_skill_category` FOREIGN KEY (`Category`) REFERENCES `Category` (`ID`) ON UPDATE CASCADE ON DELETE RESTRICT
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+DROP TABLE IF EXISTS `ZoneWeather`;
+DROP TABLE IF EXISTS `Weather`;
+DROP TABLE IF EXISTS `Zone`;
+DROP TABLE IF EXISTS `Region`;
+
+CREATE TABLE `Region` (
+	`ID` int(8) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Region ID',
+	`XIVDB_ID` int(8) unsigned NOT NULL COMMENT 'XIVDB Placename ID',
+	`Name_EN` varchar(64) NOT NULL COMMENT 'Region name, English',
+	`Name_JP` varchar(64) NOT NULL COMMENT 'Region name, Japanese',
+	`Name_DE` varchar(64) NOT NULL COMMENT 'Region name, German',
+	`Name_FR` varchar(64) NOT NULL COMMENT 'Region name, French',
+	PRIMARY KEY (`ID`),
+	UNIQUE (`XIVDB_ID`),
+	UNIQUE (`Name_EN`),
+	UNIQUE (`Name_JP`),
+	UNIQUE (`Name_DE`),
+	UNIQUE (`Name_FR`)
+) Engine=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE `Zone` (
+	`ID` int(8) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Zone ID',
+	`Region` int(8) unsigned NOT NULL COMMENT 'Parent Region ID',
+	`XIVDB_ID` int(8) unsigned NOT NULL COMMENT 'XIVDB Placename ID',
+	`Name_EN` varchar(64) NOT NULL COMMENT 'Zone name, English',
+	`Name_JP` varchar(64) NOT NULL COMMENT 'Zone name, Japanese',
+	`Name_DE` varchar(64) NOT NULL COMMENT 'Zone name, German',
+	`Name_FR` varchar(64) NOT NULL COMMENT 'Zone name, French',
+	PRIMARY KEY (`ID`),
+	UNIQUE (`XIVDB_ID`),
+	UNIQUE (`Name_EN`),
+	UNIQUE (`Name_JP`),
+	UNIQUE (`Name_DE`),
+	UNIQUE (`Name_FR`),
+	CONSTRAINT `fk_zone_region` FOREIGN KEY (`Region`) REFERENCES `Region` (`ID`) ON UPDATE CASCADE ON DELETE RESTRICT
+) Engine=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE `Weather` (
+	`ID` int(8) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Weather ID',
+	`XIVDB_ID` int(8) unsigned NOT NULL COMMENT 'XIVDB Weather ID',
+	`Name_EN` varchar(64) NOT NULL COMMENT 'Weather name, English',
+	`Name_JP` varchar(64) NOT NULL COMMENT 'Weather name, Japanese',
+	`Name_DE` varchar(64) NOT NULL COMMENT 'Weather name, German',
+	`Name_FR` varchar(64) NOT NULL COMMENT 'Weather name, French',
+	PRIMARY KEY (`ID`),
+	UNIQUE (`XIVDB_ID`),
+	UNIQUE (`Name_EN`),
+	UNIQUE (`Name_JP`),
+	UNIQUE (`Name_DE`),
+	UNIQUE (`Name_FR`)
+) Engine=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE `ZoneWeather` (
+	`ID` int(8) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Weather Zone ID',
+	`Zone` int(8) unsigned NOT NULL COMMENT 'Zone ID',
+	`Weather` int(8) unsigned NOT NULL COMMENT 'Weather ID',
+	`Min` int(8) unsigned NOT NULL COMMENT 'Weather Minimum Chance',
+	`Max` int(8) unsigned NOT NULL COMMENT 'Weather Maximum Chance',
+	PRIMARY KEY (`ID`),
+	UNIQUE (`Zone`, `Weather`, `Min`, `Max`),
+	CONSTRAINT `fk_zoneweather_zone` FOREIGN KEY (`Zone`) REFERENCES `Zone` (`ID`) ON UPDATE CASCADE ON DELETE RESTRICT,
+	CONSTRAINT `fk_zoneweather_weather` FOREIGN KEY (`Weather`) REFERENCES `Weather` (`ID`) ON UPDATE CASCADE ON DELETE RESTRICT
+) Engine=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
 DROP TABLE IF EXISTS `Macro`;
 CREATE TABLE `Macro` (
 	`ID` int(8) unsigned NOT NULL AUTO_INCREMENT COMMENT 'The macro ID',
