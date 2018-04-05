@@ -9,6 +9,9 @@ if  (!defined('SYSTEM_PATH'))
 // Load base class
 require_once(SYSTEM_PATH . '/includes/DataObject.php');
 
+// Load the Hunt information
+require_once(MODEL_PATH . '/Hunt.php');
+
 // Load the Region information
 require_once(MODEL_PATH . '/Region.php');
 
@@ -117,6 +120,11 @@ class Zone extends \System\DataObject
 		}
 		
 		return parent::GetAllByAttr('Region', 'i', $id);
+	}
+	
+	public function GetHunts()
+	{
+		return \Hunt::GetByZone($this -> GetID());
 	}
 	
 	public function SetRegion($value)

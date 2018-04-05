@@ -18,6 +18,8 @@ define('CREATE_REGIONS', TRUE);
 define('CREATE_ZONES', TRUE);
 define('CREATE_WEATHERS', TRUE);
 define('CREATE_ZONEWEATHERS', TRUE);
+define('CREATE_RANKS', TRUE);
+define('CREATE_HUNTS', TRUE);
 
 // Uncomment this to not touch the database
 #define('DRY_RUN', TRUE);
@@ -28,11 +30,14 @@ require_once(SYSTEM_PATH . '/Initialize.php');
 // Load the models
 require_once(MODEL_PATH . '/cURL.php');
 require_once(MODEL_PATH . '/Category.php');
+require_once(MODEL_PATH . '/Datacenter.php');
 require_once(MODEL_PATH . '/Job.php');
 require_once(MODEL_PATH . '/Macro.php');
+require_once(MODEL_PATH . '/Rank.php');
 require_once(MODEL_PATH . '/Region.php');
 require_once(MODEL_PATH . '/Skill.php');
 require_once(MODEL_PATH . '/Weather.php');
+require_once(MODEL_PATH . '/World.php');
 require_once(MODEL_PATH . '/Zone.php');
 require_once(MODEL_PATH . '/ZoneWeather.php');
 
@@ -40,6 +45,96 @@ require_once(MODEL_PATH . '/ZoneWeather.php');
 define('SKILL_CATEGORY_QUALITY', 'Increases quality.');
 define('SKILL_CATEGORY_PROGRESS', 'Increases progress.');
 define('SKILL_CATEGORY_SPECIALIST', 'Specialist Action');
+
+// Worlds and Datacenters
+// @source: https://eu.finalfantasyxiv.com/lodestone/worldstatus/
+$datacenters = array
+(
+	'Elemental' => array
+	(
+		'Aegis',
+		'Atomos',
+		'Carbuncle',
+		'Garuda',
+		'Gungnir',
+		'Kujata',
+		'Ramuh',
+		'Tonberry',
+		'Typhon',
+		'Unicorn',
+	),
+	'Gaia' => array
+	(
+		'Alexander',
+		'Bahamut',
+		'Durandal',
+		'Fenrir',
+		'Ifrit',
+		'Ridill',
+		'Tiamat',
+		'Ultima',
+		'Valefor',
+		'Yojimbo',
+		'Zeromus',
+	),
+	'Mana' => array
+	(
+		'Anima',
+		'Asura',
+		'Belias',
+		'Chocobo',
+		'Hades',
+		'Ixion',
+		'Mandragora',
+		'Masamune',
+		'Pandaemonium',
+		'Shinryu',
+		'Titan',
+	),
+	'Aether' => array
+	(
+		'Adamantoise',
+		'Balmung',
+		'Cactuar',
+		'Coeurl',
+		'Faerie',
+		'Gilgamesh',
+		'Goblin',
+		'Jenova',
+		'Mateus',
+		'Midgardsormr',
+		'Sargatanas',
+		'Siren',
+		'Zalera',
+	),
+	'Primal' => array
+	(
+		'Behemoth',
+		'Brynhildr',
+		'Diabolos',
+		'Excalibur',
+		'Exodus',
+		'Famfrit',
+		'Hyperion',
+		'Lamia',
+		'Leviathan',
+		'Malboro',
+		'Ultros',
+	),
+	'Chaos' => array
+	(
+		'Cerberus',
+		'Lich',
+		'Louisoix',
+		'Moogle',
+		'Odin',
+		'Omega',
+		'Phoenix',
+		'Ragnarok',
+		'Shiva',
+		'Zodiark',
+	),
+);
 
 // Weather data
 // @source: https://super-aardvark.github.io/weather/weather.js
@@ -439,6 +534,14 @@ $weatherzones = array
 	),
 );
 
+// Ranks
+$ranks = array
+(
+	'S',
+	'A',
+	'B',
+);
+
 // Regions and areas
 // @source: http://ffxiv.ariyala.com/HuntTracker
 // ID:s are XIVDB IDs: http://xivdb.com/
@@ -450,21 +553,33 @@ $regions = array
 		\Zone::LimsaLominsa => array(),
 		\Zone::MiddleLaNoscea => array
 		(
+			2945 => array('A', 50),	// A-rank, Vogaal Ja
+			2962 => array('S', 50),	// S-rank, Croque-mitaine
 		),
 		\Zone::LowerLaNoscea => array
 		(
+			2946 => array('A', 50),	// A-rank, Unktehi
+			2963 => array('S', 50),	// S-rank, Croakadile
 		),
 		\Zone::EasternLaNoscea => array
 		(
+			2947 => array('A', 50),	// A-rank, Hellsclaw
+			2964 => array('S', 50),	// S-rank, The Garlok
 		),
 		\Zone::WesternLaNoscea => array
 		(
+			2948 => array('A', 50),	// A-rank, Nahn
+			2965 => array('S', 50),	// S-rank, Bonnacon
 		),
 		\Zone::UpperLaNoscea => array
 		(
+			2949 => array('A', 50),	// A-rank, Marberry
+			2966 => array('S', 50),	// S-rank, Nandi
 		),
 		\Zone:: OuterLaNoscea => array
 		(
+			2950 => array('A', 50),	// A-rank, Cornu
+			2967 => array('S', 50),	// S-rank, Chernobog
 		),
 		\Zone::Mist => array(),
 	),
@@ -475,18 +590,28 @@ $regions = array
 		\Zone::Uldah => array(),
 		\Zone::WesternThanalan => array
 		(
+			2940 => array('A', 50),	// A-rank, Alectryon
+			2957 => array('S', 50),	// S-rank, Zona Seeker
 		),
 		\Zone::CentralThanalan => array
 		(
+			2941 => array('A', 50),	// A-rank, Sabotender Bailarina
+			2958 => array('S', 50),	// S-rank, Brontes
 		),
 		\Zone::EasternThanalan => array
 		(
+			2942 => array('A', 50),	// A-rank, Maahes
+			2959 => array('S', 50),	// S-rank, Lampalagua
 		),
 		\Zone::SouthernThanalan => array
 		(
+			2943 => array('A', 50),	// A-rank, Zanig'oh
+			2960 => array('S', 50),	// S-rank, Nunyunuwi
 		),
 		\Zone::NorthernThanalan => array
 		(
+			2944 => array('A', 50),	// A-rank, Dalvag's Final Flame
+			2961 => array('S', 50),	// S-rank, Minhocao
 		),
 		\Zone::TheGoblet => array(),
 	),
@@ -497,15 +622,23 @@ $regions = array
 		\Zone::Gridania => array(),
 		\Zone::CentralShroud => array
 		(
+			2936 => array('A', 50),	// A-rank, Forneus
+			2953 => array('S', 50),	// S-rank, Laideronnette
 		),
 		\Zone::EastShroud => array
 		(
+			2937 => array('A', 50),	// A-rank, Melt
+			2954 => array('S', 50),	// S-rank, Wulgaru
 		),
 		\Zone::SouthShroud => array
 		(
+			2938 => array('A', 50),	// A-rank, Ghede Ti Malice
+			2955 => array('S', 50),	// S-rank, Mindflayer
 		),
 		\Zone::NorthShroud => array
 		(
+			2939 => array('A', 50),	// A-rank, Girtab
+			2956 => array('S', 50),	// S-rank, Thousand-cast Theda
 		),
 		\Zone::LavenderBeds => array(),
 	),
@@ -516,9 +649,14 @@ $regions = array
 		\Zone::Ishgard => array(),
 		\Zone::CoerthasCentralHighlands => array
 		(
+			2951 => array('A', 50),	// A-rank, Marraco
+			2968 => array('S', 50),	// S-rank, Safat
 		),
 		\Zone::CoerthasWesternHighlands => array
 		(
+			4362 => array('A', 60),	// A-rank, Mirka
+			4363 => array('A', 60),	// A-rank, Lyuba
+			4373 => array('S', 60),	// S-rank, Kaiser Behemoth
 		),
 	),
 	
@@ -527,6 +665,8 @@ $regions = array
 	(
 		\Zone::MorDhona => array
 		(
+			2952 => array('A', 50),	// A-rank, Kurrea
+			2969 => array('S', 50),	// S-rank, Agrippa the Mighty
 		),
 	),
 	
@@ -535,9 +675,15 @@ $regions = array
 	(
 		\Zone::TheSeaOfClouds => array
 		(
+			4370 => array('A', 60),	// A-rank, Enkelados
+			4371 => array('A', 60),	// A-rank, Sisiutl
+			4378 => array('S', 60),	// S-rank, Bird of Paradise
 		),
 		\Zone::AzysLla => array
 		(
+			4372 => array('A', 60),	// A-rank, Campacti
+			4373 => array('A', 60),	// A-rank, Stench Blossom
+			4380 => array('S', 60),	// S-rank, Leucrotta
 		),
 	),
 	
@@ -547,12 +693,21 @@ $regions = array
 		\Zone::Idyllshire => array(),
 		\Zone::TheDravanianForelands => array
 		(
+			4364 => array('A', 60),	// A-rank, Pylraster
+			4365 => array('A', 60),	// A-rank, Lord of the Wyverns
+			4375 => array('S', 60),	// S-rank, Senmurv
 		),
 		\Zone::TheDravanianHinterlands => array
 		(
+			4366 => array('A', 60),	// A-rank, Slipkinx Steeljoints
+			4367 => array('A', 60),	// A-rank, Stolas
+			4376 => array('S', 60),	// S-rank, The Pale Rider
 		),
 		\Zone::TheChurningMists => array
 		(
+			4368 => array('A', 60),	// A-rank, Bune
+			4369 => array('A', 60),	// A-rank, Agathos
+			4377 => array('S', 60),	// S-rank, Gandarewa
 		),
 	),
 	
@@ -562,12 +717,21 @@ $regions = array
 		\Zone::RhalgrsReach => array(),
 		\Zone::TheFringes => array
 		(
+			5990 => array('A', 70),	// A-rank, Orcus
+			5991 => array('A', 70),	// A-rank, Erle
+			5987 => array('S', 70),	// S-rank, Udumbara
 		),
 		\Zone::ThePeaks => array
 		(
+			5992 => array('A', 70),	// A-rank, Vochstein
+			5993 => array('A', 70),	// A-rank, Aqrabuamelu
+			5988 => array('S', 70),	// S-rank, Bone Crawler
 		),
 		\Zone::TheLochs => array
 		(
+			5994 => array('A', 70),	// A-rank, Mahisha
+			5995 => array('A', 70),	// A-rank, Luminare
+			5989 => array('S', 70),	// S-rank, Salt and Light
 		),
 	),
 	
@@ -577,12 +741,21 @@ $regions = array
 		\Zone::Kugane => array(),
 		\Zone::TheRubySea => array
 		(
+			5996 => array('A', 70),	// A-rank, Funa Yurei
+			5997 => array('A', 70),	// A-rank, Oni Yumemi
+			5984 => array('S', 70),	// S-rank, Okina
 		),
 		\Zone::Yanxia => array
 		(
+			5998 => array('A', 70),	// A-rank, Gajasura
+			5999 => array('A', 70),	// A-rank, Angada
+			5985 => array('S', 70),	// S-rank, Gamma
 		),
 		\Zone::TheAzimSteppe => array
 		(
+			6001 => array('A', 70),	// A-rank, Girimekhala
+			6001 => array('A', 70),	// A-rank, Sum
+			5986 => array('S', 70),	// S-rank, Orghana
 		),
 		\Zone::Shirogane => array(),
 	),
@@ -1548,6 +1721,56 @@ try
 			$macro -> Write();
 		}
 	}
+
+	if ((defined('CREATE_DATACENTERS')) && (CREATE_DATACENTERS))
+	{
+		echo _('Creating datacenters') , "\n";
+		
+		// Truncate the data
+		if ((!defined('DRY_RUN')) || (DRY_RUN === FALSE))
+		{
+			$db -> truncate('Datacenter');
+		}
+		
+
+		// Do the actual create
+		foreach ($datacenters as $datacenter => $worlds)
+		{
+			$dc = \Datacenter::CreateNew();
+			$dc -> SetName($datacenter);
+			if ((!defined('DRY_RUN')) || (DRY_RUN === FALSE))
+			{
+				$dc -> Write();
+			}
+		}
+	}
+	
+	if ((defined('CREATE_WORLDS')) && (CREATE_WORLDS))
+	{
+		echo _('Creating worlds') , "\n";
+		
+		// Truncate the data
+		if ((!defined('DRY_RUN')) || (DRY_RUN === FALSE))
+		{
+			$db -> truncate('World');
+		}
+		
+		// Do the actual create
+		foreach ($datacenters as $datacenter => $worlds)
+		{
+			$dc = \Datacenter::CreateByName($datacenter) -> GetID();
+			foreach ($worlds as $world)
+			{
+				$w = \World::CreateNew();
+				$w -> SetDatacenter($dc);
+				$w -> SetName($world);
+				if ((!defined('DRY_RUN')) || (DRY_RUN === FALSE))
+				{
+					$w -> Write();
+				}
+			}
+		}
+	}
 	
 	if ((defined('CREATE_REGIONS')) && (CREATE_REGIONS))
 	{
@@ -1718,6 +1941,110 @@ try
 					if ((!defined('DRY_RUN')) || (DRY_RUN === FALSE))
 					{
 						$wz -> Write();
+					}
+				}
+			}
+		}
+	}
+	
+	if ((defined('CREATE_RANKS')) && (CREATE_RANKS))
+	{
+		echo _('Creating ranks') , "\n";
+		
+		// Truncate the data
+		if ((!defined('DRY_RUN')) || (DRY_RUN === FALSE))
+		{
+			$db -> truncate('Rank');
+		}
+		
+		foreach ($ranks as $rank)
+		{
+			$r = \Rank::CreateNew();
+			$r -> SetName($rank);
+			
+			if ((!defined('DRY_RUN')) || (DRY_RUN === FALSE))
+			{
+				$r -> Write();
+			}
+		}
+	}
+	
+	if ((defined('CREATE_HUNTS')) && (CREATE_HUNTS))
+	{
+		echo _('Creating hunts') , "\n";
+		
+		// Get rank IDs
+		$r = array();
+		foreach ($ranks as $rank)
+		{
+			$r[$rank] = \Rank::CreateByName($rank) -> GetID();
+		}
+		
+		// Truncate the data
+		if ((!defined('DRY_RUN')) || (DRY_RUN === FALSE))
+		{
+			$db -> truncate('Hunt');
+		}
+		
+		// Create the SQL query
+		$sql = sprintf(
+			'INSERT INTO %s (%s, %s, %s, %s, %s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+			$db -> escape_identifier('Hunt'),
+			$db -> escape_identifier('Zone'),
+			$db -> escape_identifier('XIVDB_ID'),
+			$db -> escape_identifier('Name_EN'),
+			$db -> escape_identifier('Name_JP'),
+			$db -> escape_identifier('Name_DE'),
+			$db -> escape_identifier('Name_FR'),
+			$db -> escape_identifier('Level'),
+			$db -> escape_identifier('Rank'),
+			$db -> escape_identifier('Image'));
+		$stmt = $db -> prepare($sql);
+		if ($stmt === FALSE)
+		{
+			throw new Exception(sprintf(_('Unable to execute database query: %s'), $db -> error));
+		}
+		
+		// Bind the parameters
+		$zone = 0;
+		$xivdb_id = 0;
+		$name_en = '';
+		$name_jp = '';
+		$name_de = '';
+		$name_fr = '';
+		$level = 0;
+		$rank = '';
+		$image = '';
+		
+		if (!$stmt -> bind_param('iissssiss', $zone, $xivdb_id, $name_en, $name_jp, $name_de, $name_fr, $level, $rank, $image))
+		{
+			throw new Exception(sprintf(_('Unable to execute database query: %s'), $stmt -> error));
+		}
+		
+		
+		// Go through the regions and zones to get hunt marks
+		foreach ($regions as $regid => $zones)
+		{
+			$region = \Region::CreateByXIVDB_ID($regid) -> GetID();
+			foreach ($zones as $zid => $huntranks)
+			{
+				$zone = \Zone::CreateByXIVDB_ID($zid) -> GetID();
+				foreach ($huntranks as $hid => $data)
+				{
+					$rank = $r[$data[0]];
+					$level = $data[1];
+					$data = xivdb_enemy($hid);
+					$xivdb_id = $hid;
+					$name_en = $data['name_en'];
+					$name_jp = $data['name_ja'];
+					$name_de = $data['name_de'];
+					$name_fr = $data['name_fr'];
+					$image = sprintf('%s-%s.png', $name_en, $hid);
+					
+					// Execute the query
+					if ((!defined('DRY_RUN')) || (DRY_RUN === FALSE))
+					{
+						$stmt -> execute();
 					}
 				}
 			}

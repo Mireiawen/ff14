@@ -54,6 +54,26 @@ CREATE TABLE `Skill` (
 	CONSTRAINT `fk_skill_category` FOREIGN KEY (`Category`) REFERENCES `Category` (`ID`) ON UPDATE CASCADE ON DELETE RESTRICT
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+DROP TABLE IF EXISTS `World`;
+DROP TABLE IF EXISTS `Datacenter`;
+CREATE TABLE `Datacenter` (
+	`ID` int(8) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Datacenter ID',
+	`Name` varchar(64) NOT NULL COMMENT 'Datacenter name',
+	PRIMARY KEY (`ID`),
+	UNIQUE (`Name`)
+) Engine=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE `World` (
+	`ID` int(8) unsigned NOT NULL AUTO_INCREMENT COMMENT 'World ID',
+	`Datacenter` int(8) unsigned NOT NULL COMMENT 'Datacenter ID',
+	`Name` varchar(64) NOT NULL COMMENT 'World name',
+	PRIMARY KEY (`ID`),
+	UNIQUE (`Name`),
+	CONSTRAINT `fk_world_datacenter` FOREIGN KEY (`Datacenter`) REFERENCES `Datacenter` (`ID`) ON UPDATE CASCADE ON DELETE RESTRICT
+) Engine=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+DROP TABLE IF EXISTS `Rank`;
+DROP TABLE IF EXISTS `Hunt`;
 DROP TABLE IF EXISTS `ZoneWeather`;
 DROP TABLE IF EXISTS `Weather`;
 DROP TABLE IF EXISTS `Zone`;
@@ -117,6 +137,35 @@ CREATE TABLE `ZoneWeather` (
 	UNIQUE (`Zone`, `Weather`, `Min`, `Max`),
 	CONSTRAINT `fk_zoneweather_zone` FOREIGN KEY (`Zone`) REFERENCES `Zone` (`ID`) ON UPDATE CASCADE ON DELETE RESTRICT,
 	CONSTRAINT `fk_zoneweather_weather` FOREIGN KEY (`Weather`) REFERENCES `Weather` (`ID`) ON UPDATE CASCADE ON DELETE RESTRICT
+) Engine=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE `Rank` (
+	`ID` int(4) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Rank ID',
+	`Name` varchar(4) NOT NULL COMMENT 'Rank name',
+	PRIMARY KEY (`ID`),
+	UNIQUE (`Name`)
+) Engine=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE `Hunt` (
+	`ID` int(8) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Hunt ID',
+	`Zone` int(8) unsigned NOT NULL COMMENT 'Parent Zone ID',
+	`XIVDB_ID` int(8) unsigned NOT NULL COMMENT 'XIVDB Monster ID',
+	`Name_EN` varchar(64) NOT NULL COMMENT 'Monster name, English',
+	`Name_JP` varchar(64) NOT NULL COMMENT 'Monster name, Japanese',
+	`Name_DE` varchar(64) NOT NULL COMMENT 'Monster name, German',
+	`Name_FR` varchar(64) NOT NULL COMMENT 'Monster name, French',
+	`Level` int(4) unsigned NULL DEFAULT NULL COMMENT 'Monster level',
+	`Rank` int(4) unsigned NOT NULL COMMENT 'Monster rank',
+	`Image` varchar(64) NULL DEFAULT NULL COMMENT 'Screenshot of the monster',
+	PRIMARY KEY (`ID`),
+	UNIQUE (`XIVDB_ID`),
+	UNIQUE (`Name_EN`),
+	UNIQUE (`Name_JP`),
+	UNIQUE (`Name_DE`),
+	UNIQUE (`Name_FR`),
+	UNIQUE (`Image`),
+	CONSTRAINT `fk_hunt_zone` FOREIGN KEY (`Zone`) REFERENCES `Zone` (`ID`) ON UPDATE CASCADE ON DELETE RESTRICT,
+	CONSTRAINT `fk_hunt_rank` FOREIGN KEY (`Rank`) REFERENCES `Rank` (`ID`) ON UPDATE CASCADE ON DELETE RESTRICT
 ) Engine=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 DROP TABLE IF EXISTS `Macro`;
