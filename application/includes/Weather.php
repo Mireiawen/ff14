@@ -73,7 +73,7 @@ class Weather extends \System\DataObject
 		
 		return $this -> GetName_EN();
 	}
-
+	
 	public static function GetConstants()
 	{
 		$arr = parent::GetConstants();
