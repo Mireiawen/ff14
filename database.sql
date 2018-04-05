@@ -94,6 +94,7 @@ CREATE TABLE `Zone` (
 CREATE TABLE `Weather` (
 	`ID` int(8) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Weather ID',
 	`XIVDB_ID` int(8) unsigned NOT NULL COMMENT 'XIVDB Weather ID',
+	`Icon` varchar(64) NULL DEFAULT NULL COMMENT 'Icon name',
 	`Name_EN` varchar(64) NOT NULL COMMENT 'Weather name, English',
 	`Name_JP` varchar(64) NOT NULL COMMENT 'Weather name, Japanese',
 	`Name_DE` varchar(64) NOT NULL COMMENT 'Weather name, German',

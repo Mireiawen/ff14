@@ -1681,6 +1681,7 @@ try
 			$data = xivdb_get('weather', $weather);
 			$w = \Weather::CreateNew();
 			$w -> SetXIVDB_ID($weather);
+			$w -> SetIcon($data['icon']);
 			$w -> SetName_EN($data['name_en']);
 			$w -> SetName_JP($data['name_ja']);
 			$w -> SetName_DE($data['name_de']);
