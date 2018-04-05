@@ -9,20 +9,20 @@
 					</h2>
 				</a>
 			</div>
-			<div id="region-{$region->GetXIVDB_ID()}" class="panel-body panel-collapse collapse in">
+			<div id="region-{$region->GetXIVDB_ID()}" class="panel-body panel-collapse collapse">
 				<div class="table-responsive">
 					<table class="table table-striped">
 						<tr>
 							<th>{t}Location{/t}</th>
 							<th>{t}Current Weather{/t}</th>
-							<th colspan="3">{t}Next Weathers{/t}</th>
+							<th colspan="9">{t}Next Weathers{/t}</th>
 						</tr>
 						{foreach $region->GetZones() as $zone}<tr>
 							<th>{$zone -> GetTranslatedName()}</th>
-							<td>{$zone -> GetWeather() -> GetTranslatedName()}</td>
-							<td>{$zone -> GetWeather(\Weather::GetCurrentWeatherStart() + \Weather::GetWeatherDuration() * 1) -> GetTranslatedName()}</td>
-							<td>{$zone -> GetWeather(\Weather::GetCurrentWeatherStart() + \Weather::GetWeatherDuration() * 2) -> GetTranslatedName()}</td>
-							<td>{$zone -> GetWeather(\Weather::GetCurrentWeatherStart() + \Weather::GetWeatherDuration() * 3) -> GetTranslatedName()}</td>
+							{assign var=w value=$zone -> GetWeather(\Weather::GetCurrentWeatherStart())}<td><img src="{xiv_icon id=$w -> GetIcon()}" alt="{$w -> GetTranslatedName()}" title="{$w -> GetTranslatedName()}"> {$w -> GetTranslatedName()}</td>
+							{for $i = 1 to 9}
+							{assign var=w value=$zone -> GetWeather(\Weather::GetCurrentWeatherStart() + \Weather::GetWeatherDuration() * $i + 1)}<td><img src="{xiv_icon id=$w -> GetIcon()}" alt="{$w -> GetTranslatedName()}" title="{$w -> GetTranslatedName()}"></td>
+							{/for}
 						</tr>{/foreach}
 					</table>
 				</div>
