@@ -1211,7 +1211,6 @@ try
 			}
 			
 			// Fetch the CP cost from Garland Tools, since XIVDB does not have it
-			#$data = garland_json('/data/action/' . $xivdb_id . '.json');
 			$data = garland_json('action', $xivdb_id);
 			if (isset($data['action']['cost']))
 			{
