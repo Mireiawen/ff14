@@ -65,7 +65,7 @@ class ZoneWeather extends \System\DataObject
 		throw new \Exception(sprintf(_('Invalid Zone value %s'), $value));
 	}
 	
-	public static function GetWeatherByZoneChance($zone, $chance)
+	public static function GetWeatherByZoneChance($zone, $chance, $time)
 	{
 		if (is_numeric($zone))
 		{
@@ -108,10 +108,11 @@ class ZoneWeather extends \System\DataObject
 		$result = $db -> fetch_first($stmt);
 		if (count($result) !== 1)
 		{
-			ob_start(); echo '<pre>' , var_dump($sql) , '</pre>'; $d = ob_get_contents(); ob_end_clean();
-			throw new Exception(sprintf(_('Unable to find weather for zone %d with chance %d -- %s'), $zone -> GetID(), $chance, $d));
+			throw new Exception(sprintf(_('Unable to find weather for zone %d with chance %d'), $zone -> GetID(), $chance));
 		}
 		
-		return \Weather::CreateByID($result['Weather']);
+		$w = \Weather::CreateByID($result['Weather']);
+		$w -> SetStartTime($time);
+		return $w;
 	}
 }

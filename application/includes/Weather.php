@@ -53,6 +53,21 @@ class Weather extends \System\DataObject
 		$this -> CacheUniqueKeys(CACHE_TIMEOUT_PERSISTENT);
 	}
 	
+	public function SetStartTime($time)
+	{
+		$this -> StartTime = $time;
+	}
+	
+	public function GetStart()
+	{
+		return $this -> StartTime;
+	}
+	
+	public function GetEnd()
+	{
+		return $this -> StartTime + self::WeatherDuration - 1;
+	}
+	
 	public function GetTranslatedName()
 	{
 		$lang = strtolower(substr(\System\Translation::Get() -> GetLang(), 0, 2));

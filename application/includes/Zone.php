@@ -171,6 +171,6 @@ class Zone extends \System\DataObject
 		}
 		
 		$chance = \Weather::GetChance($time);
-		return \ZoneWeather::GetWeatherByZoneChance($this, $chance);
+		return \ZoneWeather::GetWeatherByZoneChance($this, $chance, $time);
 	}
 }
