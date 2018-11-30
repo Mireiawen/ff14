@@ -1,5 +1,8 @@
 <div id="skywatcher_container">
-	{foreach $regions as $region}<div class="col-md-6">
+	<div>
+		<p>Current Eorzea time is <span id="eorzea_time">{\Eorzea::Time()|date_format:"%H:%M"}</span></p>
+	</div>
+	{foreach $regions as $region}<div class="col-md-12">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<a data-toggle="collapse" href="#region-{$region->GetXIVDB_ID()}">
@@ -15,13 +18,26 @@
 						<tr>
 							<th>{t}Location{/t}</th>
 							<th>{t}Current Weather{/t}</th>
-							<th colspan="9">{t}Next Weathers{/t}</th>
+							<th colspan="11">{t}Next Weathers{/t}</th>
 						</tr>
 						{foreach $region->GetZones() as $zone}<tr>
 							<th>{$zone -> GetTranslatedName()}</th>
-							{assign var=w value=$zone -> GetWeather(\Weather::GetCurrentWeatherStart())}<td><img src="{xiv_icon id=$w -> GetIcon()}" alt="{$w -> GetTranslatedName()}" title="{$w -> GetTranslatedName()}"> {$w -> GetTranslatedName()}</td>
-							{for $i = 1 to 9}
-							{assign var=w value=$zone -> GetWeather(\Weather::GetCurrentWeatherStart() + \Weather::GetWeatherDuration() * $i + 1)}<td><img src="{xiv_icon id=$w -> GetIcon()}" alt="{$w -> GetTranslatedName()}" title="{$w -> GetTranslatedName()}"></td>
+							{assign var=w value=$zone -> GetWeather(\Weather::GetCurrentWeatherStart())}<td>
+								<p style="width: 6em;">
+									{t}Lasts Until{/t}
+									<span class="small">{\Eorzea::Time($w -> GetEnd())|date_format:"%H:%M"} ET</span><br>
+									<img src="{xiv_icon id=$w -> GetIcon()}" alt="{$w -> GetTranslatedName()}" title="{$w -> GetTranslatedName()}"> {$w -> GetTranslatedName()}<br>
+									<span class="small">{$w -> GetEnd()|date_format:"%H:%M %Z"}</span><br>
+								</p>
+							</td>
+							{for $i = 1 to 11}
+							{assign var=w value=$zone -> GetWeather(\Weather::GetCurrentWeatherStart() + \Weather::GetWeatherDuration() * $i + 1)}<td>
+								<p class="small" style="width: 5em; text-align: center;">
+									{\Eorzea::Time($w -> GetStart())|date_format:"%H:%M"} ET<br>
+									<img src="{xiv_icon id=$w -> GetIcon()}" alt="{$w -> GetTranslatedName()}" title="{$w -> GetTranslatedName()}"><br>
+									{$w -> GetStart()|date_format:"%H:%M %Z"}
+								</p>
+							</td>
 							{/for}
 						</tr>{/foreach}
 					</table>

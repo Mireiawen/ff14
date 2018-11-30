@@ -1,6 +1,7 @@
 <?php
 namespace Page;
 
+require_once(MODEL_PATH . '/Eorzea.php');
 require_once(MODEL_PATH . '/Weather.php');
 require_once(MODEL_PATH . '/Zone.php');
 require_once(MODEL_PATH . '/ZoneWeather.php');
