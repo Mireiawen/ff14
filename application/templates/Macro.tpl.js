@@ -1,28 +1,5 @@
-// XIVDB Tooltips setup
-// https://github.com/xivdb/tooltips
-var skip_tooltips = false;
-var xivdb_tooltips =
-{
-	// Hide the loader/NoJS and show the actual tool
-	includeHiddenLinks: true,
-	event_tooltipsLoaded: function()
-	{
-		$("#macro_nojs").hide();
-		$("#macro_container").show();
-	},
-	event_tooltipsError: function()
-	{
-		bootbox.alert({
-			'title': '{t}Error loading tooltips{/t}',
-			'message': '{t}Unable to load tooltips from XIVDB{/t}',
-			'onEscape': true,
-			'backdrop': true,
-		});
-		skip_tooltips = true;
-		$("#macro_nojs").hide();
-		$("#macro_container").show();
-	},
-};
+// Tooltips setup
+var skip_tooltips = true;
 
 // Initialize the system
 $(function() 
@@ -89,6 +66,9 @@ $(function()
 		}
 	});
 	
+	// Hide the loader/NoJS and show the actual tool
+	$("#macro_nojs").hide();
+	$("#macro_container").show();
 });
 
 // Clear the Macro list
@@ -123,7 +103,7 @@ function AddAction(id, calculate = true)
 		'name': skill.attr('data-name'),
 		'type': buff,
 		'link': sprintf('https://xivdb.com/action/%s', id),
-		'img': sprintf('https://secure.xivdb.com/img/game/%06d/%06d.png', icon-icon%1000, icon),
+		'img': sprintf('https://data.myffxiv.com/i/%06d/%06d.png', icon-icon%1000, icon),
 	};
 	
 	// Create template of the macro step
@@ -183,7 +163,7 @@ function AddAction(id, calculate = true)
 	// Recalculate the tooltips
 	if (!skip_tooltips)
 	{
-		XIVDBTooltips.get();
+// TODO since XIVDB went missing
 	}
 	
 	// Recalculate the CP amounts
