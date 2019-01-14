@@ -16,6 +16,6 @@ class Helpers
 		
 		$id = intval($params['id']);
 		
-		return sprintf('https://secure.xivdb.com/img/game/%06d/%06d.png', $id - $id % 1000, $id);
+		return sprintf('https://data.myffxiv.com/i/%06d/%06d.png', $id - $id % 1000, $id);
 	}
 }
