@@ -624,7 +624,7 @@ function GenerateMacros()
 		}
 		
 		// Append the macro line
-		lines.push(sprintf('/ac "%s" <me><wait.%d>', $(this).attr("data-name"), wait));
+		lines.push(sprintf('/ac "%s" <wait.%d>', $(this).attr("data-name"), wait));
 		
 		// Check if we are below the line limit
 		if (lines.length < lines_per_macro)
